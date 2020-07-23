@@ -12,11 +12,40 @@
       padding: 0;
     }
 
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      position: relative;
+    }
+
     .waikuangdewaikuang {
       width: 404px;
       height: 404px;
-      position: relative;
-      margin: 0 auto;
+      position: absolute;
+      top: calc(50% - 202px);
+      left: calc(50% - 202px);
+    }
+
+    @media screen and (max-height: 404px) {
+      .waikuangdewaikuang {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin: 0 auto;
+      }
+    }
+
+    @media screen and (max-width: 404px) {
+      .waikuangdewaikuang {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin: 0 auto;
+      }
     }
 
     .waikuang {
