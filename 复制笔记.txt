@@ -31,6 +31,17 @@ transition: all 2s;//过渡
 user-select: none;//禁止选中文字
 letter-spacing: 1px;//字间距
 text-transform: lowercase;字母全部小写 || uppercase; 字母全部大写
+box-shadow: 10px 10px 5px #888888;//css3阴影
+boeder: dashed;//虚线
+text-align-last: justify; //平分字间距
+
+//解决高度塌陷
+.clearfix:after {
+   content:""; 
+   display: block; 
+   clear:both; 
+}
+
 debugger;
 
 Promise
@@ -51,8 +62,15 @@ overflow: hidden;  /*超出宽度部分隐藏*/
 text-overflow: ellipsis;  /*超出部分以点号代替*/
 line-height: 0.9;  /*数字与之前的文字对齐*/
 
+
 //正则
-/^\/api(\/\w+)*\/?$/     匹配 /api  开头的路由
+/^\/api(\/\w+)*\/?$/		匹配 /api  开头的路由
+/^([\u4E00-\u9FA5\uf900-\ufa2d·s]{2,20}|[a-zA-Z\\.\\s]{1,20})$/		姓名
+/^1[345789]\d{9}$/		手机号
+/^[0-9]\d{5}(?!\d)$/		邮政编码
+/^[^_IOZSVa-z\W]{2}\d{6}[^_IOZSVa-z\W]{10}$/g		社会统一信用代码验证
+/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/		邮箱
+
 
 //工具
 Swagger UI
@@ -145,13 +163,13 @@ this.$confirm('确定提交?', '提示', {
   type: 'warning'
 }).then(() => {
   this.$message({
-      type: 'success',
-      message: '提交成功!'
+    type: 'success',
+    message: '提交成功!'
   });
 }).catch(() => {
   this.$message({
-      type: 'info',
-      message: '已取消提交'
+    type: 'info',
+    message: '已取消提交'
   });          
 });
 
@@ -167,14 +185,15 @@ this.$confirm('确定提交?', '提示', {
 
 //常用滚动条样式
 .leftList::-webkit-scrollbar{
-    width: 6px;
+  width: 6px;
+  height: 6px;
 }
 .leftList::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: rgba(0,0,0,0.2);
+  border-radius: 10px;
+  background: rgba(0,0,0,0.2);
 }
 .leftList::-webkit-scrollbar-track{
-    background-color: #fff;
+  background-color: #fff;
 }
 //\\
 
