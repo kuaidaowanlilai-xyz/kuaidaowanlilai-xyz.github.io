@@ -1,6 +1,8 @@
 //瞬间返回到最顶部
 document.documentElement.scrollTop = 0
 
+contenteditable //变编辑
+
 查询 search
 
 //常忘单词
@@ -27,14 +29,17 @@ maxlength="50" //input框最大长度
 Number.isInteger() //方法用来判断给定的参数是否为整数
 trim()//去除字符串的头尾空格
 border-spacing:0;  //css表格对应的cellspacing
-transition: all 2s;//过渡
+transition: all .5s;//过渡
 user-select: none;//禁止选中文字
 letter-spacing: 1px;//字间距
 text-transform: lowercase;字母全部小写 || uppercase; 字母全部大写
-box-shadow: 10px 10px 5px #888888;//css3阴影
+box-shadow: 10px 10px 5px #888888; //css3阴影
 text-shadow:5px 2px 6px #000;//字体阴影
 boeder: dashed;//虚线
 text-align-last: justify; //平分字间距
+outline: none; // 去除选中状态边框
+
+new Date().getTime(); //时间戳
 
 assign??
 
@@ -57,7 +62,6 @@ switch(表达式) {
      default:
         默认代码块
 }
-
 white-space: nowrap;  /*强制span不换行*/
 display: inline-block;  /*将span当做块级元素对待*/
 width: 32px;  /*限制宽度*/
