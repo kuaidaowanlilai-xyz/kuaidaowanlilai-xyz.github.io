@@ -8,10 +8,28 @@
 <body>
   {% include header.html %}
 
-  {{ page }}
+  <main class="page-content" aria-label="Content">
+    <div class="wrapper">
+      <div class="home">
+        <h2 class="post-list-heading">全部游戏</h2>
+        <ul class="post-list">
+          {% for game in page.list %}
+          <li>
+            <span class="post-meta">{{ game.date | date: '%b %d, %Y' }}</span>
+            <h3>
+              <a class="post-link" href="{{ game.url }}">
+                {{ game.name }}
+              </a>
+            </h3>
+          </li>
+          {% endfor %}
+        </ul>
+        <p class="bottomLine"> - - - - - - - - - 这 是 我 的 底 线 - - - - - - - - - </p>
+      </div>
+    </div>
+  </main>
 
   {% include footer.html %}
-
 </body>
 
 </html>

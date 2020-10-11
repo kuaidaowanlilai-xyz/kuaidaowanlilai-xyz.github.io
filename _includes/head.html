@@ -8,4 +8,23 @@
   <title>{{ site.title }} | {{ site.description }}</title>
   {% endif %}
   <link rel="stylesheet" href="/assets/main.css">
+  <style>
+    .bottomLine{
+      color: #999;
+      font-size: 13px;
+    }
+    /* 滚动条样式设置 */
+    *::-webkit-scrollbar{
+      width: 10px;
+      height: 6px;
+    }
+    *::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background: rgba(0,0,0,0.5);
+    }
+    *::-webkit-scrollbar-track{
+      background-color: #fff;
+    }
+    /* 滚动条样式设置 end */
+  </style>
 </head>
