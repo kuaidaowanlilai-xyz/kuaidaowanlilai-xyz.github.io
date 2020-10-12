@@ -13,7 +13,9 @@ function Saolei(id, parameter) {
   let saoleiDiv = document.querySelector(id) //传入的dom
   let saoleiArrObj = [] //渲染页面所需要的数据
   //旗子base64
-  let flags = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAFJUlEQVRoQ+2ZbWhbVRjH/8/J28QXFMSJtkmltLnJNoZuoAwcCr6MCTKZfhF8wcnwBT/YLwNF7DqmW+bq5phz0gk6qbI61w4Gc4qdOgYT5wfbNUkr2nsTNycMZRtbc29yHjlJ3yxJc3OTtAl44X465/yf/++et+fcQ6jgE2v09LOgXSHd/LKCsrakyFYtm5UUCIjuA6hLMu8MJ8xBm03LrlYlkKyvPwC895lhvrMRkGU7LSJQTZBcaObjAO3QEmZfNWGqDzLpnrqkRCScTI1UA2gOQXLDjZk6Q4lUZ6Vh5hpk3D/3Q4qIlkwdrRTQPIHk7BPzbivtiiw+N2aUCzSvIFkYIMGgTs1I7SgHZt5BpszTCWLeHkyYvU6Aaghk0v6nLmBLi2GeKQWoFkGU/6tgbL98i9mx/DQsO0C1CpJbDIBoBrwlbFifFIOpaZBJ84yjgrm9NWmdKgRUHyBTRDt9wmq/YxT/zASqM5Bs8vYXGO1awtozHabuQAho7zbMTTMz6noC6ZGMjkJnnJoHIeBMGuhYZJgHZlu5ahpEDaML0oysSOJqvS6/PQzeGjKs08UAJsprqkfUMMqAt4YNa79dgJoDIeDtK8KM3Jlnj7ADVQs90sckIyE9fdKO4Vrc2eMgjmi69VE5APM9tCIur7m55VdcrATEeIJZKSlg6gddQc3DYN6kJayfKhc1pzRXcyQuCB2tutldaYA5G1oMdIQM881qAVQdhAifu11iQ/Nv5f8hsfMRqjK0GNgYMsx2OwYqVed/kHxfcmLVqpseiTX5VhGjWUI2E9PtgHr5NgDq9QG4AGCYgREw4gQahKABTR/7vVJDyfFRd7jRvVISrQVoHYBr8xg6C+bh3EUPfgTQCuDG/x5H6YQk9HEGfZX+K190jkT93nYCHgGwfJqpHiL6DkwxSIoFk1fVpc7khjgxtBhwxRq8YRIIMRAmxhoQlhKQkYw+QdwbdJDp5uvVgiAjfm84A2wDsDq7cxIOgbmXr7EOaXFccjpH4gHfajDWMPAYwDcDtFczUi+UO+TygigICRxgYBGAkyDxhqaPfVssWCmTfaDR1+wGbyNSQDi2gNzPNulXzhWLUVL2G/N7VS60jAlvhXTzdbvipYBMaEYbva8RYTMRTgV18x67sYpO9qjfs55Ae5n43ZButZUi7ARE6UcDnk5iehUSS7Wk+UspMQumKLFG7z4QnpPEy8K69XMpok5BhgKeuwSTOp9v0AwzUkrMWUA8/apQS1j3lyroFGRyxXMYN7sYzTQbC/jeB/OLxHJlMJH+oRSYaINb7SHZJ5RMH7fbNt7ovpdJfA+iPZqeesluu+n18oB41oGpC8BBzTAfdyJaapuY3/sFgLUgfl7TrX2lts/bI9lu9nvVbevDAH0QNFKvEJB2Il6sDQPuuN+3C2C1j3ylGeaqYm0KlefdR6JNC5qEzHzIoAfVPiIkt812N+Ek+HCD524pSN23ryDw11K41odGx0adaBXsEVUwGIbXdcnTSUQvA7jMzB8TxDEtkTrsNFhuUvseZciHiOgZANcx8+7M9Vbb4iGY5egWzbXifs/TEniKQA+MBzrLoCOQme60S5y/gc0/Awb+zmdC9+Omi+S91Z2RCyFcTxJY5WwqQwaDvxHA/qCNazU7gEVBJkTG05YnWE1KYMkMcfU1z4+/qmjh+OudUW+AgIMC6GkxzCE7Bu3WsQ0yXVBBWYwlQpCfpQwQkR+EABiBbD2CDobOzAYJoUvJhocwUGnz0z39C3J8PFEMFrq5AAAAAElFTkSuQmCC`
+  let flags = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAC6ElEQVRIS72WT0gUcRTHv++3u7NFEEGCEO4aoe64CR06FEFISFDRpUNBQadOYV2i6BKpixUsVEJolwhCMMKDWZSHsksgRR4qTHddK3ZWksjAQtOZ2ZkXs7k1m+vujO76g7nM7733+b7v788MwcUYC0qtBJqRFbXDRVreUHJT4A8YLQx+zkRd4aTW5ybfHrsicLYAge4I8M1aRRt1K2BV4EXYFAhdclJrdwMvBTjDI8YrJtyQFa3XiYCSgW2wBx4gUsz+coDBwCyA6/WK1rpc92UB22AjACL57C83OKuh1wO02u1fK3BGAANtWfvXBszogZci8mc1/u8OcLL3F2OyN5fTFALeMFO7nFIf/Z9Tro5/ALgqK1p07XY14y68FLXbmg9eyo6HwIjKKa3fyVKsGkzAjAlE6xXtmhNgSTYXAd26Li41TC0obqCZu91Ngm1XD4PERTm58MJN/uq+x8yNckrft1Kga6sTQSmcBo4Rc6MhcE7y6R9rJ/BzpQKWtfpDlW+Xl3AURAcYCABIEyHBJs+DKMTARgIUMA0RjHuhVPqlGxFLwImtvt0mUwczKgH0MpkPjV/p9w3fMJtZ40WrR8KQ/HPenQaLI4AlEG9h8hU5pQ87EZADHg/6D5vgx0x0QVtQb+/4ijl7ETvY/v5dJTZI6/ynBZvnicSpuqT6pBg8BxwLSoZh8p7tk/rrfInLgbOx1vJ4BA3JiuZxDI4FJcuuE3JSs6zLO4qBraRYtdQHRk+xf6+/Hcer/QfZ5LNySjtUCGzNFfqliQWkpyToViipDhTqOsfqsaCU8DAu16W0+8Wsyjc/HpCOG4RIvaLVFsvPAccD3r1MohPgQa8pOmsm1YliBaz5iSp/TVqYzQA1EZvNTo7WkuMU34IKeHwtTHQGjAEBdJPgGOne6RnMf7dAm7B+M/vSFWySbAInQWgg5n4YelvoC6adiC14V48G/fsFuAnANttj1f2UfUzQYFhRnzmB2WN+A+46RS69UAGXAAAAAElFTkSuQmCC`
+  //问号
+  let wenhao = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAB60lEQVRIS+2Wv2tVQRCFv/MfWChEEQSrQBCEKJpOsZCQgFiYyiqBiJ3aKqgIYhchgfxAOy3URlJIikBSCRYRCxEsFEWxEAURS+HIwA28vLd7775rrMzAVjsz35uZM/uuKDTbw8BR4BhwCNgL7APeV+cj8BmYlfS9Ka2aHGwfBi4C002+1f07YC6OpN+5mFqw7UvAdWBXIbTT7SUwKulrKjYLth0VLrYAdoYsSzpTDLY9Ajz/S+hm+IykK925khXbfgycy4A3gAfAJ+AXcAAI4dVp4LikF535esC2DwIhkJQtA1OSvnVfVqpfAXYnAm9KutEEjpk8TQT/BEYkvcmNoBLjTOL+oaTzTeBrwK2SX52oOnb7SyK2R2SpVj8CJhLBY5Ke1QnO9ilgNeFzVdLtporHgYHq7AHixNymJX1oAN8HJhM+ZyVtGV/jy1W6UjV7vyHpSNE6lcLCz/Z+IPb0cibugqSlbQXbjl2/A8QKpqxnjTadWrfadig/NiBlP4CA3s11rxXY9r14SDJJo63zkl7VjaxvsO3TQLxQKZuQ9KREI23AuWoHJb0tgYZPG/BrYKgLsCApPhaKrQ3YiewnJa0XU1tWvOVfpoKt/3NwP1Vtq6r/L7DtE8Bapuq+BNaXqnfAXS3faXXt5v0BDZ2vHxygMwUAAAAASUVORK5CYII=`
   //处理默认参数
   let defaultParameter = {
     line: 10,
@@ -44,7 +46,7 @@ function Saolei(id, parameter) {
       X: 0, //坐标X
       Y: 0, //坐标Y
       content: 0, //内容
-      state: 'OFF', //区块状态: 'OFF'关闭, 'ON'打开, 'ON2'打开(靠内部), 'Q'已插旗
+      state: 'OFF', //区块状态: 'OFF'关闭, 'ON'打开, 'ON2'打开(靠内部), 'Q'已插旗, 'WH'问号
       dom: undefined, //对应的dom节点
     }
   */
@@ -157,12 +159,12 @@ function Saolei(id, parameter) {
           targetIndex = i
         }
       }
-      if(targetIndex == undefined){//可能等于0
+      if (targetIndex == undefined) {//可能等于0
         //关闭点击事件
         saoleiDiv.removeEventListener('click', saoleikaishi)
         return
       }
-      if (saoleiArrObj[targetIndex].state != 'Q'/*已插旗*/) {
+      if (saoleiArrObj[targetIndex].state == 'OFF') {
         target.firstElementChild.style.display = 'inline'
         target.style.backgroundColor = 'rgb(109, 164, 247)'
         saoleiArrObj[targetIndex].state = 'ON'
@@ -180,6 +182,8 @@ function Saolei(id, parameter) {
           }
           //关闭点击事件
           saoleiDiv.removeEventListener('click', saoleikaishi)
+          //关闭右击事件
+          saoleiDiv.removeEventListener('contextmenu', contextmenuFun)
           //写入‘游戏失败’页面
           let youxijieshuDiv = document.createElement('div')
           youxijieshuDiv.innerText = '游戏失败'
@@ -259,6 +263,8 @@ function Saolei(id, parameter) {
           if (fanggeOFF == defaultParameter.num) {
             //关闭点击事件
             saoleiDiv.removeEventListener('click', saoleikaishi)
+            //关闭右击事件
+            saoleiDiv.removeEventListener('contextmenu', contextmenuFun)
             //写入‘游戏胜利’页面
             let youxijieshuDiv = document.createElement('div')
             youxijieshuDiv.innerText = '游戏胜利'
@@ -301,19 +307,26 @@ function Saolei(id, parameter) {
           targetIndex = i
         }
       }
-      if(targetIndex == undefined){//可能等于0
-        //关闭点击事件
-        saoleiDiv.removeEventListener('contextmenu', saoleikaishi)
+      if (targetIndex == undefined) {//可能等于0
+        //关闭右击事件
+        saoleiDiv.removeEventListener('contextmenu', contextmenuFun)
         return
       }
-      if (saoleiArrObj[targetIndex].state == 'OFF') {
+      if (saoleiArrObj[targetIndex].state == 'OFF') {//插旗
         saoleiArrObj[targetIndex].state = 'Q'
         saoleiArrObj[targetIndex].dom.style.backgroundImage = `url('${flags}')`
         saoleiArrObj[targetIndex].dom.style.backgroundPosition = `center`
         saoleiArrObj[targetIndex].dom.style.backgroundSize = `66%`
         saoleiArrObj[targetIndex].dom.style.backgroundRepeat = `no-repeat`
       }
-      else if (saoleiArrObj[targetIndex].state == 'Q') {
+      else if (saoleiArrObj[targetIndex].state == 'Q') {//打问号
+        saoleiArrObj[targetIndex].state = 'WH'
+        saoleiArrObj[targetIndex].dom.style.backgroundImage = `url('${wenhao}')`
+        saoleiArrObj[targetIndex].dom.style.backgroundPosition = `center`
+        saoleiArrObj[targetIndex].dom.style.backgroundSize = `66%`
+        saoleiArrObj[targetIndex].dom.style.backgroundRepeat = `no-repeat`
+      }
+      else if (saoleiArrObj[targetIndex].state == 'WH') {//恢复默认状态
         saoleiArrObj[targetIndex].state = 'OFF'
         saoleiArrObj[targetIndex].dom.style.backgroundImage = ``
       }

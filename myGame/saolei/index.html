@@ -45,13 +45,15 @@
   <main class="page-content" aria-label="Content">
     <div class="wrapper">
       <div class="parameterDiv">
-        <input id="lineInput" class="inputDiv" value="20" type="text" placeholder="行数"> *
-        <input id="columnInput" class="inputDiv" value="20" type="text" placeholder="列数">
-        <input id="numInput" class="inputDiv" value="10" type="text" placeholder="雷数">
+        宽<input class="inputDiv" id="widthInput" value="500" type="text">px&nbsp;&nbsp;
+        高<input class="inputDiv" id="heightInput" value="500" type="text">px&nbsp;&nbsp;
+        行<input class="inputDiv" id="lineInput" value="20" type="text" placeholder="行数"> *
+        列<input class="inputDiv" id="columnInput" value="20" type="text" placeholder="列数">&nbsp;&nbsp;
+        雷<input class="inputDiv" id="numInput" value="10" type="text" placeholder="雷数">
         <button class="startGamebut" onclick="newSaolei()">开始游戏</button>
       </div>
       <div class="saoleiDiv" id="saoleiDiv"></div>
-      <script src="saolei_v1.0.1.min.js"></script>
+      <script src="saolei_v1.1.0.js"></script>
       <script>
         /*
           new Saolei(id, parameter)
@@ -64,15 +66,14 @@
             height: dom的高度,
           }
         */
-        let saolei
         newSaolei()
         function newSaolei() {
-          saolei = new Saolei('#saoleiDiv', {
+          new Saolei('#saoleiDiv', {
             line: lineInput.value,
             column: columnInput.value,
             num: numInput.value,
-            width: 500,
-            height: 500,
+            width: widthInput.value,
+            height: heightInput.value,
           })
         }
       </script>

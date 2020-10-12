@@ -3,12 +3,12 @@
 }
 
 .parameterDiv{
-  width: 270px;
+  width: 500px;
   margin: 0 auto;
   margin-bottom: 10px;
 }
 .parameterDiv .inputDiv{
-  width: 50px;
+  width: 40px;
 }
 .parameterDiv .startGamebut{
   cursor: pointer;
