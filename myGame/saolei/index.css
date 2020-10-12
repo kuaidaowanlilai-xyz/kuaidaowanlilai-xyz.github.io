@@ -2,6 +2,18 @@
   margin: 0 auto;
 }
 
+.parameterDiv{
+  width: 270px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+.parameterDiv .inputDiv{
+  width: 50px;
+}
+.parameterDiv .startGamebut{
+  cursor: pointer;
+}
+
 /* .saoleiDiv:after {
   content:""; 
   display: block; 

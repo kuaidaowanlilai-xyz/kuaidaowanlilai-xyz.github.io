@@ -44,9 +44,14 @@
 
   <main class="page-content" aria-label="Content">
     <div class="wrapper">
-
+      <div class="parameterDiv">
+        <input id="lineInput" class="inputDiv" value="20" type="text" placeholder="行数"> *
+        <input id="columnInput" class="inputDiv" value="20" type="text" placeholder="列数">
+        <input id="numInput" class="inputDiv" value="10" type="text" placeholder="雷数">
+        <button class="startGamebut" onclick="newSaolei()">开始游戏</button>
+      </div>
       <div class="saoleiDiv" id="saoleiDiv"></div>
-      <script src="saolei_v1.0.0.js"></script>
+      <script src="saolei_v1.0.1.min.js"></script>
       <script>
         /*
           new Saolei(id, parameter)
@@ -59,13 +64,17 @@
             height: dom的高度,
           }
         */
-        new Saolei('#saoleiDiv', {
-          line: 20,
-          column: 20,
-          num: 20,
-          width: 500,
-          height: 500,
-        })
+        let saolei
+        newSaolei()
+        function newSaolei() {
+          saolei = new Saolei('#saoleiDiv', {
+            line: lineInput.value,
+            column: columnInput.value,
+            num: numInput.value,
+            width: 500,
+            height: 500,
+          })
+        }
       </script>
 
     </div>

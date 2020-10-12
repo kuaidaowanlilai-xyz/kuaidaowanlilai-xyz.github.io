@@ -1,3 +1,14 @@
+/*
+  new Saolei(id, parameter)
+  id: 加载扫雷的dom的id
+  parameter(选填): {
+    line: 行数,
+    column: 列数,
+    num: 雷的数量,
+    width: dom的宽度,
+    height: dom的高度,
+  }
+*/
 function Saolei(id, parameter) {
   let saoleiDiv = document.querySelector(id) //传入的dom
   let saoleiArrObj = [] //渲染页面所需要的数据
@@ -15,7 +26,8 @@ function Saolei(id, parameter) {
     defaultParameter[key] = parameter[key]
   })
 
-  //设置dom的默认样式
+  //初始化dom
+  saoleiDiv.innerHTML = ''
   let defaultStyles = {
     width: `${defaultParameter.width}px`,
     height: `${defaultParameter.height}px`,
@@ -145,6 +157,11 @@ function Saolei(id, parameter) {
           targetIndex = i
         }
       }
+      if(targetIndex == undefined){//可能等于0
+        //关闭点击事件
+        saoleiDiv.removeEventListener('click', saoleikaishi)
+        return
+      }
       if (saoleiArrObj[targetIndex].state != 'Q'/*已插旗*/) {
         target.firstElementChild.style.display = 'inline'
         target.style.backgroundColor = 'rgb(109, 164, 247)'
@@ -187,6 +204,7 @@ function Saolei(id, parameter) {
 
         //打开周围空白
         //数据中的‘雷’对应dom数组中的雷，减少dom操作，提高性能
+        //定时器
         else if (!saoleiArrObj[targetIndex].content) {
           let polling = setInterval(() => {
             let domPool = []
@@ -282,6 +300,11 @@ function Saolei(id, parameter) {
         if (saoleiArrObj[i].dom === target) {
           targetIndex = i
         }
+      }
+      if(targetIndex == undefined){//可能等于0
+        //关闭点击事件
+        saoleiDiv.removeEventListener('contextmenu', saoleikaishi)
+        return
       }
       if (saoleiArrObj[targetIndex].state == 'OFF') {
         saoleiArrObj[targetIndex].state = 'Q'
