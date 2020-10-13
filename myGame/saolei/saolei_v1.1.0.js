@@ -171,7 +171,6 @@ function Saolei(id, parameter) {
 
         //游戏失败
         if (saoleiArrObj[targetIndex].content === '雷') {
-          console.log('游戏失败')
           //循环显示所有雷
           for (let i = 0; i < saoleiArrObj.length; i++) {
             if (saoleiArrObj[i].content === '雷') {
