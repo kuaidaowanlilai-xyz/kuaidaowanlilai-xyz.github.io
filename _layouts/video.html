@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include head.html %}
+
+<style>
+  .iframeWaiDiv {
+    width: 100%;
+  }
+
+  .separateP {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .separateP:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  .separateP .title {
+    font-size: 18px;
+  }
+
+  .separateP .items {
+    height: 105px;
+    overflow: auto;
+  }
+
+  .separateP .items .item {
+    float: left;
+    width: 48px;
+    height: 30px;
+    border: 1px solid #666;
+    border-radius: 3px;
+    background-color: rgb(247, 247, 247);
+    text-align: center;
+    line-height: 30px;
+    margin: 5px;
+    cursor: pointer;
+  }
+</style>
+
+<body>
+  {% include header.html %}
+
+  <main class="page-content" aria-label="Content">
+    <div class="wrapper">
+      <h2 class="post-list-heading">JS视频教程</h2>
+      <div class="iframeWaiDiv" id="iframeWaiDiv"></div>
+      <div class="separateP">
+        <div class="title">视频分集</div>
+        <div class="items" id="items">
+          <!-- <div class="item">1</div> -->
+        </div>
+      </div>
+
+      <!-- 评论 -->
+      {% include comments.html %}
+
+    </div>
+  </main>
+
+
+
+  {% include footer.html %}
+
+  <script>
+    let items = document.querySelector('#items')
+    let kuangzi = document.createDocumentFragment()
+    for (let i = 0; i < 542; i++) {
+      let itemDiv = document.createElement('div')
+      itemDiv.className = 'item'
+      itemDiv.innerText = i + 1
+      itemDiv.addEventListener('click', function () {
+        iframeFun(i + 1)
+      })
+
+      kuangzi.appendChild(itemDiv)
+    }
+    items.appendChild(kuangzi)
+
+    iframeFun(1)
+    function iframeFun(page) {
+      let iframeWaiDiv = document.querySelector('#iframeWaiDiv')
+      iframeWaiDiv.style.height = `${iframeWaiDiv.offsetWidth * 0.72 + 1}px`
+      iframeWaiDiv.innerHTML = `
+      <iframe 
+        style="
+          width:100%;
+          height:${iframeWaiDiv.offsetWidth * 0.72 + 1}px;
+        "
+        src="//player.bilibili.com/player.html?aid=69122694&bvid=BV1CJ411T7tL&page=${page}" 
+        scrolling="no" 
+        border="0" 
+        frameborder="no" 
+        framespacing="0" 
+        allowfullscreen="true"
+      > </iframe> `
+
+      
+      let itemArr = items.querySelectorAll('.item')
+      for(let i = 0; i < itemArr.length; i++){
+        itemArr[i].style.backgroundColor = ''
+        itemArr[i].style.color = ''
+        itemArr[i].style.borderColor = ''
+      }
+      itemArr[page - 1].style.backgroundColor = '#00a1d6'
+      itemArr[page - 1].style.color = '#fff'
+      itemArr[page - 1].style.borderColor = '#00a1d6'
+
+    }
+
+  </script>
+</body>
+
+</html>
