@@ -58,15 +58,15 @@ plugins:
   - jekyll-feed
 
 
-#从处理中排除。
-#在默认情况下，以下项目将不被处理。
-#在此处“排除:”键下列出的任何项目都将自动添加到
-#内部的“默认列表”。
-#
-#被排除的项可以通过显式列出目录或
-#它们的条目在' include: '列表中的文件路径。
-#
-#排除:
+# 从处理中排除。
+# 在默认情况下，以下项目将不被处理。
+# 在此处“排除:”键下列出的任何项目都将自动添加到
+# 内部的“默认列表”。
+# 
+# 被排除的项可以通过显式列出目录或
+# 它们的条目在' include: '列表中的文件路径。
+# 
+# 排除:
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to

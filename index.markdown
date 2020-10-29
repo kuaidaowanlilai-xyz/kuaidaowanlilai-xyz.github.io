@@ -4,6 +4,6 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 # 要修改布局，请参阅https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
-layout: home
-# layout: myHome
+# layout: home
+layout: myHome
 ---

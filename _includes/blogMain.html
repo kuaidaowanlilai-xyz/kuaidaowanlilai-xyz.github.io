@@ -1,0 +1,90 @@
+<main class="page-content blogMain" aria-label="Content">
+  <div class="wrapper">
+    <article class="post h-entry" itemscope="" itemtype="http://schema.org/BlogPosting">
+      <header class="post-header">
+        <h1 class="post-title p-name" itemprop="name headline">{{ page.title }}</h1>
+        <p class="post-meta">
+          <time class="dt-published" datetime="2020-09-29T09:00:00+08:00" itemprop="datePublished">
+            {{ page.date | date: '%b %d, %Y' }}
+          </time>
+        </p>
+      </header>
+      <div class="post-content e-content" itemprop="articleBody">
+        {{ page }}
+      </div>
+      <a class="u-url" href="/finishing/2020/09/29/JavaScript%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95.html" hidden=""></a>
+    </article>
+    <div class="directory">
+      <div class="directory_header">更多</div>
+      <div style="margin-top:5px;">
+        {% for post in site.posts %}
+        <div class="directory_title">
+          <a href="{{ post.url }}" 
+            {% if post.title == page.title %}
+            style="color:#5094d5;"
+            {% endif %}
+          >
+            {{ post.title }}
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</main>
+<style>
+  @media screen and (min-width: 1350px) {
+    .blogMain {
+      background-color: #f3f4f6;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .wrapper {
+      max-width: calc(1200px - (10px * 2));
+    }
+
+    .blogMain .wrapper .post {
+      width: 800px;
+      padding: 20px 20px;
+      background-color: #fff;
+      float: right;
+      box-shadow: 0 0 5px rgba(136, 136, 136, 0.2)
+    }
+
+    .blogMain .wrapper .directory {
+      width: 330px;
+      /* border: 1px solid #999; */
+      background-color: #fff;
+      float: left;
+      box-sizing: border-box;
+      box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+      font-size: 14px;
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'SimHei', 'Arial', 'SimSun';
+      padding-bottom: 5px;
+    }
+
+    .blogMain .wrapper .directory .directory_header {
+      line-height: 28px;
+      background-color: #fca60b;
+      padding: 0 10px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .blogMain .wrapper .directory .directory_title {
+      padding: 0 15px;
+      line-height: 26px;
+      color: #555666;
+    }
+
+    .blogMain .wrapper .directory .directory_title a {
+      color: #555666;
+      text-decoration: none
+    }
+
+    .blogMain .wrapper .directory .directory_title a:hover {
+      color: #5094d5;
+    }
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
-layout: post
+# layout: post
+layout: myPost
 title:  "JavaScript基础语法"
 date:   2020-09-29 09:00:00 +0800
 categories: finishing
