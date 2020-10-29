@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "JavaScript基础语法"
-date:   2020-09-29 09:29:27 +0800
-categories: jekyll update
+date:   2020-09-29 09:00:00 +0800
+categories: finishing
 ---
 
 # JavaScript基础语法
