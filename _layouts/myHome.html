@@ -3,13 +3,20 @@
 
 {% include head.html %}
 
+<style>
+  .bottomLine{
+    color: #999;
+    font-size: 13px;
+  }
+</style>
+
 <body>
   {% include header.html %}
 
   <main class="page-content" aria-label="Content">
     <div class="wrapper">
       <div class="home">
-        <h2 class="post-list-heading">最近发布</h2>
+        <h2 class="post-list-heading">全部文章</h2>
         <ul class="post-list">
           {% for post in site.posts %}
           <li><span class="post-meta">{{ post.date | date: '%b %d, %Y' }}</span>
@@ -21,7 +28,8 @@
           </li>
           {% endfor %}
         </ul>
-        <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p>
+        <!-- <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p> -->
+        <p class="bottomLine"> - - - - - - - - - 这 是 我 的 底 线 - - - - - - - - - </p>
       </div>
     </div>
   </main>
