@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>扫雷</title>
+  <title>扫雷 | 徐hào的博客</title>
   <link rel="stylesheet" href="/assets/main.css">
   <link rel="stylesheet" href="./saolei.css">
 </head>
@@ -14,7 +14,7 @@
 <body>
   <header class="site-header" role="banner">
     <div class="wrapper"><a class="site-title" rel="author" href="/">徐hào的博客</a>
-      <nav class="site-nav">
+      <nav class="site-nav navDiv">
         <input type="checkbox" id="nav-trigger" class="nav-trigger">
         <label for="nav-trigger">
           <span class="menu-icon">
@@ -25,9 +25,21 @@
             </svg>
           </span>
         </label>
-        <div class="trigger"><a class="page-link" href="/about/">关于</a></div>
+        <div class="trigger"><a class="page-link" href="/myGame/">小游戏</a></div>
+        <div class="trigger"><a class="page-link" href="/about/">关于我</a></div>
       </nav>
     </div>
+    <style>
+      @media screen and (min-width: 600px) {
+        .navDiv {
+          display: flex;
+        }
+
+        .navDiv .trigger {
+          margin-left: 20px;
+        }
+      }
+    </style>
   </header>
 
   <main class="page-content" aria-label="Content">
@@ -74,7 +86,7 @@
         </div>
       </div>
     </div>
-    <div class="Copyright">声明：本游戏源码完全由我本人用纯 JS 编写，并未用于任何商业盈利。</div>
+    <div class="Copyright">声明：本游戏源码完全由我本人用纯 JS 编写。</div>
   </footer>
 
 </body>
