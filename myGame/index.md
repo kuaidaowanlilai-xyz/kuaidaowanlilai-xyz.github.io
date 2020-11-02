@@ -1,5 +1,6 @@
 ---
-layout: myGame
+layout: indexList
+title: 全部游戏
 
 list: 
   - name: 扫雷
