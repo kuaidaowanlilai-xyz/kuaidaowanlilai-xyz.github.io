@@ -147,16 +147,6 @@ export default {
 <style lang="stylus" scoped>
 </style>
 
-//.vue文件的基本格式2
-<template>
-</template>
-<script>
-export default {
-}
-</script>
-<style scoped lang="scss">
-</style>
-
 
 //用户代码片段路径
 C:\Users\Lenovo\AppData\Roaming\Code\User\snippets\
