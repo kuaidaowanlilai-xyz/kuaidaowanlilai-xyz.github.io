@@ -162,14 +162,14 @@ this.$confirm('确定提交?', '提示', {
   this.$message({
     type: 'success',
     message: '提交成功!'
-  });
+  })
 }).catch(err => {
   throw new Error(err)
   this.$message({
     type: 'info',
     message: '已取消提交'
-  });          
-});
+  });         
+})
 
 
 滚动条几个属性，主要有下面7个属性
