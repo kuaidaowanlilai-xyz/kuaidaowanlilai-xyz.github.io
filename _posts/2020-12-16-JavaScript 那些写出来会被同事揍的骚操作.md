@@ -14,11 +14,11 @@ categories: '转载'
 
 曾经，我接手了一份大佬的代码，里面充满了各种“骚操作”，还不加注释那种，短短几行的函数花了很久才弄懂。
 
-![](https://user-gold-cdn.xitu.io/2019/12/26/16f40d8a3ac43572?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![]({{ site.url }}/assets/img/16f40d8a3ac43572.webp)
 
 这世上，“只有魔法才能对抗魔法”，于是后来，翻阅各种“黑魔法”的秘籍，总结了一些比较实用的“骚操作”，让我们装 X 的同时，提升代码运行的效率（请配合健身房一起使用）。
 
-![](https://user-gold-cdn.xitu.io/2019/12/26/16f41662f7a9bfed?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![]({{ site.url }}/assets/img/16f41662f7a9bfed.webp)
 
 ## 正文
 
@@ -97,7 +97,7 @@ console.log(11.71 >>> 0) // 11
 
 > 注意 >>> 不可对负数取整
 
-![](https://user-gold-cdn.xitu.io/2019/12/26/16f40fed00be4a42?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![]({{ site.url }}/assets/img/16f40fed00be4a42.webp)
 
 #### 6\. 使用`^`来完成值交换
 
@@ -126,7 +126,7 @@ console.log(b)[(a, b)] = [b, a] // 7 // ES6，解构赋值
 ;(a ^ b) >= 0 //  true 相同; false 不相同
 ```
 
-![](https://user-gold-cdn.xitu.io/2019/12/26/16f4109f3a95343b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![]({{ site.url }}/assets/img/16f4109f3a95343b.webp)
 
 #### 8\. 使用`^`来检查数字是否不相等
 
@@ -138,19 +138,19 @@ if (a !== 1171) {...};
 if (a ^ 1171) {...};
 ```
 
-![](https://user-gold-cdn.xitu.io/2019/12/26/16f410edb1e24be5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![]({{ site.url }}/assets/img/16f410edb1e24be5.webp)
 
 #### 9\. `n & (n - 1)`，如果为 0，说明 n 是 2 的整数幂
 
-![](https://user-gold-cdn.xitu.io/2019/12/26/16f41056f7c0d5c0?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![]({{ site.url }}/assets/img/16f41056f7c0d5c0.webp)
 
 #### 10\. 使用 `A + 0.5 | 0` 来替代 Math.round()
 
-![](https://user-gold-cdn.xitu.io/2019/12/26/16f411b3794ca5d9?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![]({{ site.url }}/assets/img/16f411b3794ca5d9.webp)
 
 如果是负数，只需要`-0.5`
 
-![](https://user-gold-cdn.xitu.io/2019/12/26/16f411d67a45f8b5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![]({{ site.url }}/assets/img/16f411d67a45f8b5.webp)
 
 ### String
 
@@ -162,7 +162,7 @@ Math.random().toString(16).substring(2, 15)
 
 > .substring() 的第二个参数控制取多少位 (最多可取 13 位)
 
-![](https://user-gold-cdn.xitu.io/2019/12/26/16f411765effedea?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![]({{ site.url }}/assets/img/16f411765effedea.webp)
 
 #### 2\. 使用 split(0)
 
@@ -188,7 +188,7 @@ let b = `<a herf="www.google.com">google</a>`
 let b = 'google'.link('www.google.com')
 ```
 
-![](https://user-gold-cdn.xitu.io/2019/12/26/16f41237aa0eec32?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![]({{ site.url }}/assets/img/16f41237aa0eec32.webp)
 
 #### 4\. 使用 `Array` 来重复字符
 
@@ -224,7 +224,7 @@ a = new Date() % 10000 // 四位随机数...依次类推
 
 1.  `""._`, `1.._` 和 `0[0]`
 
-![](https://user-gold-cdn.xitu.io/2019/12/26/16f412b73fbab55f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![]({{ site.url }}/assets/img/16f412b73fbab55f.webp)
 
 2.  `void 0` 会比写 `undefined` 要快一些
 
@@ -233,7 +233,7 @@ let d = void 0
 console.log(d) // undefined
 ```
 
-![](https://user-gold-cdn.xitu.io/2019/12/26/16f412a4ce53ef82?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![]({{ site.url }}/assets/img/16f412a4ce53ef82.webp)
 
 #### 3\. 使用 `1/0` 来替代 `Infinity`
 
@@ -247,25 +247,25 @@ console.log(d) // undefined
 
 #### 4\. 使用 `Array.length = 0` 来清空数组
 
-![](https://user-gold-cdn.xitu.io/2019/12/26/16f412f4622cfca3?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![]({{ site.url }}/assets/img/16f412f4622cfca3.webp)
 
 #### 5\. 使用 `Array.slice(0)` 实现数组浅拷贝
 
-![](https://user-gold-cdn.xitu.io/2019/12/26/16f41316d136ad60?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![]({{ site.url }}/assets/img/16f41316d136ad60.webp)
 
 #### 6\. 使用 `!+"\v1"` 快速判断 IE8 以下的浏览器
 
 谷歌浏览器：
 
-![](https://user-gold-cdn.xitu.io/2019/12/26/16f413b1de2078e6?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![]({{ site.url }}/assets/img/16f413b1de2078e6.webp)
 
 IE 9（10，11）：
 
-![](https://user-gold-cdn.xitu.io/2019/12/26/16f4149860e9ea1d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![]({{ site.url }}/assets/img/16f4149860e9ea1d.webp)
 
 IE 8（7，6，5）：
 
-![](https://user-gold-cdn.xitu.io/2019/12/26/16f413d12cf67eb0?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![]({{ site.url }}/assets/img/16f413d12cf67eb0.webp)
 
 #### 7\. for 循环条件的简写
 
@@ -282,7 +282,7 @@ for(let i = arr.length; i--;) {...} // 注意 i-- 后面的分号别漏了
 
 虽然上述操作能在一定程度上使代码更简洁，但会降低可读性。在目前的大环境下，机器的性能损失远比不上人力的损失，因为升级机器配置的成本远低于维护晦涩代码的成本，所以请谨慎使用这些“黑魔法”。就算要使用，也请加上注释，毕竟，这世上还有很多“麻瓜”需要生存。
 
-![](https://user-gold-cdn.xitu.io/2019/12/26/16f4166f2e8ccdb2?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![]({{ site.url }}/assets/img/16f4166f2e8ccdb2.webp)
 
 还有一些其他骚操作，可以参考这位大神总结的 [《Byte-saving Techniques》](https://github.com/jed/140bytes/wiki/Byte-saving-techniques)，有些很常见，有些使用环境苛刻，这里就不一一列出了。
 
@@ -294,6 +294,6 @@ for(let i = arr.length; i--;) {...} // 注意 i-- 后面的分号别漏了
 
 如果以后有人喷你的代码，你就可以将此代码发给他。
 
-![](https://user-gold-cdn.xitu.io/2019/12/26/16f4166833d5e344?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![]({{ site.url }}/assets/img/16f4166833d5e344.webp)
 
 **转载自：https://juejin.cn/post/6844904032146817038**
