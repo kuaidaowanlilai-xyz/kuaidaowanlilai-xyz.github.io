@@ -1,17 +1,18 @@
 /*
  * @Author: 徐浩
  * @Date: 2020-12-16 16:30:20
- * @LastEditTime: 2020-12-16 17:36:33
+ * @LastEditTime: 2020-12-17 19:47:38
  * @LastEditors: Please set LastEditors
  * @Description: 将时间戳转换成日期形式
  * @FilePath: kuaidaowanlilai-xyz.github.io\groceryStore\待整理\formatDate.js
  */
 /**
  * 将时间戳转换成日期形式
- * @param {Number} timeStamp 时间戳
- * @param {String} type 输出的日期格式 yyyy-MM-dd HH:mm:ss
+ * @param {Number} [timeStamp = new Date().getTime()] 时间戳  new Date().getTime()
+ * @param {String} [type = 'yyyy-MM-dd HH:mm:ss'] 输出的日期格式  yyyy-MM-dd HH:mm:ss
  */
-const formatDate = (timeStamp = new Date().getTime(), type = 'yyyy-MM-dd HH:mm:ss') => { 
+const formatDate = (timeStamp, type = 'yyyy-MM-dd HH:mm:ss') => {
+  if(!timeStamp) timeStamp = new Date().getTime()
   let time = new Date(timeStamp)
   let year = time.getFullYear() //取得4位数的年份
   let month = time.getMonth()+1 //取得日期中的月份，其中0表示1月，11表示12月
