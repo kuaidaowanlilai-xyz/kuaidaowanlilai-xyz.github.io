@@ -147,16 +147,6 @@ export default {
 <style lang="stylus" scoped>
 </style>
 
-//.vue文件的基本格式2
-<template>
-</template>
-<script>
-export default {
-}
-</script>
-<style scoped>
-</style>
-
 
 //用户代码片段路径
 C:\Users\Lenovo\AppData\Roaming\Code\User\snippets\
@@ -172,14 +162,14 @@ this.$confirm('确定提交?', '提示', {
   this.$message({
     type: 'success',
     message: '提交成功!'
-  });
+  })
 }).catch(err => {
   throw new Error(err)
   this.$message({
     type: 'info',
     message: '已取消提交'
-  });          
-});
+  });         
+})
 
 
 滚动条几个属性，主要有下面7个属性
