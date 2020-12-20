@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>JavaScript基础语法 | 徐hào的博客</title>
+  
+  <link rel="stylesheet" href="/assets/main.css">
+  <style>
+    .bottomLine {
+      color: #999;
+      font-size: 13px;
+    }
+
+    /* 滚动条样式设置 */
+    @media screen and (min-width: 600px) {
+      *::-webkit-scrollbar {
+        width: 10px;
+        height: 6px;
+      }
+      *::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.5);
+      }
+      *::-webkit-scrollbar-track {
+        background-color: #fff;
+      }
+    }
+    /* 滚动条样式设置 end */
+  </style>
+</head>
+
+<script>//remove baidu search ad
+  var _countAA = 0
+  function doBBBd() {
+    var alla = document.getElementsByTagName('a')
+    for (var i = 0; i < alla.length; i++) {
+      if (/baidu.com\/(baidu.php\?url=|adrc.php\?t)/.test(alla[i].href)) {
+        var _temp = alla[i].parentElement, loop = 0
+        while (loop < 5) {
+          _temp = _temp.parentElement
+          loop++
+          if (_temp.parentElement.id == 'content_left') {
+            _temp.remove()
+            break
+          }
+        }
+      }
+    }
+
+    if (_countAA++ < 20) {
+      setTimeout(doBBBd, 500)
+    }
+
+  }
+  doBBBd()
+  document.addEventListener('keyup', function () { _countAA -= 10; doBBBd() }, false)
+  document.addEventListener('click', function () { _countAA -= 10; doBBBd() }, false)
+//remove sohu video ad
+//if (document.URL.indexOf("tv.sohu.com") >= 0){
+//    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+//}
+//remove 56.com video ad
+//if (document.URL.indexOf("56.com") >= 0){
+//    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+//}
+</script>
+
+<body>
+  <header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">徐hào的博客</a>
+    <nav class="site-nav navDiv">
+      <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+      <label for="nav-trigger">
+        <span class="menu-icon">
+          <svg viewBox="0 0 18 15" width="18px" height="15px">
+            <path
+              d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z" />
+          </svg>
+        </span>
+      </label>
+      <!-- <div class="trigger"><a class="page-link" href="/jsVideo/">JS视频教程</a></div> -->
+      <!-- <div class="trigger"><a class="page-link" href="/myGame/">小游戏</a></div> -->
+      <div class="trigger"><a class="page-link" href="/about/">关于我</a></div>
+      <!-- <div class="trigger"><a class="page-link" href="/about/">其他</a></div> -->
+    </nav>
+  </div>
+</header>
+<style>
+  @media screen and (min-width: 600px) {
+    .navDiv {
+      display: flex;
+    }
+
+    .navDiv .trigger {
+      margin-left: 20px;
+    }
+  }
+</style>
+
+  <main class="page-content blogMain" aria-label="Content">
+  <div class="wrapper">
+    <div class="leftContent">
+      <article class="post h-entry" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+          <h1 class="post-title p-name" itemprop="name headline">JavaScript基础语法</h1>
+          <p class="post-meta">
+            <time class="dt-published" datetime="2020-09-29T09:00:00+08:00" itemprop="datePublished">
+              Dec 15, 2019 &nbsp; 字数:1521
+            </time>
+          </p>
+        </header>
+        <div class="post-content e-content" itemprop="articleBody">
+          <h1 id="javascript基础语法">JavaScript基础语法</h1>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">HTML</code> ：标记语言</li>
+  <li><code class="language-plaintext highlighter-rouge">JavaScript</code> ：编程语言</li>
+</ul>
+
+<h2 id="序言">序言</h2>
+
+<h3 id="javascript发展历史js">JavaScript发展历史（JS）</h3>
+
+<pre><code class="language-txt">1. 1994年，网景公司(Netscape)发布了Navigator浏览器0.9版，这是世界上第一款比较成熟的网络浏览器，轰动一时。但是这是一款名副其实的浏览器--只能浏览页面，浏览器无法与用户互动,当时解决这个问题有两个办法，一个是采用现有的语言,许它们直接嵌入网页。另一个是发明一种全新的语言。
+	liveScript ==&gt; javaScript ==&gt; ECMAscript
+
+2. 1995年Sun公司将Oak语言改名为Java，正式向市场推出。Sun公司大肆宣传，许诺这种语言可以"一次编写，到处运	 行"(Write Once, Run Anywhere)，它看上去很可能成为未来的主宰。
+
+3. 网景公司动了心，决定与Sun公司结成联盟
+
+4. 34岁的系统程序员Brendan Eich登场了。1995年4月，网景公司录用了他,他只用10天时间就把Javascript设计出来了。（多肽语言）
+
+5. (1)借鉴C语言的基本语法; (2)借鉴Java语言的数据类型和内存管理; (3)借鉴Scheme语言，将函数提升到"第一等公民"(first class)的地位; (4)借鉴Self语言，使用基于原型(prototype)的继承机制。
+</code></pre>
+
+<h3 id="javascript能干什么">JavaScript能干什么</h3>
+
+<pre><code class="language-txt">1. 常见的网页效果【表单验证，轮播图。。。】
+2. 纯js可实现简单的小游戏【扫雷：https://kuaidaowanlilai-xyz.github.io/myGame/saolei/】
+3. 与H5配合实现游戏【水果忍者： http://www.jq22.com/demo/html5-fruit-ninja/】
+4. 实现应用级别的程序【http://naotu.baidu.com】
+5. 实现统计效果【http://echarts.baidu.com/examples/】
+6. 地理定位等功能【http://lbsyun.baidu.com/jsdemo.htm#i4_5】
+7. 在线学编程【https://codecombat.163.com/play/】
+8. js可以实现人工智能【面部识别】
+9. 。。。
+</code></pre>
+
+<h3 id="javascript的组成">JavaScript的组成</h3>
+
+<pre><code class="language-txt">1. ECMASCRIPT: 定义了javascript的语法规范,描述了语言的基本语法和数据类型
+2. BOM (Browser Object Model): 浏览器对象模型
+  - 有一套成熟的可以操作浏览器的 API，通过 BOM 可以操作浏览器。比如： 弹出框、浏览器跳转、获取分辨率等
+3. DOM (Document Object Model): 文档对象模型
+  - 有一套成熟的可以操作页面元素的 API，通过 DOM 可以操作页面中的元素。比如： 增加个 div，减少个 div，给 div 换个位置等
+</code></pre>
+
+<p>总结： <strong>JS 就是通过固定的语法去操作 浏览器 和 标签结构 来实现网页上的各种效果</strong></p>
+
+<h2 id="javascript代码的书写位置">JavaScript代码的书写位置</h2>
+
+<ul>
+  <li>和 <code class="language-plaintext highlighter-rouge">css</code> 一样，我们的 <code class="language-plaintext highlighter-rouge">js</code> 也可以有多种方式书写在页面上让其生效</li>
+  <li><code class="language-plaintext highlighter-rouge">js</code> 也有多种方式书写，分为 <strong>行内式</strong>， <strong>内嵌式</strong>，<strong>外链式</strong></li>
+</ul>
+
+<h3 id="行内式-js-代码不推荐">行内式 JS 代码（不推荐）</h3>
+
+<ul>
+  <li>写在标签上的 js 代码需要依靠事件（行为）来触发</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- 写在 a 标签的 href 属性上 --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"javascript:alert('我是一个弹出层');"</span><span class="nt">&gt;</span>点击一下试试<span class="nt">&lt;/a&gt;</span>
+
+<span class="c">&lt;!-- 写在其他元素上 --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">onclick=</span><span class="s">"alert('我是一个弹出层')"</span><span class="nt">&gt;</span>点一下试试看<span class="nt">&lt;/div&gt;</span>
+
+<span class="c">&lt;!-- 
+	注：onclick 是一个事件（点击事件），当点击元素的时候执行后面的 js 代码
+--&gt;</span>
+</code></pre></div></div>
+
+<h3 id="内嵌式-js-代码">内嵌式 JS 代码</h3>
+
+<ul>
+  <li>内嵌式的 js 代码会在页面打开的时候直接触发</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- 在 html 页面书写一个 script 标签，标签内部书写 js 代码 --&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+	<span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">我是一个弹出层</span><span class="dl">'</span><span class="p">)</span>
+<span class="nt">&lt;/script&gt;</span>
+
+<span class="c">&lt;!-- 
+	注：script 标签可以放在 head 里面也可以放在 body 里面
+--&gt;</span>
+</code></pre></div></div>
+
+<h3 id="外链式-js-代码推荐">外链式 JS 代码（推荐）</h3>
+
+<ul>
+  <li>外链式 js 代码只要引入了 html 页面，就会在页面打开的时候直接触发</li>
+  <li>新建一个 <code class="language-plaintext highlighter-rouge">.js</code> 后缀的文件，在文件内书写 js 代码，把写好的 js 文件引入 html 页面</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 我是 index.js 文件</span>
+<span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">我是一个弹出层</span><span class="dl">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- 我是一个 html 文件 --&gt;</span>
+
+<span class="c">&lt;!-- 通过 script 标签的 src 属性，把写好的 js 文件引入页面 --&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"index.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+<span class="c">&lt;!-- 一个页面可以引入多个 js 文件 --&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"index1.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"index2.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"index3.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<h2 id="js-中的注释">JS 中的注释</h2>
+
+<ul>
+  <li>学习一个语言，先学习一个语言的注释，因为注释是给我们自己看的，也是给开发人员看的</li>
+  <li>写好一个注释，有利于我们以后阅读代码</li>
+</ul>
+
+<h3 id="单行注释">单行注释</h3>
+
+<ul>
+  <li>一般就是用来描述下面一行代码的作用</li>
+  <li>可以直接写两个 <code class="language-plaintext highlighter-rouge">/</code> ，也可以按 <code class="language-plaintext highlighter-rouge">ctrl + /</code></li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 我是一个单行注释</span>
+
+<span class="c1">// 下面代码表示在浏览器里面出现一个弹出层</span>
+<span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">我是一个弹出层</span><span class="dl">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="多行注释">多行注释</h3>
+
+<ul>
+  <li>一般用来写一大段话，或者注释一段代码</li>
+  <li>可以直接写 <code class="language-plaintext highlighter-rouge">/**/</code> 然后在两个星号中间写注释，也可以按 <code class="language-plaintext highlighter-rouge">shift + alt + a</code></li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+	我是一个多行注释
+*/</span>
+
+<span class="cm">/*
+	注释的代码不会执行
+	alert('我是一个弹出层')
+	alert('我是一个弹出层')
+*/</span>
+<span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">我是一个弹出层</span><span class="dl">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="变量重点">变量（重点）</h2>
+
+<ul>
+  <li>变量指的是在程序中保存数据的一个容器</li>
+  <li>变量是计算机内存中存储数据的标识符，根据变量名称可以获取到内存中存储的数据</li>
+  <li>也就是说，我们向内存中存储了一个数据，然后要给这个数据起一个名字，为了是我们以后再次找到他</li>
+  <li>语法： <code class="language-plaintext highlighter-rouge">var 变量名 = 值</code></li>
+</ul>
+
+<h3 id="定义变量及赋值">定义变量及赋值</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 定义一个变量</span>
+<span class="kd">var</span> <span class="nx">num</span><span class="p">;</span>
+
+<span class="c1">// 给一个变量赋值</span>
+<span class="nx">num</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+
+<span class="c1">// 定义一个变量的同时给其赋值</span>
+<span class="kd">var</span> <span class="nx">num2</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>注意：
+    <ol>
+      <li>一个变量名只能存储一个值</li>
+      <li>当再次给一个变量赋值的时候，前面一次的值就没有了</li>
+      <li>变量名称区分大小写（JS 区分大小写）</li>
+    </ol>
+  </li>
+</ul>
+
+<h3 id="变量的命名规则和命名规范">变量的命名规则和命名规范</h3>
+
+<ul>
+  <li>规则： 必须遵守的，不遵守就是错
+    <ol>
+      <li>一个变量名称可以由 <strong>数字</strong>、<strong>字母</strong>、<strong>英文下划线（_）</strong>、<strong>美元符号（$）</strong> 组成</li>
+      <li>严格区分大小写</li>
+      <li>不能由数字开头，不要使用中文汉字命名</li>
+      <li>不能是 <strong>保留字</strong> 或者 <strong>关键字</strong></li>
+      <li>不要出现空格</li>
+    </ol>
+  </li>
+  <li>规范： 建议遵守的（开发者默认），不遵守不会报错
+    <ol>
+      <li>变量名尽量有意义（语义化）</li>
+      <li>遵循驼峰命名规则，由多个单词组成的时候，从第二个单词开始首字母大写</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="数据类型重点">数据类型（重点）</h2>
+
+<ul>
+  <li>是指我们存储在内存中的数据的类型</li>
+  <li>我们通常分为两大类 <strong>基本数据类型</strong> 和 <strong>复杂数据类型</strong></li>
+</ul>
+
+<h3 id="基本数据类型">基本数据类型</h3>
+
+<ol>
+  <li>数值类型（number）
+    <ul>
+      <li>一切数字都是数值类型（包括二进制，十进制，十六进制等）</li>
+      <li>NaN（not a number），一个非数字</li>
+    </ul>
+  </li>
+  <li>字符串类型（string）
+    <ul>
+      <li>被引号包裹的所有内容（可以是单引号也可以是双引号）</li>
+    </ul>
+  </li>
+  <li>布尔类型（boolean）
+    <ul>
+      <li>只有两个（true 或者 false）</li>
+    </ul>
+  </li>
+  <li>null类型（null）
+    <ul>
+      <li>只有一个，就是 null，表示空的意思</li>
+    </ul>
+  </li>
+  <li>undefined类型（undefined）
+    <ul>
+      <li>只有一个，就是 undefined，表示没有值的意思</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="复杂数据类型暂时先不讲">复杂数据类型（暂时先不讲）</h3>
+
+<ol>
+  <li>对象类型（object）</li>
+  <li>函数类型（function）</li>
+  <li>…</li>
+</ol>
+
+<h2 id="判断数据类型">判断数据类型</h2>
+
+<ul>
+  <li>既然已经把数据分开了类型，那么我们就要知道我们存储的数据是一个什么类型的数据</li>
+  <li>使用 <code class="language-plaintext highlighter-rouge">typeof</code> 关键字来进行判断</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 第一种使用方式</span>
+<span class="kd">var</span> <span class="nx">n1</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">n1</span><span class="p">);</span>
+
+<span class="c1">// 第二种使用方式</span>
+<span class="kd">var</span> <span class="nx">s1</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">abcdefg</span><span class="dl">'</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="nx">s1</span><span class="p">));</span>
+</code></pre></div></div>
+
+<h3 id="判断一个变量是不是数字">判断一个变量是不是数字</h3>
+
+<ul>
+  <li>可以使用 <code class="language-plaintext highlighter-rouge">isNaN</code> 这个方法来判断一个变量是不是数字</li>
+  <li><code class="language-plaintext highlighter-rouge">isNaN</code> ：is not a number</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 如果变量是一个数字</span>
+<span class="kd">var</span> <span class="nx">n1</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">n1</span><span class="p">));</span> <span class="c1">//=&gt; false</span>
+
+<span class="c1">// 如果变量不是一个数字</span>
+<span class="kd">var</span> <span class="nx">s1</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Jack</span><span class="dl">'</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">s1</span><span class="p">));</span> <span class="c1">//=&gt; true</span>
+</code></pre></div></div>
+
+<h2 id="数据类型转换">数据类型转换</h2>
+
+<ul>
+  <li>数据类型之间的转换，比如数字转成字符串，字符串转成布尔，布尔转成数字等</li>
+</ul>
+
+<h3 id="其他数据类型转成数值">其他数据类型转成数值</h3>
+
+<ol>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">Number(变量)</code></p>
+
+    <ul>
+      <li>可以把一个变量强制转换成数值类型</li>
+      <li>可以转换小数，会保留小数</li>
+      <li>可以转换布尔值</li>
+      <li>遇到不可转换的都会返回 NaN</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">parseInt(变量)</code></p>
+
+    <ul>
+      <li>从第一位开始检查，是数字就转换，知道一个不是数字的内容</li>
+      <li>开头就不是数字，那么直接返回 NaN</li>
+      <li>不认识小数点，只能保留整数</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">parseFloat(变量)</code></p>
+
+    <ul>
+      <li>
+        <p>从第一位开始检查，是数字就转换，知道一个不是数字的内容</p>
+      </li>
+      <li>
+        <p>开头就不是数字，那么直接返回 NaN</p>
+      </li>
+      <li>
+        <p>认识一次小数点</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>除了加法以外的数学运算</p>
+
+    <ul>
+      <li>运算符两边都是可运算数字才行</li>
+      <li>如果运算符任何一遍不是一个可运算数字，那么就会返回 NaN</li>
+      <li>加法不可以用</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="其他数据类型转成字符串">其他数据类型转成字符串</h3>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">变量.toString()</code>
+    <ul>
+      <li>有一些数据类型不能使用 <code class="language-plaintext highlighter-rouge">toString()</code> 方法，比如 undefined 和 null</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">String(变量)</code>
+    <ul>
+      <li>所有数据类型都可以</li>
+    </ul>
+  </li>
+  <li>使用加法运算
+    <ul>
+      <li>在 JS 里面，<code class="language-plaintext highlighter-rouge">+</code> 由两个含义</li>
+      <li>字符串拼接： 只要 <code class="language-plaintext highlighter-rouge">+</code> 任意一边是字符串，就会进行字符串拼接</li>
+      <li>加法运算：只有 <code class="language-plaintext highlighter-rouge">+</code> 两边都是数字的时候，才会进行数学运算</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="其他数据类型转成布尔">其他数据类型转成布尔</h3>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">Boolean(变量)</code>
+    <ul>
+      <li>在 js 中，只有 <code class="language-plaintext highlighter-rouge">''</code>、<code class="language-plaintext highlighter-rouge">0</code>、<code class="language-plaintext highlighter-rouge">null</code>、<code class="language-plaintext highlighter-rouge">undefined</code>、<code class="language-plaintext highlighter-rouge">NaN</code>，这些是 false，其余都是 true</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="运算符">运算符</h2>
+
+<ul>
+  <li>就是在代码里面进行运算的时候使用的符号，不光只是数学运算，我们在 js 里面还有很多的运算方式</li>
+</ul>
+
+<h3 id="数学运算符">数学运算符</h3>
+
+<ol>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">+</code></p>
+
+    <ul>
+      <li>只有符号两边都是数字的时候才会进行加法运算</li>
+      <li>只要符号任意一边是字符串类型，就会进行字符串拼接</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">-</code></p>
+
+    <ul>
+      <li>
+        <p>会执行减法运算</p>
+      </li>
+      <li>
+        <p>会自动把两边都转换成数字进行运算</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">*</code></p>
+
+    <ul>
+      <li>会执行乘法运算</li>
+      <li>会自动把两边都转换成数字进行运算</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">/</code></p>
+
+    <ul>
+      <li>会执行除法运算</li>
+      <li>会自动把两边都转换成数字进行运算</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">%</code></p>
+
+    <ul>
+      <li>会执行取余运算</li>
+      <li>会自动把两边都转换成数字进行运算</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="赋值运算符">赋值运算符</h3>
+
+<ol>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">=</code></p>
+
+    <ul>
+      <li>就是把 <code class="language-plaintext highlighter-rouge">=</code> 右边的赋值给等号左边的变量名</li>
+      <li><code class="language-plaintext highlighter-rouge">var num = 100</code></li>
+      <li>就是把 100 赋值给 num 变量</li>
+      <li>那么 num 变量的值就是 100</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">+=</code></p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">a</span> <span class="o">+=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span> <span class="c1">//=&gt; 20</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">a += 10</code> 等价于 <code class="language-plaintext highlighter-rouge">a = a + 10</code></li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">-=</code></p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">a</span> <span class="o">-=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span> <span class="c1">//=&gt; 0</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">a -= 10</code> 等价于 <code class="language-plaintext highlighter-rouge">a = a - 10</code></li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">*=</code></p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">a</span> <span class="o">*=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span> <span class="c1">//=&gt; 100</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">a *= 10</code> 等价于 <code class="language-plaintext highlighter-rouge">a = a * 10</code></li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">/+</code></p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">a</span> <span class="o">/=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span> <span class="c1">//=&gt; 1</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">a /= 10</code> 等价于 <code class="language-plaintext highlighter-rouge">a = a / 10</code></li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">%=</code></p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">a</span> <span class="o">%=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span> <span class="c1">//=&gt; 0</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">a %= 10</code> 等价于 <code class="language-plaintext highlighter-rouge">a = a % 10</code></li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="比较运算符">比较运算符</h3>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">==</code>
+    <ul>
+      <li>比较符号两边的值是否相等，不管数据类型</li>
+      <li><code class="language-plaintext highlighter-rouge">1 == '1'</code></li>
+      <li>两个的值是一样的，所以得到 true</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">===</code>
+    <ul>
+      <li>比较符号两边的值和数据类型是否都相等</li>
+      <li><code class="language-plaintext highlighter-rouge">1 === '1'</code></li>
+      <li>两个值虽然一样，但是因为数据类型不一样，所以得到 false</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">!=</code>
+    <ul>
+      <li>比较符号两边的值是否不等</li>
+      <li><code class="language-plaintext highlighter-rouge">1 != '1'</code></li>
+      <li>因为两边的值是相等的，所以比较他们不等的时候得到 false</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">!==</code>
+    <ul>
+      <li>比较符号两边的数据类型和值是否不等</li>
+      <li><code class="language-plaintext highlighter-rouge">1 !== '1'</code></li>
+      <li>因为两边的数据类型确实不一样，所以得到 true</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">&gt;=</code>
+    <ul>
+      <li>比较左边的值是否 大于或等于 右边的值</li>
+      <li><code class="language-plaintext highlighter-rouge">1 &gt;= 1</code>  true</li>
+      <li><code class="language-plaintext highlighter-rouge">1 &gt;= 0</code>  true</li>
+      <li><code class="language-plaintext highlighter-rouge">1 &gt;= 2</code>  false</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;=</code>
+    <ul>
+      <li>比较左边的值是否 小于或等于 右边的值</li>
+      <li><code class="language-plaintext highlighter-rouge">1 &lt;= 2</code>  true</li>
+      <li><code class="language-plaintext highlighter-rouge">1 &lt;= 1</code>  true</li>
+      <li><code class="language-plaintext highlighter-rouge">1 &lt;= 0</code>  false</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">&gt;</code>
+    <ul>
+      <li>比较左边的值是否 大于 右边的值</li>
+      <li><code class="language-plaintext highlighter-rouge">1 &gt; 0</code>  true</li>
+      <li><code class="language-plaintext highlighter-rouge">1 &gt; 1</code>  false</li>
+      <li><code class="language-plaintext highlighter-rouge">1 &gt; 2</code>  false</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;</code>
+    <ul>
+      <li>比较左边的值是否 小于 右边的值</li>
+      <li><code class="language-plaintext highlighter-rouge">1 &lt; 2</code>  true</li>
+      <li><code class="language-plaintext highlighter-rouge">1 &lt; 1</code> false</li>
+      <li><code class="language-plaintext highlighter-rouge">1 &lt; 0</code> false</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="逻辑运算符">逻辑运算符</h3>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">&amp;&amp;</code>
+    <ul>
+      <li>进行 且 的运算</li>
+      <li>符号左边必须为 true 并且右边也是 true，才会返回 true</li>
+      <li>只要有一边不是 true，那么就会返回 false</li>
+      <li><code class="language-plaintext highlighter-rouge">true &amp;&amp; true</code>  true</li>
+      <li><code class="language-plaintext highlighter-rouge">true &amp;&amp; false</code>  false</li>
+      <li><code class="language-plaintext highlighter-rouge">false &amp;&amp; true</code>  false</li>
+      <li><code class="language-plaintext highlighter-rouge">false &amp;&amp; false</code>  false</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">||</code>
+    <ul>
+      <li>进行 或 的运算</li>
+      <li>符号的左边为 true 或者右边为 true，都会返回 true</li>
+      <li>只有两边都是 false 的时候才会返回 false</li>
+      <li><code class="language-plaintext highlighter-rouge">true || true</code>  true</li>
+      <li><code class="language-plaintext highlighter-rouge">true || false</code>  true</li>
+      <li><code class="language-plaintext highlighter-rouge">false || true</code>  true</li>
+      <li><code class="language-plaintext highlighter-rouge">false || false</code>  false</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">!</code>
+    <ul>
+      <li>进行 取反 运算</li>
+      <li>本身是 true 的，会变成 false</li>
+      <li>本身是 false 的，会变成 true</li>
+      <li><code class="language-plaintext highlighter-rouge">!true</code>  false</li>
+      <li><code class="language-plaintext highlighter-rouge">!false</code>  true</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="自增自减运算符一元运算符">自增自减运算符（一元运算符）</h3>
+
+<ol>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">++</code></p>
+
+    <ul>
+      <li>
+        <p>进行自增运算</p>
+      </li>
+      <li>
+        <p>分成两种，<strong>前置++</strong> 和 <strong>后置++</strong></p>
+      </li>
+      <li>
+        <p>前置++，会先把值自动 +1，在返回</p>
+
+        <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="o">++</span><span class="nx">a</span><span class="p">);</span>
+<span class="c1">// 会返回 11，并且把 a 的值变成 11</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>后置++，会先把值返回，在自动+1</p>
+
+        <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="o">++</span><span class="p">);</span>
+<span class="c1">// 会返回 10，然后把 a 的值变成 11</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">--</code></p>
+
+    <ul>
+      <li>进行自减运算</li>
+      <li>分成两种，<strong>前置–</strong> 和 <strong>后置–</strong></li>
+      <li>和 <code class="language-plaintext highlighter-rouge">++</code> 运算符道理一样</li>
+    </ul>
+  </li>
+</ol>
+
+
+        </div>
+  
+      </article>
+        
+      <!-- 评论 -->
+      <div class="comments" id="comments">
+  <div class="title">评论留言：</div>
+  <div class="textareaDiv">
+    <textarea id="publishedInp" rows="3" cols="20"></textarea>
+    <div class="butDiv">
+      <div class="nicknameDiv">
+        昵称：
+        <input id="nickname" type="text" placeholder="游客">
+      </div>
+      <button id="publishedBut">发表评论</button>
+    </div>
+  </div>
+  <div class="commentsDiv" id="commentsDiv">
+    <!-- <div class="commentsItem">
+      <div class="headPortrait"></div>
+      <div class="right">
+        <span class="userName">
+          游客：
+        </span>
+        <span class="content">
+          评论评论评论评论评论评论评论评论评论评论评论评论评论
+        </span>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+<script>
+  const xhr = new XMLHttpRequest()
+  const xhrUrl = 'http://123.56.54.241:23000'
+  // const xhrUrl = 'https://www.kuaidaowanlilai.xyz'
+  // const xhrUrl = 'http://localhost:23000'
+
+  //发表评论
+  let publishedBut = document.querySelector('#publishedBut')
+  publishedBut.addEventListener('click', function () {
+    let publishedInp = document.querySelector('#publishedInp')
+    if (publishedInp.value) {
+      xhr.open('post', `${xhrUrl}/published`)
+      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+      xhr.send(JSON.stringify({
+        username: document.querySelector('#nickname').value,
+        blogUrl: window.location.pathname,
+        content: publishedInp.value
+      }))
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
+          //打印 xhr.responseText 来查看服务端给我们返回的内容
+          console.log('发表评论返回信息', xhr.responseText)
+          requestData()
+          publishedInp.value = ''
+        }
+      }
+    }else {
+      console.log('评论内容为空')
+    }
+  })
+
+  //请求渲染评论
+  requestData()
+  function requestData() {
+    xhr.open('post', `${xhrUrl}/comments`)
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+    xhr.send(JSON.stringify({
+      blogUrl: window.location.pathname
+    }))
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
+        //打印 xhr.responseText 来查看服务端给我们返回的内容
+        applyColours(JSON.parse(xhr.responseText))
+      }
+    }
+    function applyColours(data) {
+      let htmlStr = ''
+      for (let i = 0; i < data.length; i++) {
+        htmlStr += `
+      <div class="commentsItem">
+        <div class="headPortrait"></div>
+        <div class="right">
+          <span class="userName">
+            ${data[i].username}：
+          </span>
+          <span class="content">
+            ${data[i].content}
+          </span>
+        </div>
+      </div>`
+      }
+      document.querySelector('#commentsDiv').innerHTML = htmlStr
+    }
+  }
+</script>
+<style>
+  .comments {
+    width: 100%;
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+    padding: 10px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #333;
+  }
+
+  .comments .title {
+    color: #444;
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+
+  .comments .textareaDiv .butDiv {
+    text-align: right;
+  }
+
+  .comments .textareaDiv textarea {
+    border-radius: 3px;
+    width: calc(100% - 6px);
+    outline: none
+  }
+
+  .comments .textareaDiv .butDiv .nicknameDiv {
+    font-size: 14px;
+    display: inline-block;
+  }
+
+  .comments .textareaDiv .butDiv .nicknameDiv input {
+    width: 70px;
+    border: 1px solid rgb(189, 189, 189);
+    outline: none;
+    border-radius: 2px;
+  }
+
+  .comments .textareaDiv .butDiv button {
+    cursor: pointer;
+  }
+
+  .comments .commentsDiv {
+    margin-top: 5px;
+  }
+
+  .comments .commentsDiv .commentsItem {
+    font-size: 14px;
+    display: flex;
+    border-top: 1px solid rgb(240, 240, 240);
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .comments .commentsDiv .commentsItem .headPortrait {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: rgb(191, 226, 250);
+    margin-left: 5px;
+  }
+
+  .comments .commentsDiv .commentsItem .right {
+    width: calc(100% - 35px);
+    margin-left: 10px;
+  }
+
+  .comments .commentsDiv .commentsItem .right .userName {
+    color: #555666;
+  }
+
+  .comments .commentsDiv .commentsItem .right .content {
+    color: #222226;
+  }
+</style>
+
+    </div>
+    <div class="directory">
+      <div class="directory_header">全部文章</div>
+      <div style="margin-top:5px;">
+        
+        <div class="directory_title">
+          <a href="/%E8%BD%AC%E8%BD%BD/2020/12/16/JavaScript-%E9%82%A3%E4%BA%9B%E5%86%99%E5%87%BA%E6%9D%A5%E4%BC%9A%E8%A2%AB%E5%90%8C%E4%BA%8B%E6%8F%8D%E7%9A%84%E9%AA%9A%E6%93%8D%E4%BD%9C.html" 
+            
+          >
+            JavaScript 那些写出来会被同事揍的骚操作
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/css%E9%BB%91%E7%A7%91%E6%8A%80/2020/10/19/IE%E6%B5%8F%E8%A7%88%E5%99%A8%E5%A4%9A%E8%A1%8C%E6%96%87%E5%AD%97%E6%BA%A2%E5%87%BA%E6%98%BE%E7%A4%BA%E7%9C%81%E7%95%A5%E5%8F%B7.html" 
+            
+          >
+            IE浏览器多行文字溢出显示省略号
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/09/06/GIT%E5%92%8CGITHUB.html" 
+            
+          >
+            GIT和GITHUB
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/30/GULP.html" 
+            
+          >
+            GULP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/23/SASS.html" 
+            
+          >
+            SASS
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/15/NODE%E4%BB%8B%E7%BB%8D.html" 
+            
+          >
+            NODE介绍
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/09/jQuery-%E4%B8%8B.html" 
+            
+          >
+            jQuery（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/02/jQuery-%E4%B8%AD.html" 
+            
+          >
+            jQuery（中）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/26/jQuery-%E4%B8%8A.html" 
+            
+          >
+            jQuery（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/19/Set%E5%92%8CMap.html" 
+            
+          >
+            Set和Map
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/12/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html" 
+            
+          >
+            设计模式
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/04/%E7%BB%A7%E6%89%BF.html" 
+            
+          >
+            继承
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/27/%E9%97%AD%E5%8C%85.html" 
+            
+          >
+            闭包
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/20/Promise.html" 
+            
+          >
+            Promise
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/14/%E5%B0%81%E8%A3%85AJAX.html" 
+            
+          >
+            封装AJAX
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/07/AJAX.html" 
+            
+          >
+            AJAX
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/31/COOKIE.html" 
+            
+          >
+            COOKIE
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/23/HTTP.html" 
+            
+          >
+            HTTP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/17/PHP.html" 
+            
+          >
+            PHP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/10/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.html" 
+            
+          >
+            面向对象
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/02/ES5%E5%92%8CES6.html" 
+            
+          >
+            ES5和ES6
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/19/%E6%AD%A3%E5%88%99.html" 
+            
+          >
+            正则
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/12/EVENT-%E4%B8%8B.html" 
+            
+          >
+            EVENT（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/04/EVENT-%E4%B8%8A.html" 
+            
+          >
+            EVENT（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/29/DOM-%E4%B8%8B.html" 
+            
+          >
+            DOM（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/22/DOM-%E4%B8%8A.html" 
+            
+          >
+            DOM（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/14/BOM.html" 
+            
+          >
+            BOM
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/08/Date.html" 
+            
+          >
+            Date
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/01/Math.html" 
+            
+          >
+            Math
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/23/%E5%AD%97%E7%AC%A6%E4%B8%B2.html" 
+            
+          >
+            字符串
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/16/ES5.html" 
+            
+          >
+            ES5
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/09/%E6%95%B0%E7%BB%84.html" 
+            
+          >
+            数组
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/01/12/%E5%87%BD%E6%95%B0-%E4%B8%8B.html" 
+            
+          >
+            函数（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/01/05/%E5%87%BD%E6%95%B0-%E4%B8%8A.html" 
+            
+          >
+            函数（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/29/%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84.html" 
+            
+          >
+            循环结构
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/22/%E5%88%86%E6%94%AF%E7%BB%93%E6%9E%84.html" 
+            
+          >
+            分支结构
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/15/JavaScript%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95.html" 
+            
+            style="color:#5094d5;"
+            
+          >
+            JavaScript基础语法
+          </a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</main>
+<style>
+  @media screen and (min-width: 1200px) {
+    .blogMain {
+      background-color: #f3f4f6;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .wrapper {
+      max-width: calc(1200px - (10px * 2));
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .blogMain .wrapper .post {
+      width: 800px;
+      padding: 20px 20px;
+      background-color: #fff;
+      box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+    }
+
+    .blogMain .wrapper .directory {
+      width: 330px;
+      /* border: 1px solid #999; */
+      background-color: #fff;
+      float: left;
+      box-sizing: border-box;
+      box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+      font-size: 14px;
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'SimHei', 'Arial', 'SimSun';
+      padding-bottom: 5px;
+    }
+
+    .blogMain .wrapper .directory .directory_header {
+      line-height: 28px;
+      background-color: #fca60b;
+      padding: 0 10px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .blogMain .wrapper .directory .directory_title {
+      padding: 0 15px;
+      line-height: 26px;
+      color: #555666;
+    }
+
+    .blogMain .wrapper .directory .directory_title a {
+      color: #555666;
+      text-decoration: none
+    }
+
+    .blogMain .wrapper .directory .directory_title a:hover {
+      color: #5094d5;
+    }
+    .blogMain .wrapper .leftContent{
+      float: right;
+    }
+    .blogMain .wrapper .leftContent:after {
+      content:""; 
+      display: block; 
+      clear:both; 
+    }
+  }
+</style>
+
+  <footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+  <div class="wrapper">
+    <h2 class="footer-heading">徐hào的博客</h2>
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">徐hào的博客</li>
+          <li><a class="u-email" href="mailto:xh642508924@163.com">xh642508924@163.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          <li><a href="https://github.com/jekyll"><svg class="svg-icon">
+                <use xlink:href="/assets/minima-social-icons.svg#github"></use>
+              </svg> <span class="username">jekyll</span></a></li>
+          <li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon">
+                <use xlink:href="/assets/minima-social-icons.svg#twitter"></use>
+              </svg> <span class="username">jekyllrb</span></a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-3">
+        <p>I am a front-end engineer and have been engaged in front-end development for three years...</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <!-- 定位到评论留言 -->
+  
+<style>
+  .toCommentsDiv{
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    position: fixed;
+    right: 20px;
+    bottom: 120px;
+    cursor: pointer;
+    box-shadow: 0 0 5px #888888;
+    border-radius: 50%;
+    box-sizing: border-box;
+    padding: 10px 0 0 10px;
+  }
+</style>
+<a href="#comments">
+  <div class="toCommentsDiv" title="查看评论留言">
+    <svg t="1603851166634" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3420" width="30" height="30"><path d="M896 138.66666667H128c-38.4 0-64 25.6-64 64V746.66666667c0 38.4 25.6 64 64 64h128v128c83.2 0 166.4-44.8 256-128h384c38.4 0 64-25.6 64-64V202.66666667c0-38.4-25.6-64-64-64z m0 608H486.4l-19.2 19.2c-51.2 51.2-102.4 83.2-147.2 96V746.66666667H128V202.66666667h768V746.66666667z" p-id="3421" fill="#707070"></path><path d="M320 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3422" fill="#707070"></path><path d="M512 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3423" fill="#707070"></path><path d="M704 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3424" fill="#707070"></path></svg>
+  </div>
+</a>
+
+  <!-- 回到顶部 -->
+  
+<style>
+  .toTopDiv{
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    position: fixed;
+    right: 20px;
+    bottom: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 5px #888888;
+    border-radius: 50%;
+    box-sizing: border-box;
+    padding: 10px 0 0 10px;
+    display: none;
+  }
+</style>
+<div class="toTopDiv" title="回到顶部">
+  <svg t="1604044629111" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1093" width="30" height="30"><path d="M866.7 96H157.3c-17.8 0-32.2 14.4-32.2 32.2 0 17.8 14.4 32.2 32.2 32.2h709.5c17.8 0 32.2-14.4 32.2-32.2 0-17.8-14.4-32.2-32.3-32.2zM512 225c-16.5 0-33 6.3-45.6 18.9L169.9 540.3c-5.8 5.8-9.4 13.9-9.4 22.8s3.6 17 9.4 22.8c5.8 5.8 13.9 9.4 22.8 9.4s17-3.6 22.8-9.4l264.2-264.2v574c0 17.8 14.4 32.2 32.2 32.2 17.8 0 32.2-14.4 32.2-32.2v-574l264.2 264.2c5.8 5.8 13.9 9.4 22.8 9.4s17-3.6 22.8-9.4c5.8-5.8 9.4-13.9 9.4-22.8s-3.6-17-9.4-22.8L557.6 243.9C545 231.3 528.5 225 512 225z" p-id="1094" fill="#707070"></path></svg>
+</div>
+<script>
+  let htmlDiv = document.documentElement
+  let toTopDiv = document.querySelector('.toTopDiv')
+
+  document.addEventListener('scroll', () => {
+    if(htmlDiv.scrollTop > 1000){
+      toTopDiv.style.display = 'block'
+    }else{
+      toTopDiv.style.display = 'none'
+    }
+  })
+
+  toTopDiv.addEventListener('click', () => {
+    let scrollTop = htmlDiv.scrollTop
+    let interval = setInterval(() => {
+      htmlDiv.scrollTop -= 100
+      if(htmlDiv.scrollTop <= 0){
+        clearInterval(interval)
+      }
+    }, 5)
+  })
+</script>
+
+</body>
+
+</html>

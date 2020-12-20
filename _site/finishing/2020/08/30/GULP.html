@@ -1,0 +1,2813 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>GULP | 徐hào的博客</title>
+  
+  <link rel="stylesheet" href="/assets/main.css">
+  <style>
+    .bottomLine {
+      color: #999;
+      font-size: 13px;
+    }
+
+    /* 滚动条样式设置 */
+    @media screen and (min-width: 600px) {
+      *::-webkit-scrollbar {
+        width: 10px;
+        height: 6px;
+      }
+      *::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.5);
+      }
+      *::-webkit-scrollbar-track {
+        background-color: #fff;
+      }
+    }
+    /* 滚动条样式设置 end */
+  </style>
+</head>
+
+<script>//remove baidu search ad
+  var _countAA = 0
+  function doBBBd() {
+    var alla = document.getElementsByTagName('a')
+    for (var i = 0; i < alla.length; i++) {
+      if (/baidu.com\/(baidu.php\?url=|adrc.php\?t)/.test(alla[i].href)) {
+        var _temp = alla[i].parentElement, loop = 0
+        while (loop < 5) {
+          _temp = _temp.parentElement
+          loop++
+          if (_temp.parentElement.id == 'content_left') {
+            _temp.remove()
+            break
+          }
+        }
+      }
+    }
+
+    if (_countAA++ < 20) {
+      setTimeout(doBBBd, 500)
+    }
+
+  }
+  doBBBd()
+  document.addEventListener('keyup', function () { _countAA -= 10; doBBBd() }, false)
+  document.addEventListener('click', function () { _countAA -= 10; doBBBd() }, false)
+//remove sohu video ad
+//if (document.URL.indexOf("tv.sohu.com") >= 0){
+//    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+//}
+//remove 56.com video ad
+//if (document.URL.indexOf("56.com") >= 0){
+//    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+//}
+</script>
+
+<body>
+  <header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">徐hào的博客</a>
+    <nav class="site-nav navDiv">
+      <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+      <label for="nav-trigger">
+        <span class="menu-icon">
+          <svg viewBox="0 0 18 15" width="18px" height="15px">
+            <path
+              d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z" />
+          </svg>
+        </span>
+      </label>
+      <!-- <div class="trigger"><a class="page-link" href="/jsVideo/">JS视频教程</a></div> -->
+      <!-- <div class="trigger"><a class="page-link" href="/myGame/">小游戏</a></div> -->
+      <div class="trigger"><a class="page-link" href="/about/">关于我</a></div>
+      <!-- <div class="trigger"><a class="page-link" href="/about/">其他</a></div> -->
+    </nav>
+  </div>
+</header>
+<style>
+  @media screen and (min-width: 600px) {
+    .navDiv {
+      display: flex;
+    }
+
+    .navDiv .trigger {
+      margin-left: 20px;
+    }
+  }
+</style>
+
+  <main class="page-content blogMain" aria-label="Content">
+  <div class="wrapper">
+    <div class="leftContent">
+      <article class="post h-entry" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+          <h1 class="post-title p-name" itemprop="name headline">GULP</h1>
+          <p class="post-meta">
+            <time class="dt-published" datetime="2020-09-29T09:00:00+08:00" itemprop="datePublished">
+              Aug 30, 2020 &nbsp; 字数:8546
+            </time>
+          </p>
+        </header>
+        <div class="post-content e-content" itemprop="articleBody">
+          <h1 id="gulp">GULP</h1>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">gulp</code> 是一个项目开发的 <strong>自动化打包构建工具</strong></li>
+  <li>基于 <code class="language-plaintext highlighter-rouge">node</code> 环境来运行的</li>
+</ul>
+
+<h2 id="什么是自动化打包工具">什么是自动化打包工具</h2>
+
+<ul>
+  <li>
+    <p>比如</p>
+
+    <blockquote>
+      <p>我们在开发的过程中，会写到 <code class="language-plaintext highlighter-rouge">js</code> 文件，<code class="language-plaintext highlighter-rouge">css</code> 文件，等等</p>
+
+      <p>我们的项目如果想上线，那么一定要体积小一点，文件大小越小越好</p>
+
+      <p>而我们在写 <code class="language-plaintext highlighter-rouge">js</code> 文件的时候，会有很多 <strong>换行/空格</strong> 之类的东西</p>
+
+      <p>这些 <strong>换行/空格</strong> 都是占文件体积的一部分</p>
+
+      <p>那么我们在上线之前就要吧这些 <strong>换行/空格</strong> 尽可能的删除掉</p>
+
+      <p>我们又不能一个文件一个文件的去删除</p>
+
+      <p>就要用到一个自动化工具来帮助我们把这些多余的东西干掉</p>
+    </blockquote>
+  </li>
+  <li>这个就是自动化工具的意义</li>
+  <li>常见的自动化打包构建工具
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">gulp</code></li>
+      <li><code class="language-plaintext highlighter-rouge">webpack</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="安装-gulp-环境">安装 GULP 环境</h2>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">gulp</code> 也是一个运行环境</p>
+  </li>
+  <li>
+    <p>只不过这个环境是要依赖于 <code class="language-plaintext highlighter-rouge">node</code> 环境的</p>
+  </li>
+  <li>
+    <p>所以我们在安装 <code class="language-plaintext highlighter-rouge">gulp</code> 环境之前确保 <code class="language-plaintext highlighter-rouge">node</code> 环境已经安装</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">$ node --version</code></li>
+      <li><code class="language-plaintext highlighter-rouge">$ npm --version</code></li>
+    </ul>
+  </li>
+  <li>
+    <p>之所以也要检测以下 <code class="language-plaintext highlighter-rouge">npm</code> 环境，是因为我们要使用 <code class="language-plaintext highlighter-rouge">npm</code> 来安装 <code class="language-plaintext highlighter-rouge">gulp</code> 环境</p>
+  </li>
+  <li>
+    <p>我们就直接安装一个 <code class="language-plaintext highlighter-rouge">gulp</code> 全局包就可以了</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 打开命令行（MAC 打开终端）</span>
+<span class="c"># 直接使用 npm 安装就好</span>
+
+<span class="c"># windows 指令</span>
+<span class="nv">$ </span>npm <span class="nb">install</span> <span class="nt">--global</span> gulp
+<span class="c"># MAC 指令</span>
+<span class="nv">$ </span><span class="nb">sudo </span>npm <span class="nb">install</span> <span class="nt">--global</span> gulp
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>等待安装就好，会默认安装最新的稳定版本</p>
+  </li>
+  <li>
+    <p>要是想确认以下 <code class="language-plaintext highlighter-rouge">gulp</code> 安装成功</p>
+  </li>
+  <li>
+    <p>可以直接在命令行（终端）使用指令查看以下版本号就可以</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">$ gulp --version</code></li>
+      <li>会出现一个 <code class="language-plaintext highlighter-rouge">CLI version: x.x.x</code></li>
+      <li>就表示安装成功了</li>
+    </ul>
+  </li>
+  <li>
+    <p>安装好 <code class="language-plaintext highlighter-rouge">gulp</code> 环境以后，我们就可以使用了</p>
+  </li>
+</ul>
+
+<h2 id="为什么要使用-gulp">为什么要使用 gulp</h2>
+
+<ul>
+  <li>
+    <p>就是为了在我们的开发过程中</p>
+
+    <blockquote>
+      <p>随着我们书写代码，就会自动帮我们把代码进行 <strong>压缩/合并/混淆/转码/…</strong> 之类的功能</p>
+
+      <p>因为 <code class="language-plaintext highlighter-rouge">gulp</code> 是基于 <code class="language-plaintext highlighter-rouge">node</code> 环境运行的，所以可以给我们提供一个服务器</p>
+
+      <p>让我们的项目启动在 <strong>服务器</strong> 上，就可以达到一个 <strong>自动刷新自动同步</strong> 的功能</p>
+
+      <p>因为有 <strong>服务器</strong> 的出现，我们在请求一些数据的时候，就可以使用 <strong>服务器代理</strong> 的方式</p>
+    </blockquote>
+  </li>
+  <li>在我们使用 <code class="language-plaintext highlighter-rouge">gulp</code> 的时候，我们所有的 <strong>源代码</strong> 都会使用 <code class="language-plaintext highlighter-rouge">gulp</code> 进行 压缩/转码</li>
+  <li>
+    <p>并且最终会给我们放在一个新的文件夹里面</p>
+
+    <ul>
+      <li>也就是说，我们的 <strong>源代码</strong> 在一个文件夹里面，压缩/转码 之后的所有文件在一个文件夹里面</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="使用-gulp">使用 GULP</h2>
+
+<ul>
+  <li>我们的 <code class="language-plaintext highlighter-rouge">gulp</code> 环境已经安装完毕了，接下来我们就使用 <code class="language-plaintext highlighter-rouge">gulp</code> 对我们的项目进行打包了</li>
+</ul>
+
+<h3 id="1-创建一个项目">1. 创建一个项目</h3>
+
+<ul>
+  <li>
+    <p>我们要使用 <code class="language-plaintext highlighter-rouge">gulp</code> 管理我们的项目</p>
+  </li>
+  <li>
+    <p>首先，我们要有一个项目出现</p>
+  </li>
+  <li>
+    <p>这里我会创建一个叫做 <code class="language-plaintext highlighter-rouge">gulp_test</code> 的文件夹作为我的项目文件夹</p>
+  </li>
+  <li>
+    <p>因为我们是做一个 <strong>项目</strong>，肯定也会下载依赖包，所以最好是使用 <code class="language-plaintext highlighter-rouge">npm</code> 管理一下</p>
+  </li>
+  <li>
+    <p>先做一个 <code class="language-plaintext highlighter-rouge">$ npm init</code> 初始化一下</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 进入项目文件夹</span>
+<span class="nv">$ </span><span class="nb">cd </span>gulp_test
+<span class="c"># 使用 npm 管理我们的项目</span>
+<span class="nv">$ </span>npm init <span class="nt">-y</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>接下来，我们就要决定我们 <strong>源代码的目录结构</strong></p>
+  </li>
+  <li>
+    <p><strong>在项目目录里面创建一个叫做 <code class="language-plaintext highlighter-rouge">gulpfile.js</code> 的文件</strong></p>
+
+    <blockquote>
+      <p>这个文件是 <code class="language-plaintext highlighter-rouge">gulp</code> 在运行的时候的规则文件</p>
+
+      <p><code class="language-plaintext highlighter-rouge">gulp</code> 的运行就是按照你书写在 <code class="language-plaintext highlighter-rouge">gulpfile.js</code> 文件中的规则来进行打包的</p>
+
+      <p>比如我们要定义：</p>
+
+      <ul>
+        <li>
+          <p>哪些文件按照 <code class="language-plaintext highlighter-rouge">css</code> 文件来打包</p>
+        </li>
+        <li>
+          <p>哪些文件按照 <code class="language-plaintext highlighter-rouge">js</code> 文件来打包</p>
+        </li>
+        <li>
+          <p>不同的文件有不同的打包规则</p>
+        </li>
+      </ul>
+
+      <p>因为每一个项目的目录结构都可能不一样</p>
+
+      <p>所以，每一个项目都会有一个自己的 <code class="language-plaintext highlighter-rouge">gulpfile.js</code> 文件，来指定自己的规则</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>我会准备一个叫做 <code class="language-plaintext highlighter-rouge">src</code> 的目录，作为我所有的源代码</p>
+
+    <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- gulp_text             项目文件夹
+  - src					项目源代码目录
+    + css				存放 css 所有文件
+    + data				存放数据文件
+    + js				存放 js 所有文件
+    + lib				存放一些第三方和公共资源（swiper/utils/...）
+    + pages				存放所有页面
+    + sass   			存放 sass 所有文件
+    - static			存放所有静态资源文件
+      + audios          存放所有音频文件
+      + images			存放所有图片文件
+      + videos			存放所有视频文件
+  - gulpfile.js         该项目的 gulp 打包规则
+  - package.json        npm 的项目管理文件
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="2-在项目里面下载-gulp">2. 在项目里面下载 gulp</h3>
+
+<ul>
+  <li>
+    <p>刚才我们安装过一回全局的 <code class="language-plaintext highlighter-rouge">gulp</code> 了</p>
+  </li>
+  <li>
+    <p>它只是给我们的电脑提供一个可以运行 <code class="language-plaintext highlighter-rouge">gulp</code> 命令的环境</p>
+  </li>
+  <li>
+    <p>我们的项目要是想使用 <code class="language-plaintext highlighter-rouge">gulp</code> 工具，那么我们需要在项目里面下载项目依赖 <code class="language-plaintext highlighter-rouge">gulp</code></p>
+  </li>
+  <li>
+    <p>我们先下载一个项目依赖 <code class="language-plaintext highlighter-rouge">gulp</code></p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 下载项目依赖 gulp</span>
+<span class="nv">$ </span>npm <span class="nb">install</span> <span class="nt">--save-dev</span> gulp
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>下载完毕以后在 <code class="language-plaintext highlighter-rouge">package.json</code> 文件里面就会有相应的记录了</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"devDependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"gulp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^4.0.2"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <ul>
+      <li>我们会看到我们安装的是 <code class="language-plaintext highlighter-rouge">gulp@4.0.2</code> 的版本</li>
+      <li>这个是目前比较新的比较稳定的版本</li>
+    </ul>
+  </li>
+  <li>
+    <p>然后我们在 <code class="language-plaintext highlighter-rouge">gulpfile.js</code> 文件里面引入 <code class="language-plaintext highlighter-rouge">gulp</code> 依赖</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// gulpfile.js</span>
+
+<span class="c1">// 引入 gulp 依赖</span>
+<span class="kd">const</span> <span class="nx">gulp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp</span><span class="dl">'</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>接下来，我们就可以开始指定我们的打包规则了</p>
+  </li>
+</ul>
+
+<h3 id="3-gulp的几个常用-api">3. GULP的几个常用 API</h3>
+
+<ul>
+  <li>
+    <p>首先，我们要知道，<code class="language-plaintext highlighter-rouge">gulp</code> 是靠 <strong>任务</strong> 来进行对代码的打包的</p>
+
+    <blockquote>
+      <p>比如</p>
+
+      <ul>
+        <li>
+          <p>我们指定一个打包 <code class="language-plaintext highlighter-rouge">css</code> 的任务</p>
+        </li>
+        <li>
+          <p>我们制定一个打包 <code class="language-plaintext highlighter-rouge">js</code> 的任务</p>
+        </li>
+      </ul>
+
+      <p>我们将来一执行这个 <code class="language-plaintext highlighter-rouge">css</code> 任务，就会把 <code class="language-plaintext highlighter-rouge">css</code> 代码压缩了</p>
+
+      <p>我们对于我们的所有文件，只要创建好一个一个的任务，然后让他们依次执行就行了</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>接下来，我们就来说一下 <code class="language-plaintext highlighter-rouge">gulp</code> 中几个常见的 <code class="language-plaintext highlighter-rouge">api</code></p>
+    <ol>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">gulp.task()</code>：用于创建任务</p>
+
+        <blockquote>
+          <p><code class="language-plaintext highlighter-rouge">task('css', function () {})</code></p>
+
+          <p>第一个参数： 这个任务叫做什么名字</p>
+
+          <p>第二个参数： 这个任务都做什么事情</p>
+        </blockquote>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">gulp.src()</code>：匹配文件，也就是我们要操作哪些文件
+        <blockquote>
+
+          <p><code class="language-plaintext highlighter-rouge">src('./src/css/**')</code></p>
+
+          <p>第一个参数： 就是要匹配的文件的路径（可以有多种形式）</p>
+
+          <ul>
+            <li>
+              <p><code class="language-plaintext highlighter-rouge">./src/css/index.css</code>：匹配一个文件</p>
+            </li>
+            <li>
+              <p><code class="language-plaintext highlighter-rouge">./src/css/*.css</code>：匹配 <code class="language-plaintext highlighter-rouge">css</code> 文件夹下的所有后缀是 <code class="language-plaintext highlighter-rouge">.css</code> 的文件</p>
+            </li>
+            <li>
+              <p><code class="language-plaintext highlighter-rouge">./src/css/**</code>：匹配 <code class="language-plaintext highlighter-rouge">css</code> 文件夹下的所有文件</p>
+            </li>
+            <li>
+              <p><code class="language-plaintext highlighter-rouge">./src/**/*.css</code>： 匹配 <code class="language-plaintext highlighter-rouge">src</code> 下所有目录下的 <code class="language-plaintext highlighter-rouge">.css</code> 后缀的文件</p>
+            </li>
+            <li>
+              <p>这是几个我们常用的，还有很多其他的方式</p>
+            </li>
+            <li>
+              <p>需要学习，可以参考</p>
+
+              <ul>
+                <li>
+                  <p><a href="https://www.gulpjs.com.cn/docs/api/src/">官方文档</a></p>
+                </li>
+                <li>
+                  <p><a href="https://blog.csdn.net/wildye/article/details/80516847">CSDN</a></p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </blockquote>
+      </li>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">gulp.pipe()</code>：管道函数，用于帮我们做事</p>
+
+        <blockquote>
+          <p><code class="language-plaintext highlighter-rouge">pipe(压缩css)</code></p>
+
+          <p>参数可以是各种插件，就是用来帮我们做事情的</p>
+
+          <ul>
+            <li>
+              <p>比如可以做一个给 <code class="language-plaintext highlighter-rouge">css</code> 属性自动添加前缀的事情</p>
+            </li>
+            <li>
+              <p>做一个压缩 <code class="language-plaintext highlighter-rouge">css</code> 文件的事情</p>
+            </li>
+            <li>
+              <p>等等…</p>
+            </li>
+          </ul>
+        </blockquote>
+      </li>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">gulp.dest()</code>：用于讲文件写入的</p>
+
+        <blockquote>
+          <p><code class="language-plaintext highlighter-rouge">dest('./dist')</code></p>
+
+          <p>第一个参数： 一个目录地址</p>
+
+          <p>只要是用来把我们压缩好的文件写入哪个文件夹里面</p>
+
+          <p>如果该文件夹不存在，会自动创建这个文件夹</p>
+        </blockquote>
+      </li>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">gulp.series()</code>：gulp 的任务执行链</p>
+
+        <blockquote>
+          <p><code class="language-plaintext highlighter-rouge">series()</code></p>
+
+          <p>可以填写很多个参数，每一个参数就是一个任务名称</p>
+
+          <p>会按照你书写的顺序去执行任务</p>
+
+          <ul>
+            <li>
+              <p>书写方式就是按照任务名分开就好</p>
+            </li>
+            <li>
+              <p><code class="language-plaintext highlighter-rouge">gulp.series('css', 'js')</code></p>
+            </li>
+            <li>
+              <p>就会先执行一个 <code class="language-plaintext highlighter-rouge">css</code> 任务，执行完毕之后再去执行 <code class="language-plaintext highlighter-rouge">js</code> 任务</p>
+            </li>
+          </ul>
+
+          <p>最后一个参数（选填）： 函数，所有你安排的任务执行完毕之后会执行的回调函数</p>
+        </blockquote>
+      </li>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">gulp.parallel()</code>：gulp 的任务执行链</p>
+
+        <blockquote>
+          <p><code class="language-plaintext highlighter-rouge">parallel()</code></p>
+
+          <p>可以填写多个任务，会同步执行几个任务</p>
+
+          <p><code class="language-plaintext highlighter-rouge">parallel('css', 'js')</code></p>
+
+          <ul>
+            <li>
+              <p>会把两个任务同时开始执行</p>
+            </li>
+            <li>
+              <p>两个任务是并行开始的</p>
+            </li>
+          </ul>
+        </blockquote>
+      </li>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">gulp.watch()</code>：监控文件变化</p>
+
+        <blockquote>
+          <p><code class="language-plaintext highlighter-rouge">watch('./src/css/*.css', function () {})</code></p>
+
+          <p>第一个参数： 要监控的文件路径</p>
+
+          <p>第二个参数： 需要一个函数 ，当你监控的文件发生改变的时候做什么</p>
+        </blockquote>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h3 id="4-创建一个压缩-css-的任务">4. 创建一个压缩 css 的任务</h3>
+
+<ul>
+  <li>
+    <p>接下来我们就是使用 <code class="language-plaintext highlighter-rouge">gulp</code> 创建一个压缩 <code class="language-plaintext highlighter-rouge">css</code> 文件的任务</p>
+  </li>
+  <li>
+    <p>我们肯定不能自己去把空格删除，或者写一段代码去替换</p>
+  </li>
+  <li>
+    <p>而是使用一个和 <code class="language-plaintext highlighter-rouge">gulp</code> 相关的依赖包</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">$ npm install --save-dev gulp-cssmin</code></li>
+    </ul>
+  </li>
+  <li>
+    <p>下载下来直接使用就好了</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// gulpfile.js</span>
+
+<span class="c1">// 引入 gulp 依赖</span>
+<span class="kd">const</span> <span class="nx">gulp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-cssmin 依赖</span>
+<span class="kd">const</span> <span class="nx">cssmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-cssmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 创建一个 css 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">gulp</span>
+        <span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/css/*.css</span><span class="dl">'</span><span class="p">)</span>  <span class="c1">// 使用 src 方法找到我们要压缩的文件</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">cssmin</span><span class="p">())</span>          <span class="c1">// 使用管道函数执行一个压缩的行为</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist/css</span><span class="dl">'</span><span class="p">))</span>  <span class="c1">// 把压缩好的文件放在 dist 文件夹下的 css 文件夹</span>
+<span class="p">})</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>这样，我们的一个简单的压缩 <code class="language-plaintext highlighter-rouge">css</code> 文件的任务就完成了</li>
+      <li>接下来只要让这个任务执行以下就好了</li>
+    </ul>
+  </li>
+  <li>
+    <p>我们就来到命令行（终端），去执行我们写的这个叫做 <code class="language-plaintext highlighter-rouge">css</code> 的任务</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 使用 gulp 的指令去执行这个 css 任务</span>
+<span class="nv">$ </span>gulp css
+</code></pre></div>    </div>
+
+    <ul>
+      <li>执行完毕以后你会发现多了一个 <code class="language-plaintext highlighter-rouge">dist</code> 文件夹</li>
+      <li>里面就有 <code class="language-plaintext highlighter-rouge">css</code> 文件夹</li>
+      <li>里面有一个 <code class="language-plaintext highlighter-rouge">.css</code> 文件，这个就是被压缩好的文件了</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="自动添加前缀">自动添加前缀</h4>
+
+<ul>
+  <li>
+    <p>其实到这里我们的压缩已经可以了</p>
+  </li>
+  <li>
+    <p>但是因为我们有的时候，需要给一些属性添加前缀</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">-webkie-transition: all 1s;</code></li>
+      <li><code class="language-plaintext highlighter-rouge">-webkit-animation: move 1s;</code></li>
+      <li>…</li>
+    </ul>
+  </li>
+  <li>
+    <p>所以我们最好是能有一个工具帮我们自动添加应该添加的前缀</p>
+  </li>
+  <li>
+    <p>这样我们在写 <code class="language-plaintext highlighter-rouge">css</code> 的时候就不需要考虑了，我们就正常写就好了</p>
+  </li>
+  <li>
+    <p>依旧是使用一个和 <code class="language-plaintext highlighter-rouge">gulp</code> 相关的依赖包</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">$ npm install --save-dev gulp-autoprefixer</code></li>
+    </ul>
+  </li>
+  <li>
+    <p>下载好以后我们直接使用就好了</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// gulpfile.js</span>
+
+<span class="c1">// 引入 gulp 依赖</span>
+<span class="kd">const</span> <span class="nx">gulp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-cssmin 依赖</span>
+<span class="kd">const</span> <span class="nx">cssmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-cssmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-autoprefixer 依赖</span>
+<span class="kd">const</span> <span class="nx">autoprefiexer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-autoprefixer</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 创建一个 css 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">gulp</span>
+        <span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/css/*.css</span><span class="dl">'</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">autoprefiexer</span><span class="p">({</span>  <span class="c1">// 执行一个自动添加前缀的任务</span>
+        	<span class="na">browsers</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">last 2 versions</span><span class="dl">'</span><span class="p">]</span>  <span class="c1">// 这个参数是指兼容最近的两个浏览器版本</span>
+    	<span class="p">}))</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">cssmin</span><span class="p">())</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist/css</span><span class="dl">'</span><span class="p">))</span>
+<span class="p">})</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>
+        <p>这个自动添加前缀是需要参数的</p>
+      </li>
+      <li>
+        <p>我们添加完这个行为以后，再去命令行（终端）执行一下 <code class="language-plaintext highlighter-rouge">css</code> 任务</p>
+      </li>
+      <li>
+        <p>你就会发现 <code class="language-plaintext highlighter-rouge">dist/css/xxx.css</code> 文件里面的代码被自动添加前缀了</p>
+      </li>
+      <li>
+        <p>但是会发现在命令行 “好像报错了”</p>
+
+        <p><img src="./assets/css_auto.png" alt="" /></p>
+      </li>
+      <li>
+        <p><strong>这个不是报错，是提醒</strong></p>
+      </li>
+      <li>
+        <p>因为 <code class="language-plaintext highlighter-rouge">autoprefixer</code> 这个可以填写很多的参数</p>
+      </li>
+      <li>
+        <p>最近几个版本的 <code class="language-plaintext highlighter-rouge">gulp</code> 觉得直接把参数写在 <code class="language-plaintext highlighter-rouge">gulpfile.js</code> 文件里面不是很舒服</p>
+      </li>
+      <li>
+        <p>也不是很正规的样子，所以建议你在 <strong>根目录</strong> 下新建一个 <code class="language-plaintext highlighter-rouge">.browserslist</code> 文件来写或者写在 <code class="language-plaintext highlighter-rouge">package.json</code>  里面都可以，看起来正规一些</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>我们就把刚才写的参数移动到 <code class="language-plaintext highlighter-rouge">package.json</code> 文件里面</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">//</span><span class="w"> </span><span class="err">package.json</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gulp_test"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"main"</span><span class="p">:</span><span class="w"> </span><span class="s2">"index.js"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo </span><span class="se">\"</span><span class="s2">Error: no test specified</span><span class="se">\"</span><span class="s2"> &amp;&amp; exit 1"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"keywords"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"license"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ISC"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"devDependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"gulp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^4.0.2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"gulp-autoprefixer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^7.0.0"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"gulp-cssmin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.2.0"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+		</span><span class="nl">"browserslist"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    		</span><span class="s2">"last 2 versions"</span><span class="w">
+    	</span><span class="p">]</span><span class="w">
+	</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <ul>
+      <li>然后就可以把 <code class="language-plaintext highlighter-rouge">gulpflie.js</code> 文件里面的参数删除了，只留下 <code class="language-plaintext highlighter-rouge">autoprefixer()</code> 就好了</li>
+      <li>然后再去命令行（终端）执行 <code class="language-plaintext highlighter-rouge">css</code> 任务就可以了</li>
+      <li>我们会发现，前缀依旧自动添加了，并且也没有 ”报错“ 了</li>
+    </ul>
+  </li>
+  <li>
+    <p>我们对于在 <code class="language-plaintext highlighter-rouge">package.json</code> 里面的书写就可以添加很多别的参数了</p>
+  </li>
+  <li>
+    <p>可以让他做更多的兼容处理</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">//</span><span class="w"> </span><span class="err">browserslist</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"browsers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"last 2 versions"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"iOS 7"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"FireFox &gt; 20"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Android &gt; 4.1"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <ul>
+      <li>我们可以往里面写入你要兼容的各种版本</li>
+      <li>然后执行的时候你就会发现，前面添加的前缀内容和兼容处理越来越多了</li>
+      <li>这里只是一部分，想更多了解可以参考 <a href="https://juejin.im/post/5b8cff326fb9a019fd1474d6">掘金</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="5-创建一个压缩-sass-的任务">5. 创建一个压缩 sass 的任务</h3>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">css</code> 的内容我们解决完了，接下来我们要解决一下 <code class="language-plaintext highlighter-rouge">sass</code> 的任务</p>
+  </li>
+  <li>
+    <p>其实和 <code class="language-plaintext highlighter-rouge">css</code> 任务差不多，只不过多了一个步骤</p>
+  </li>
+  <li>
+    <p>就是把 <code class="language-plaintext highlighter-rouge">sass</code> 的内容转换成 <code class="language-plaintext highlighter-rouge">css</code> 的内容，然后还是自动添加前缀，压缩一下放到指定目录</p>
+  </li>
+  <li>
+    <p>转化 <code class="language-plaintext highlighter-rouge">sass</code> 内容也是需要一个 <code class="language-plaintext highlighter-rouge">gulp</code> 相关的依赖</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">$ npm install --save-dev gulp-sass </code></li>
+      <li>在这里下载的时候，有可能会失败，会报错</li>
+      <li>如果报错我们就先安装一个 <code class="language-plaintext highlighter-rouge">node-sass</code> 的依赖，在安装 <code class="language-plaintext highlighter-rouge">gulp-sass</code></li>
+      <li><code class="language-plaintext highlighter-rouge">$ npm install --save-dev node-sass</code></li>
+      <li><code class="language-plaintext highlighter-rouge">$ npm install --save-dev gulp-sass</code></li>
+    </ul>
+  </li>
+  <li>
+    <p>下载好以后我们去使用就好了</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// gulpfile.js</span>
+
+<span class="c1">// 引入 gulp 依赖</span>
+<span class="kd">const</span> <span class="nx">gulp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-cssmin 依赖</span>
+<span class="kd">const</span> <span class="nx">cssmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-cssmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-autoprefixer 依赖</span>
+<span class="kd">const</span> <span class="nx">autoprefiexer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-autoprefixer</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-sass 依赖</span>
+<span class="kd">const</span> <span class="nx">sass</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-sass</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 压缩 css 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 sass 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">sass</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">gulp</span>
+        <span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/sass/*.scss</span><span class="dl">'</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">sass</span><span class="p">())</span>  <span class="c1">// 在自动添加前缀之前，把 sass 语法转换成 css 语法</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">autoprefiexer</span><span class="p">())</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">cssmin</span><span class="p">())</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist/css</span><span class="dl">'</span><span class="p">))</span>
+<span class="p">})</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>
+        <p>基本和 <code class="language-plaintext highlighter-rouge">css</code> 任务一致，只不过就是在自动添加前缀之前转换一下语法</p>
+      </li>
+      <li>
+        <p>因为解析完毕以后也是 <code class="language-plaintext highlighter-rouge">.css</code> 文件，所以我们也放在 <code class="language-plaintext highlighter-rouge">css</code> 文件夹里面就好了</p>
+      </li>
+      <li>
+        <p>然后就可以去命令行（终端）执行 <code class="language-plaintext highlighter-rouge">sass</code> 这个任务了</p>
+
+        <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 执行一下 sass 任务</span>
+<span class="nv">$ </span>gulp sass
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>我们就会发现我们写在 <code class="language-plaintext highlighter-rouge">sass</code> 文件夹里面的文件被转码压缩放在了 <code class="language-plaintext highlighter-rouge">dist/css/</code> 文件夹里面了</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="6-创建一个压缩-javascript-的任务">6. 创建一个压缩 JavaScript 的任务</h3>
+
+<ul>
+  <li>
+    <p>接下来我们就做一个任务用来压缩 <code class="language-plaintext highlighter-rouge">js</code> 文件</p>
+  </li>
+  <li>
+    <p>其实和之前的套路是一样的</p>
+  </li>
+  <li>
+    <p>这里对 <code class="language-plaintext highlighter-rouge">js</code> 文件进行压缩，也是需要一个 <code class="language-plaintext highlighter-rouge">gulp</code> 相关依赖包</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">$ npm install --save-dev gulp-uglify</code></li>
+    </ul>
+  </li>
+  <li>
+    <p>下载好以后我们进行配置就好了</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// gulpfile.js</span>
+
+<span class="c1">// 引入 gulp 依赖</span>
+<span class="kd">const</span> <span class="nx">gulp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-cssmin 依赖</span>
+<span class="kd">const</span> <span class="nx">cssmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-cssmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-autoprefixer 依赖</span>
+<span class="kd">const</span> <span class="nx">autoprefiexer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-autoprefixer</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-sass 依赖</span>
+<span class="kd">const</span> <span class="nx">sass</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-sass</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-uglify 依赖</span>
+<span class="kd">const</span> <span class="nx">uglify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-uglify</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 压缩 css 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 sass 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">sass</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 js 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">js</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">gulp</span>
+        <span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/js/*.js</span><span class="dl">'</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">uglify</span><span class="p">())</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist/js</span><span class="dl">'</span><span class="p">))</span>
+<span class="p">})</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>
+        <p>一个简单的压缩 <code class="language-plaintext highlighter-rouge">js</code> 的任务就做好了</p>
+      </li>
+      <li>
+        <p>我们去命令行（终端）执行以下这个任务</p>
+
+        <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 执行以下 js 任务</span>
+<span class="nv">$ </span>gulp js
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>就会发现 <code class="language-plaintext highlighter-rouge">dist</code> 下面多了一个 <code class="language-plaintext highlighter-rouge">js</code> 文件夹，里面有我们的 <code class="language-plaintext highlighter-rouge">js</code> 代码，已经被压缩好了</p>
+      </li>
+      <li>
+        <p>但是，当我们写了 <code class="language-plaintext highlighter-rouge">es6(ES2015)</code> 的语法以后，就不能正常帮我们压缩了，会报错</p>
+      </li>
+      <li>
+        <p>因为这个 <code class="language-plaintext highlighter-rouge">gulp-uglify</code> 不认识 <code class="language-plaintext highlighter-rouge">es6(ES2015)</code> 的语法</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="es6-转-es5">ES6 转 ES5</h4>
+
+<ul>
+  <li>
+    <p>接下来我们就需要做一个事情了</p>
+  </li>
+  <li>
+    <p>在 <code class="language-plaintext highlighter-rouge">uglify</code> 之前，把 <code class="language-plaintext highlighter-rouge">es6</code> 的语法转换成 <code class="language-plaintext highlighter-rouge">es5</code> 的语法</p>
+  </li>
+  <li>
+    <p>这样在压缩就没有问题了</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">es6</code> 转 <code class="language-plaintext highlighter-rouge">es5</code> 需要下载三个依赖包</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># es6 转 es5 需要的三个依赖</span>
+<span class="nv">$ </span>npm <span class="nb">install</span> <span class="nt">--save-dev</span> gulp-babel
+<span class="nv">$ </span>npm <span class="nb">install</span> <span class="nt">--save-dev</span> @babel/core
+<span class="nv">$ </span>npm <span class="nb">install</span> <span class="nt">--save-dev</span> @babel/preset-env
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>下载完毕之后我们就可以进行配置了</p>
+  </li>
+  <li>
+    <p>虽然下载了三个依赖包，但是我们导入只需要导入一个 <code class="language-plaintext highlighter-rouge">gulp-babel</code> 就可以了</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// gulpfile.js</span>
+
+<span class="c1">// 引入 gulp 依赖</span>
+<span class="kd">const</span> <span class="nx">gulp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-cssmin 依赖</span>
+<span class="kd">const</span> <span class="nx">cssmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-cssmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-autoprefixer 依赖</span>
+<span class="kd">const</span> <span class="nx">autoprefiexer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-autoprefixer</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-sass 依赖</span>
+<span class="kd">const</span> <span class="nx">sass</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-sass</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-uglify 依赖</span>
+<span class="kd">const</span> <span class="nx">uglify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-uglify</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-babel 依赖</span>
+<span class="kd">const</span> <span class="nx">babel</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-babel</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 压缩 css 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 sass 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">sass</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 js 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">js</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">gulp</span>
+        <span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/js/*.js</span><span class="dl">'</span><span class="p">)</span>
+    	<span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">babel</span><span class="p">({</span> <span class="c1">// 在压缩之前要进行转码</span>
+        	<span class="na">presets</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">@babel/env</span><span class="dl">'</span><span class="p">]</span> <span class="c1">// 需要一个参数</span>
+    	<span class="p">}))</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">uglify</span><span class="p">())</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist/js</span><span class="dl">'</span><span class="p">))</span>
+<span class="p">})</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>在压缩 <code class="language-plaintext highlighter-rouge">js</code> 之前进行 <code class="language-plaintext highlighter-rouge">babel</code> 转码就好了</li>
+      <li>也是一样需要一个参数，我们直接写在这个里面就可以</li>
+      <li>再次去执行 <code class="language-plaintext highlighter-rouge">js</code> 这个任务以后，我们发现压缩出来的内容被转换成了 <code class="language-plaintext highlighter-rouge">es5</code> 的语法</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="7-创建一个压缩-html-的任务">7. 创建一个压缩 HTML 的任务</h3>
+
+<ul>
+  <li>
+    <p>接下来我们就要对 <code class="language-plaintext highlighter-rouge">html</code> 文件进行压缩了</p>
+  </li>
+  <li>
+    <p>还是我们之前的套路，再来一遍</p>
+  </li>
+  <li>
+    <p>压缩 <code class="language-plaintext highlighter-rouge">html</code> 文件需要一个 <code class="language-plaintext highlighter-rouge">gulp</code> 相关依赖包</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">$ npm install --save-dev gulp-htmlmin</code></li>
+    </ul>
+  </li>
+  <li>
+    <p>下载好以后我们就可以进行配置了</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// gulpfile.js</span>
+
+<span class="c1">// 引入 gulp 依赖</span>
+<span class="kd">const</span> <span class="nx">gulp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-cssmin 依赖</span>
+<span class="kd">const</span> <span class="nx">cssmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-cssmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-autoprefixer 依赖</span>
+<span class="kd">const</span> <span class="nx">autoprefiexer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-autoprefixer</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-sass 依赖</span>
+<span class="kd">const</span> <span class="nx">sass</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-sass</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-uglify 依赖</span>
+<span class="kd">const</span> <span class="nx">uglify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-uglify</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-babel 依赖</span>
+<span class="kd">const</span> <span class="nx">babel</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-babel</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-htmlmin 依赖</span>
+<span class="kd">const</span> <span class="nx">htmlmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-htmlmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 压缩 css 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 sass 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">sass</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 js 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">js</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 html 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">html</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">gulp</span>
+        <span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/pages/*.html</span><span class="dl">'</span><span class="p">)</span>  <span class="c1">// 找到文件</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">htmlmin</span><span class="p">({</span> <span class="c1">// 使用 htmlmin 进行压缩</span>
+            <span class="na">removeComments</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="na">removeEmptyAttributes</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="na">collapseWhitespace</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="na">collapseBooleanAttributes</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="na">minifyCSS</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="na">minifyJS</span><span class="p">:</span> <span class="kc">true</span>
+    	<span class="p">}))</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist/pages</span><span class="dl">'</span><span class="p">))</span> <span class="c1">// 放到指定目录里面</span>
+<span class="p">})</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>
+        <p>注意： <strong><code class="language-plaintext highlighter-rouge">gulp-htmlmin</code> 在使用的时候是需要传递参数的</strong></p>
+
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">removeComments</code>：是否移除注释</li>
+          <li><code class="language-plaintext highlighter-rouge">removeEmptyAttributes</code>： 是否移除空属性</li>
+          <li><code class="language-plaintext highlighter-rouge">collapseWhitespace</code>： 是否移除空格和换行</li>
+          <li><code class="language-plaintext highlighter-rouge">collapseBooleanAttributes</code>： 是否简化属性值为布尔的属性（<code class="language-plaintext highlighter-rouge">checked="checked"</code>）</li>
+          <li><code class="language-plaintext highlighter-rouge">minifyCSS</code>： 是否压缩页面中给的 <code class="language-plaintext highlighter-rouge">style</code> 标签（内嵌式 <code class="language-plaintext highlighter-rouge">css</code> 代码）</li>
+          <li><code class="language-plaintext highlighter-rouge">minifyJS</code>： 是否压缩页面的的 <code class="language-plaintext highlighter-rouge">script</code> 标签（内嵌式 <code class="language-plaintext highlighter-rouge">js</code> 代码）</li>
+        </ul>
+      </li>
+      <li>
+        <p>这个时候就可以去命令行（终端）执行一下 <code class="language-plaintext highlighter-rouge">html</code> 这个任务了</p>
+
+        <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 执行以下 html 这个任务</span>
+<span class="nv">$ </span>gulp html
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="html导入组件">HTML导入组件</h4>
+
+<ul>
+  <li>
+    <p>这里有一个比较好玩的东西，就是我们可以在 <code class="language-plaintext highlighter-rouge">html</code> 文件中导入组件</p>
+  </li>
+  <li>
+    <p>比如</p>
+
+    <ul>
+      <li>我们在写网页的时候，头部和底部一般都是公共的内容</li>
+      <li>那么我们可以单独把头部和底部抽取出来，写成一个 <code class="language-plaintext highlighter-rouge">html</code> 片段</li>
+      <li>然后每个页面在使用的时候我们只要把这个 <code class="language-plaintext highlighter-rouge">头部和底部</code> 片段引入进来就好了</li>
+      <li>不用每个页面都去书写了</li>
+    </ul>
+  </li>
+  <li>
+    <p>这个组件的导入肯定是要在压缩 <code class="language-plaintext highlighter-rouge">html</code> 之前完成</p>
+  </li>
+  <li>
+    <p>我们先准备一个目录，专门用来保存所有的 <code class="language-plaintext highlighter-rouge">html</code> 片段</p>
+
+    <ul>
+      <li>
+        <p>我就在 <code class="language-plaintext highlighter-rouge">src</code> 目录下新建一个文件夹 <code class="language-plaintext highlighter-rouge">conponents</code></p>
+      </li>
+      <li>
+        <p>用来存放所有的 <code class="language-plaintext highlighter-rouge">html</code> 片段文件</p>
+      </li>
+      <li>
+        <p>在里面写一个 <code class="language-plaintext highlighter-rouge">header.html</code> 作为一个头部片段</p>
+
+        <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- src/conponents/header.html --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"header"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">"logo"</span><span class="nt">&gt;&lt;/h1&gt;</span>
+    <span class="nt">&lt;p&gt;</span>我是一个公共的头部<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>接下来我们下载一个可以导入 <code class="language-plaintext highlighter-rouge">html</code> 片段的 <code class="language-plaintext highlighter-rouge">gulp</code> 依赖</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">$ npm install --save-dev gulp-file-include</code></li>
+    </ul>
+  </li>
+  <li>
+    <p>然后我们进行配置就好了</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// gulpfile.js</span>
+
+<span class="c1">// 引入 gulp 依赖</span>
+<span class="kd">const</span> <span class="nx">gulp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-cssmin 依赖</span>
+<span class="kd">const</span> <span class="nx">cssmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-cssmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-autoprefixer 依赖</span>
+<span class="kd">const</span> <span class="nx">autoprefiexer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-autoprefixer</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-sass 依赖</span>
+<span class="kd">const</span> <span class="nx">sass</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-sass</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-uglify 依赖</span>
+<span class="kd">const</span> <span class="nx">uglify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-uglify</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-babel 依赖</span>
+<span class="kd">const</span> <span class="nx">babel</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-babel</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-htmlmin 依赖</span>
+<span class="kd">const</span> <span class="nx">htmlmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-htmlmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-file-include 依赖</span>
+<span class="kd">const</span> <span class="nx">fileinclude</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-file-include</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 压缩 css 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 sass 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">sass</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 js 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">js</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 html 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">html</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">gulp</span>
+        <span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/pages/*.html</span><span class="dl">'</span><span class="p">)</span>  <span class="c1">// 找到文件</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">fileinclude</span><span class="p">({</span> <span class="c1">// 导入 html 片段</span>
+              <span class="na">prefix</span><span class="p">:</span> <span class="dl">'</span><span class="s1">@-@</span><span class="dl">'</span><span class="p">,</span>  <span class="c1">// 你自定义一个标识符</span>
+              <span class="na">basepath</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./src/components</span><span class="dl">'</span>  <span class="c1">// html 片段存放路径</span>
+        <span class="p">}))</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">htmlmin</span><span class="p">({</span> <span class="c1">// 使用 htmlmin 进行压缩</span>
+            <span class="na">removeComments</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="na">removeEmptyAttributes</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="na">collapseWhitespace</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="na">collapseBooleanAttributes</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="na">minifyCSS</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="na">minifyJS</span><span class="p">:</span> <span class="kc">true</span>
+    	<span class="p">}))</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist/pages</span><span class="dl">'</span><span class="p">))</span> <span class="c1">// 放到指定目录里面</span>
+<span class="p">})</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>我们要在 <code class="language-plaintext highlighter-rouge">htmlmin</code> 进行压缩之前把 <code class="language-plaintext highlighter-rouge">html</code> 片段导入进来</li>
+      <li>这个依赖需要传递一些参数
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">prefix</code>： 自定义一个标识符，用来在我们的页面里面知道我接下来的东西是要导入的</li>
+          <li><code class="language-plaintext highlighter-rouge">basepath</code>： 存放 <code class="language-plaintext highlighter-rouge">html</code> 片段文件的目录</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>接下来我们只要在 <code class="language-plaintext highlighter-rouge">html</code> 文件中进行导入就可以了</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- src/pages/index.html --&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"ie=edge"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Document<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="c">&lt;!--
+            这个就是导入片段，使用我们自己定义的标识符就可以
+            include 的参数直接写 html 片段的文件名称就行
+            因为我们之前配置过 html 片段的存放路径了
+            他会自动去我们配置的 basepath 里面进行查找
+        --&gt;</span>
+        @-@include('header.html')
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>这个时候就已经好了，我们就可以去命令行（终端）执行 <code class="language-plaintext highlighter-rouge">html</code> 任务了</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 执行一下 html 任务</span>
+<span class="nv">$ </span>gulp html
+</code></pre></div>    </div>
+
+    <ul>
+      <li>这个时候我们就发现，我们书写 <code class="language-plaintext highlighter-rouge">@-@include('header.html')</code> 的位置被替换成了我们在 <code class="language-plaintext highlighter-rouge">header.html</code> 文件中写的所有内容了</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="导入-html-片段传递参数">导入 HTML 片段传递参数</h4>
+
+<ul>
+  <li>
+    <p>我们在导入 <code class="language-plaintext highlighter-rouge">html</code> 片段的时候还可以对片段传递一些参数</p>
+  </li>
+  <li>
+    <p>依旧是使用我们之前定义好的标识符</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- src/conponents/header.html --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"header"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">"logo"</span><span class="nt">&gt;&lt;/h1&gt;</span>
+    <span class="nt">&lt;p&gt;</span>我是一个公共的头部<span class="nt">&lt;/p&gt;</span>
+    <span class="c">&lt;!-- 这里是指在 span 标签内部需要一个 title 的变量进行填充 --&gt;</span>
+    <span class="nt">&lt;span&gt;</span>@-@title<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>我们就可以在页面中导入这个片段的时候进行传递参数</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- src/pages/index.html --&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"ie=edge"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Document<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="c">&lt;!--
+            我们在导入的时候就可以传递一些参数
+            注意： 传递参数的时候一定要写成 json 的格式，不然的话不识别，就会报错了
+        --&gt;</span>
+        @-@include('header.html', { "title": "hello world" })
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>这样我们再次运行打包 <code class="language-plaintext highlighter-rouge">html</code> 的命令，得到的结果就是</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"ie=edge"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Document<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"header"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">"logo"</span><span class="nt">&gt;&lt;/h1&gt;</span>
+            <span class="nt">&lt;p&gt;</span>我是一个公共的头部<span class="nt">&lt;/p&gt;</span>
+            <span class="nt">&lt;span&gt;</span>hello world<span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="8-创建一个压缩图片的任务">8. 创建一个压缩图片的任务</h3>
+
+<ul>
+  <li>
+    <p>接下来我们就要压缩图片了</p>
+  </li>
+  <li>
+    <p>压缩图片就简单很多了，还是一样的套路</p>
+  </li>
+  <li>
+    <p>我们压缩图片需要使用一个 <code class="language-plaintext highlighter-rouge">gulp</code> 相关的依赖</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">$ npm install --save-dev gulp-imagemin</code></li>
+      <li>这个依赖会下载很长时间，而且中间会有一段时间是停止不动的</li>
+      <li>不是失败了，是因为他还会下载很多其他的依赖项，所以需要时间比较长</li>
+      <li>等待就好了</li>
+    </ul>
+  </li>
+  <li>
+    <p>下载好了以后我们进行配置就可以了</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// gulpfile.js</span>
+
+<span class="c1">// 引入 gulp 依赖</span>
+<span class="kd">const</span> <span class="nx">gulp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-cssmin 依赖</span>
+<span class="kd">const</span> <span class="nx">cssmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-cssmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-autoprefixer 依赖</span>
+<span class="kd">const</span> <span class="nx">autoprefiexer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-autoprefixer</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-sass 依赖</span>
+<span class="kd">const</span> <span class="nx">sass</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-sass</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-uglify 依赖</span>
+<span class="kd">const</span> <span class="nx">uglify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-uglify</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-babel 依赖</span>
+<span class="kd">const</span> <span class="nx">babel</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-babel</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-htmlmin 依赖</span>
+<span class="kd">const</span> <span class="nx">htmlmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-htmlmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-file-include 依赖</span>
+<span class="kd">const</span> <span class="nx">fileinclude</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-file-include</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-imagemin 依赖</span>
+<span class="kd">const</span> <span class="nx">imagemin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-imagemin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 压缩 css 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 sass 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">sass</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 js 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">js</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 html 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">html</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 image 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">image</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">gulp</span>
+        <span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/static/images/**</span><span class="dl">'</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">imagemin</span><span class="p">({</span>  <span class="c1">// 执行压缩任务</span>
+            <span class="na">progressive</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>  <span class="c1">// 无损压缩</span>
+            <span class="na">optimizationLevel</span><span class="p">:</span> <span class="mi">7</span>  <span class="c1">// 压缩级别 1 ~ 7</span>
+        <span class="p">}))</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist/static/images</span><span class="dl">'</span><span class="p">))</span>
+<span class="p">})</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>我们在最开始寻找文件的时候，就不要限定后缀了，因为我们的图片后缀比较多</li>
+      <li>这个时候，压缩 <code class="language-plaintext highlighter-rouge">image</code> 的任务就配置好了</li>
+      <li>我们就可以去命令行（终端）执行任务了</li>
+    </ul>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 执行 image 任务</span>
+<span class="nv">$ </span>gulp image
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>因为我们是无损压缩，所以其实对于图片的压缩是压缩不了太多东西的</p>
+  </li>
+  <li>
+    <p>哪怕你不开启无损压缩也不会有太大的变化</p>
+  </li>
+  <li>
+    <p>只不过是图片特别多又特别大的时候，会压缩比较多的东西</p>
+  </li>
+</ul>
+
+<h3 id="9-其他资源和静态资源的任务">9. 其他资源和静态资源的任务</h3>
+
+<ul>
+  <li>
+    <p>我们要压缩的东西基本上就是这些了</p>
+  </li>
+  <li>
+    <p>剩下的东西，比如视频音频之类的，我们就没办法在压缩了</p>
+  </li>
+  <li>
+    <p>包括我们 <code class="language-plaintext highlighter-rouge">lib</code> 里面的内容，是第三方的，我们不需要压缩</p>
+  </li>
+  <li>
+    <p>我们直接进行转移就好了，只要把他们给放到 <code class="language-plaintext highlighter-rouge">dist</code> 文件夹里面就好</p>
+  </li>
+  <li>
+    <p>这里也不需要依赖了，我们直接转移就行了</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// gulpfile.js</span>
+
+<span class="c1">// 引入 gulp 依赖</span>
+<span class="kd">const</span> <span class="nx">gulp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-cssmin 依赖</span>
+<span class="kd">const</span> <span class="nx">cssmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-cssmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-autoprefixer 依赖</span>
+<span class="kd">const</span> <span class="nx">autoprefiexer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-autoprefixer</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-sass 依赖</span>
+<span class="kd">const</span> <span class="nx">sass</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-sass</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-uglify 依赖</span>
+<span class="kd">const</span> <span class="nx">uglify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-uglify</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-babel 依赖</span>
+<span class="kd">const</span> <span class="nx">babel</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-babel</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-htmlmin 依赖</span>
+<span class="kd">const</span> <span class="nx">htmlmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-htmlmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-file-include 依赖</span>
+<span class="kd">const</span> <span class="nx">fileinclude</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-file-include</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-imagemin 依赖</span>
+<span class="kd">const</span> <span class="nx">imagemin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-imagemin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 压缩 css 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 sass 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">sass</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 js 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">js</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 html 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">html</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 image 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">image</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 转移 video</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">video</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">gulp</span>
+    	<span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/static/videos/**</span><span class="dl">'</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist/static/video</span><span class="dl">'</span><span class="p">))</span>
+<span class="p">})</span>
+
+<span class="c1">// 转移 audio</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">audio</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 转移 lib</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">lib</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 转移 data</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>因为转移任务都是一样的，我就不一个一个写了，就是都转移过去就好了</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="10-创建一个默认任务">10. 创建一个默认任务</h3>
+
+<ul>
+  <li>
+    <p>我们的任务都创建完毕了，但是我们发现任务都是一个一个执行的</p>
+  </li>
+  <li>
+    <p>我们不能每次都一个任务一个任务的去执行啊</p>
+  </li>
+  <li>
+    <p>所以我们可以单独创建一个任务，这个任务的功能就是把其他任务都执行了</p>
+  </li>
+  <li>
+    <p>我们新创建的这个任务就叫做 <code class="language-plaintext highlighter-rouge">default</code></p>
+
+    <ul>
+      <li>因为当你在命令行（终端）运行 <code class="language-plaintext highlighter-rouge">gulp</code> 指令的时候</li>
+      <li>如果不写任务名称，会默认执行 <code class="language-plaintext highlighter-rouge">default</code> 任务</li>
+    </ul>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// gulpfile.js</span>
+
+<span class="c1">// 引入 gulp 依赖</span>
+<span class="kd">const</span> <span class="nx">gulp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-cssmin 依赖</span>
+<span class="kd">const</span> <span class="nx">cssmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-cssmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-autoprefixer 依赖</span>
+<span class="kd">const</span> <span class="nx">autoprefiexer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-autoprefixer</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-sass 依赖</span>
+<span class="kd">const</span> <span class="nx">sass</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-sass</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-uglify 依赖</span>
+<span class="kd">const</span> <span class="nx">uglify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-uglify</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-babel 依赖</span>
+<span class="kd">const</span> <span class="nx">babel</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-babel</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-htmlmin 依赖</span>
+<span class="kd">const</span> <span class="nx">htmlmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-htmlmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-file-include 依赖</span>
+<span class="kd">const</span> <span class="nx">fileinclude</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-file-include</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-imagemin 依赖</span>
+<span class="kd">const</span> <span class="nx">imagemin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-imagemin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 压缩 css 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 sass 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">sass</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 js 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">js</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 html 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">html</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 image 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">image</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 转移 video</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">vider</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 转移 audio</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">audio</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 转移 lib</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">lib</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 转移 data</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 创建默认任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">default</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">parallel</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">sass</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">js</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">html</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">image</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">video</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">audio</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">lib</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">))</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>
+        <p>默认任务的第二个参数不需要传递一个函数</p>
+      </li>
+      <li>
+        <p>因为 <code class="language-plaintext highlighter-rouge">gulp.parallel()</code> 会返回一个函数放在这里</p>
+      </li>
+      <li>
+        <p>我们这些任务也不需要先后顺序，并行执行就好了</p>
+      </li>
+      <li>
+        <p>这个时候我们只要去命令行（终端）执行一下这个默认任务就可以了</p>
+
+        <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 执行默认任务</span>
+<span class="nv">$ </span>gulp
+</code></pre></div>        </div>
+
+        <ul>
+          <li>这样就可以了。</li>
+          <li>我们没有写任务名称，会自动执行 <code class="language-plaintext highlighter-rouge">default</code> 任务</li>
+          <li><code class="language-plaintext highlighter-rouge">default</code> 任务就会把其他任务都执行了</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="11-创建一个-del-的任务">11. 创建一个 DEL 的任务</h3>
+
+<ul>
+  <li>
+    <p>到这里，<code class="language-plaintext highlighter-rouge">gulp</code> 基本使用问题不大了</p>
+  </li>
+  <li>
+    <p>但是一旦我们把某一个文件夹里面的文件修改一下名称，在次进行打包的时候会发现</p>
+  </li>
+  <li>
+    <p>打包出来的内容，不是把原先的改名字，而是多了一个内容</p>
+  </li>
+  <li>
+    <p>也就是说，我之前的那个内容还留着呢</p>
+  </li>
+  <li>
+    <p>那么我们就需要把这个问题解决掉</p>
+
+    <ul>
+      <li>最好是每次打包之前，能把 <code class="language-plaintext highlighter-rouge">dist</code> 文件夹删除了</li>
+      <li>然后我们在进行打包</li>
+      <li>这样的话，每次出来的都是根据最新的 <code class="language-plaintext highlighter-rouge">src</code> 目录下的源码进行打包的</li>
+      <li>就不会有多余的内容出现了</li>
+    </ul>
+  </li>
+  <li>
+    <p>删除一个文件夹，我们需要使用一个依赖</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">$ npm install --save-dev del</code></li>
+    </ul>
+  </li>
+  <li>
+    <p>然后我们就引入进行配置</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// gulpfile.js</span>
+
+<span class="c1">// 引入 gulp 依赖</span>
+<span class="kd">const</span> <span class="nx">gulp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-cssmin 依赖</span>
+<span class="kd">const</span> <span class="nx">cssmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-cssmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-autoprefixer 依赖</span>
+<span class="kd">const</span> <span class="nx">autoprefiexer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-autoprefixer</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-sass 依赖</span>
+<span class="kd">const</span> <span class="nx">sass</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-sass</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-uglify 依赖</span>
+<span class="kd">const</span> <span class="nx">uglify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-uglify</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-babel 依赖</span>
+<span class="kd">const</span> <span class="nx">babel</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-babel</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-htmlmin 依赖</span>
+<span class="kd">const</span> <span class="nx">htmlmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-htmlmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-file-include 依赖</span>
+<span class="kd">const</span> <span class="nx">fileinclude</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-file-include</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-imagemin 依赖</span>
+<span class="kd">const</span> <span class="nx">imagemin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-imagemin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 del 依赖</span>
+<span class="kd">const</span> <span class="nx">del</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">del</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 压缩 css 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 sass 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">sass</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 js 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">js</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 html 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">html</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 image 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">image</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 转移 video 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">vider</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 转移 audio 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">audio</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 转移 lib 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">lib</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 转移 data 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 删除 dist 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">del</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">del</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="c1">// 创建默认任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">default</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">parallel</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">sass</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">js</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">html</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">image</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">video</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">audio</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">lib</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">))</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>我们使用的时候之间告诉他把哪个文件夹删除了就行</li>
+      <li>这个时候我们运行一下 <code class="language-plaintext highlighter-rouge">del</code> 任务就会发现 <code class="language-plaintext highlighter-rouge">dist</code> 文件夹被删除了</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="12-逐步执行任务">12. 逐步执行任务</h3>
+
+<ul>
+  <li>
+    <p>我们创建好了 <code class="language-plaintext highlighter-rouge">del</code> 任务，接下来就是把他放到任务队列里面了</p>
+  </li>
+  <li>
+    <p>但是如果和其他任务并行的话，那么不一定哪个任务先完成</p>
+  </li>
+  <li>
+    <p>这个时候就会出现问题</p>
+
+    <ul>
+      <li>如果是删除的任务先完成，其他的后完成，那么没啥事</li>
+      <li>但是如果其他的先完成，然后删除的任务完成了，那么已经打包好的文件就又被删除了</li>
+    </ul>
+  </li>
+  <li>
+    <p>所以，这个时候我们就可以使用 <code class="language-plaintext highlighter-rouge">gulp.series()</code> 来进行按顺序完成任务</p>
+
+    <ul>
+      <li>因为这个方法的第二个参数的任务会在第一个参数的任务完成之后在执行</li>
+    </ul>
+  </li>
+  <li>
+    <p>我们就要修改一下我们的 <code class="language-plaintext highlighter-rouge">default</code> 任务就可以了，其他不用改变</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// gulpfile.js</span>
+
+<span class="c1">// 创建默认任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">default</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span>
+	<span class="dl">'</span><span class="s1">del</span><span class="dl">'</span><span class="p">,</span>
+    <span class="nx">gulp</span><span class="p">.</span><span class="nx">parallel</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">sass</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">js</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">html</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">image</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">video</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">audio</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">lib</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">))</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>我们在 <code class="language-plaintext highlighter-rouge">series()</code> 任务里面传递两个参数
+        <ul>
+          <li>第一个参数是 <code class="language-plaintext highlighter-rouge">del</code></li>
+          <li>第二个参数是 并行执行一些其他任务</li>
+        </ul>
+      </li>
+      <li>这样的话，我们一运行 <code class="language-plaintext highlighter-rouge">default</code> 任务的时候
+        <ul>
+          <li>就会先执行 <code class="language-plaintext highlighter-rouge">del</code> 任务，等 <code class="language-plaintext highlighter-rouge">del</code> 任务执行完毕，<code class="language-plaintext highlighter-rouge">dist</code> 文件夹已经被删除了</li>
+          <li>才会在继续执行我们其他的哪些打包压缩的任务</li>
+          <li>就不会有问题了</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="13-创建一个监控的任务">13. 创建一个监控的任务</h3>
+
+<ul>
+  <li>
+    <p>我们的 <code class="language-plaintext highlighter-rouge">gulpfile.js</code> 文件配置到现在，基本已经差不多了</p>
+  </li>
+  <li>
+    <p>但是我们发现一个问题，就是我每次修改源代码都要执行一下 <code class="language-plaintext highlighter-rouge">default</code> 任务，才能同步</p>
+  </li>
+  <li>
+    <p>那么我们就需要一个监控任务来监控着我的文件夹变化，只要文件夹发生变化就给我从新打包压缩一下</p>
+  </li>
+  <li>
+    <p>这里我们不需要依赖，直接使用 <code class="language-plaintext highlighter-rouge">gulp.watch()</code> 来进行文件监控就可以了</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// gulpfile.js</span>
+
+<span class="c1">// 引入 gulp 依赖</span>
+<span class="kd">const</span> <span class="nx">gulp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-cssmin 依赖</span>
+<span class="kd">const</span> <span class="nx">cssmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-cssmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-autoprefixer 依赖</span>
+<span class="kd">const</span> <span class="nx">autoprefiexer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-autoprefixer</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-sass 依赖</span>
+<span class="kd">const</span> <span class="nx">sass</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-sass</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-uglify 依赖</span>
+<span class="kd">const</span> <span class="nx">uglify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-uglify</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-babel 依赖</span>
+<span class="kd">const</span> <span class="nx">babel</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-babel</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-htmlmin 依赖</span>
+<span class="kd">const</span> <span class="nx">htmlmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-htmlmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-file-include 依赖</span>
+<span class="kd">const</span> <span class="nx">fileinclude</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-file-include</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-imagemin 依赖</span>
+<span class="kd">const</span> <span class="nx">imagemin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-imagemin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 del 依赖</span>
+<span class="kd">const</span> <span class="nx">del</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">del</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 压缩 css 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 sass 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">sass</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 js 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">js</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 html 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">html</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 image 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">image</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 转移 video 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">vider</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 转移 audio 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">audio</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 转移 lib 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">lib</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 转移 data 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 删除 dist 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">del</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 创建一个监控变化的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">watch</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="nx">gulp</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/css/*.css</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">))</span>
+  <span class="nx">gulp</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/sass/*.sass</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span><span class="dl">'</span><span class="s1">sass</span><span class="dl">'</span><span class="p">))</span>
+  <span class="nx">gulp</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/js/*.js</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span><span class="dl">'</span><span class="s1">js</span><span class="dl">'</span><span class="p">))</span>
+  <span class="nx">gulp</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/pages/*.html</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span><span class="dl">'</span><span class="s1">html</span><span class="dl">'</span><span class="p">))</span>
+  <span class="nx">gulp</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/lib/**</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span><span class="dl">'</span><span class="s1">lib</span><span class="dl">'</span><span class="p">))</span>
+  <span class="nx">gulp</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/data/**</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span><span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">))</span>
+  <span class="nx">gulp</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/static/images/**</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span><span class="dl">'</span><span class="s1">image</span><span class="dl">'</span><span class="p">))</span>
+  <span class="nx">gulp</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/static/videos/**</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span><span class="dl">'</span><span class="s1">video</span><span class="dl">'</span><span class="p">))</span>
+  <span class="nx">gulp</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/static/audios/**</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span><span class="dl">'</span><span class="s1">audio</span><span class="dl">'</span><span class="p">))</span>
+<span class="p">})</span>
+
+<span class="c1">// 创建默认任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">default</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span>
+	<span class="dl">'</span><span class="s1">del</span><span class="dl">'</span><span class="p">,</span>
+    <span class="nx">gulp</span><span class="p">.</span><span class="nx">parallel</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">sass</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">js</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">html</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">image</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">video</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">audio</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">lib</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">),</span>
+    <span class="dl">'</span><span class="s1">watch</span><span class="dl">'</span>
+<span class="p">))</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>我们创建好 <code class="language-plaintext highlighter-rouge">watch</code> 任务以后，在 <code class="language-plaintext highlighter-rouge">default</code> 任务里面进行一下执行就好</li>
+      <li>我们就把他排在第三个任务列表的位置就好</li>
+      <li>这样会在所有的文件打包好以后就开始监控</li>
+    </ul>
+  </li>
+  <li>
+    <p>这个时候我们再次执行 <code class="language-plaintext highlighter-rouge">default</code> 任务的时候</p>
+
+    <ul>
+      <li>就不会打包完毕退出指令了</li>
+      <li>会一致在闪烁等待</li>
+      <li>然后你对所有文件进行修改，就会进行自动重新打包编译了</li>
+    </ul>
+  </li>
+  <li>
+    <p>这个时候，比如</p>
+
+    <ul>
+      <li>当你修改 <code class="language-plaintext highlighter-rouge">src/css</code> 目录下的内容的时候，就会自动重新执行 <code class="language-plaintext highlighter-rouge">css</code> 任务</li>
+      <li>当你修改 <code class="language-plaintext highlighter-rouge">src/sass</code> 目录下的内容的时候，就会自动重新执行 <code class="language-plaintext highlighter-rouge">sass</code> 任务</li>
+    </ul>
+  </li>
+  <li>
+    <p>那么我们的 <code class="language-plaintext highlighter-rouge">dist</code> 文件夹里面的内容就是实时和我们 <code class="language-plaintext highlighter-rouge">src</code> 目录下同步的内容</p>
+  </li>
+</ul>
+
+<h3 id="14-自动打开浏览器和热刷新的任务">14. 自动打开浏览器和热刷新的任务</h3>
+
+<ul>
+  <li>
+    <p>我们为什么一定要 <code class="language-plaintext highlighter-rouge">dist</code> 和 <code class="language-plaintext highlighter-rouge">src</code> 同步呢</p>
+  </li>
+  <li>
+    <p>是因为我们可以依靠 <code class="language-plaintext highlighter-rouge">gulp</code> 给我们自动打开一个浏览器页面</p>
+  </li>
+  <li>
+    <p>随着我们的书写，不需要我们手动刷新浏览器，他会自动对浏览器进行刷新</p>
+  </li>
+  <li>
+    <p>也就是说，我们只要写就行了，他会自动的刷新，我们直接就可以看到结果</p>
+  </li>
+  <li>
+    <p>自动打开浏览器和热刷新需要一个依赖</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">$ npm install --save-dev gulp-webserver</code></li>
+    </ul>
+  </li>
+  <li>
+    <p>下载好以后我们去进行配置就可以了</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// gulpfile.js</span>
+
+<span class="c1">// 引入 gulp 依赖</span>
+<span class="kd">const</span> <span class="nx">gulp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-cssmin 依赖</span>
+<span class="kd">const</span> <span class="nx">cssmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-cssmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-autoprefixer 依赖</span>
+<span class="kd">const</span> <span class="nx">autoprefiexer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-autoprefixer</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-sass 依赖</span>
+<span class="kd">const</span> <span class="nx">sass</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-sass</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-uglify 依赖</span>
+<span class="kd">const</span> <span class="nx">uglify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-uglify</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-babel 依赖</span>
+<span class="kd">const</span> <span class="nx">babel</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-babel</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-htmlmin 依赖</span>
+<span class="kd">const</span> <span class="nx">htmlmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-htmlmin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-file-include 依赖</span>
+<span class="kd">const</span> <span class="nx">fileinclude</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-file-include</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 gulp-imagemin 依赖</span>
+<span class="kd">const</span> <span class="nx">imagemin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-imagemin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 引入 del 依赖</span>
+<span class="kd">const</span> <span class="nx">del</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">del</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// 压缩 css 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 sass 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">sass</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 js 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">js</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 html 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">html</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 压缩 image 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">image</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 转移 video 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">vider</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 转移 audio 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">audio</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 转移 lib 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">lib</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 转移 data 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 删除 dist 的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">del</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 创建一个监控变化的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">watch</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// 创建一个自动打开浏览器的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">webserver</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">gulp</span>
+    <span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">webserver</span><span class="p">({</span>
+      <span class="na">host</span><span class="p">:</span> <span class="dl">'</span><span class="s1">localhost</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">port</span><span class="p">:</span> <span class="mi">3000</span><span class="p">,</span>
+      <span class="na">open</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./pages/index.html</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">livereload</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">}))</span>
+<span class="p">})</span>
+
+<span class="c1">// 创建默认任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">default</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span>
+	<span class="dl">'</span><span class="s1">del</span><span class="dl">'</span><span class="p">,</span>
+    <span class="nx">gulp</span><span class="p">.</span><span class="nx">parallel</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">sass</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">js</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">html</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">image</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">video</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">audio</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">lib</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">),</span>
+    <span class="dl">'</span><span class="s1">webserver</span><span class="dl">'</span><span class="p">,</span>
+    <span class="dl">'</span><span class="s1">watch</span><span class="dl">'</span>
+<span class="p">))</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>自动打开浏览器，肯定是打开我们打包好的文件，所以我们的 <code class="language-plaintext highlighter-rouge">src</code> 方法要找到 <code class="language-plaintext highlighter-rouge">dist</code> 目录来执行</li>
+      <li>使用 <code class="language-plaintext highlighter-rouge">gulp-webserver</code> 需要一些参数的配置
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">host</code>： 打开的域名</li>
+          <li><code class="language-plaintext highlighter-rouge">port</code>： 打开的端口号</li>
+          <li><code class="language-plaintext highlighter-rouge">open</code>： 默认打开哪个页面（从 <code class="language-plaintext highlighter-rouge">dist</code> 下面开始写就好了）</li>
+          <li><code class="language-plaintext highlighter-rouge">livereload</code>： 是否自动刷新浏览器</li>
+        </ul>
+      </li>
+      <li>注意： <strong><code class="language-plaintext highlighter-rouge">webserver</code> 这个任务要在 <code class="language-plaintext highlighter-rouge">watch</code> 任务之前</strong>
+        <ul>
+          <li>因为 <code class="language-plaintext highlighter-rouge">series</code> 方法是前一个任务完成了，在执行后一个任务</li>
+          <li><code class="language-plaintext highlighter-rouge">watch</code> 任务没有完成的时候，是一直在监控着</li>
+          <li>所以如果写在 <code class="language-plaintext highlighter-rouge">watch</code> 后面就没有办法执行了</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="代理的配置">代理的配置</h4>
+
+<ul>
+  <li>
+    <p>因为我们启动了一个服务器</p>
+  </li>
+  <li>
+    <p>如果发送请求不是和自己同源的内容，那么就会触发同源策略了</p>
+  </li>
+  <li>
+    <p>但是我们的 <code class="language-plaintext highlighter-rouge">webserver</code> 是可以配置代理的</p>
+  </li>
+  <li>
+    <p>因为 <code class="language-plaintext highlighter-rouge">gulp</code> 给我们启动的服务器就是一个 <code class="language-plaintext highlighter-rouge">node</code> 的服务器</p>
+  </li>
+  <li>
+    <p>我们的代理，只要在 <code class="language-plaintext highlighter-rouge">webserver</code> 里进行配置就好了</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 创建一个自动打开浏览器的任务</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">webserver</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">gulp</span>
+    <span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">webserver</span><span class="p">({</span>
+      <span class="na">host</span><span class="p">:</span> <span class="dl">'</span><span class="s1">localhost</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">port</span><span class="p">:</span> <span class="mi">3000</span><span class="p">,</span>
+      <span class="na">open</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./pages/index.html</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">livereload</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="na">proxies</span><span class="p">:</span> <span class="p">[</span> <span class="c1">// 所有的代理都放在这里数组里面</span>
+          <span class="p">{</span>
+              <span class="na">source</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/a</span><span class="dl">'</span><span class="p">,</span> <span class="c1">// 代理请求标识符</span>
+              <span class="na">target</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://www.xxx.com</span><span class="dl">'</span> <span class="c1">// 你要代理的地址</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+              <span class="na">source</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/b</span><span class="dl">'</span><span class="p">,</span>
+              <span class="na">target</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://www.yyy.com</span><span class="dl">'</span>
+          <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}))</span>
+<span class="p">})</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>这样配置完毕以后，你在请求的时候，只要请求 <code class="language-plaintext highlighter-rouge">/a</code> 或者 <code class="language-plaintext highlighter-rouge">/b</code> 这个地址</li>
+      <li>就会有服务器给你转发请求，形成反向代理来获取到数据了</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="完整版配置文件">完整版配置文件</h2>
+
+<ul>
+  <li>
+    <p>放一个完整版的配置文件</p>
+  </li>
+  <li>
+    <p>左右需要的依赖包</p>
+
+    <p><img src="./assets/gulp依赖包.png" alt="" /></p>
+  </li>
+  <li>
+    <p>完整版配置文件</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// gulpfile.js</span>
+
+<span class="kd">const</span> <span class="nx">gulp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">cssmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-cssmin</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">autoprefiexer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-autoprefixer</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">sass</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-sass</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">uglify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-uglify</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">babel</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-babel</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">htmlmin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-htmlmin</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">fileinclude</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-file-include</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">imagemin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-imagemin</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">del</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">del</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">webserver</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-webserver</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">gulp</span>
+    <span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/css/*.css</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">autoprefiexer</span><span class="p">())</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">cssmin</span><span class="p">())</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist/css</span><span class="dl">'</span><span class="p">))</span>
+<span class="p">})</span>
+
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">sass</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">gulp</span>
+    <span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/sass/*.scss</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">sass</span><span class="p">())</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">autoprefiexer</span><span class="p">())</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">cssmin</span><span class="p">())</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist/css</span><span class="dl">'</span><span class="p">))</span>
+<span class="p">})</span>
+
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">js</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">gulp</span>
+    <span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/js/*.js</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">babel</span><span class="p">({</span>
+      <span class="na">presets</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">@babel/env</span><span class="dl">'</span><span class="p">]</span>
+    <span class="p">}))</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">uglify</span><span class="p">())</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist/js</span><span class="dl">'</span><span class="p">))</span>
+<span class="p">})</span>
+
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">html</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">gulp</span>
+    <span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/pages/*.html</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">fileinclude</span><span class="p">({</span>
+      <span class="na">prefix</span><span class="p">:</span> <span class="dl">'</span><span class="s1">@-@</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">basepath</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./src/components</span><span class="dl">'</span>
+    <span class="p">}))</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">htmlmin</span><span class="p">({</span>
+      <span class="na">removeComments</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="na">removeEmptyAttributes</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="na">collapseWhitespace</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="na">collapseBooleanAttributes</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="na">minifyCSS</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="na">minifyJS</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">}))</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist/pages</span><span class="dl">'</span><span class="p">))</span>
+<span class="p">})</span>
+
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">image</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">gulp</span>
+    <span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/static/images/**</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">imagemin</span><span class="p">({</span>
+      <span class="na">progressive</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="na">optimizationLevel</span><span class="p">:</span> <span class="mi">7</span>
+    <span class="p">}))</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist/static/images</span><span class="dl">'</span><span class="p">))</span>
+<span class="p">})</span>
+
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">video</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">gulp</span>
+    <span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/static/videos/**</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist/static/video</span><span class="dl">'</span><span class="p">))</span>
+<span class="p">})</span>
+
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">audio</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">gulp</span>
+    <span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/static/audios/**</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist/static/audio</span><span class="dl">'</span><span class="p">))</span>
+<span class="p">})</span>
+
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">lib</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">gulp</span>
+    <span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/lib/**</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist/lib</span><span class="dl">'</span><span class="p">))</span>
+<span class="p">})</span>
+
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">gulp</span>
+    <span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/data/**</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist/data</span><span class="dl">'</span><span class="p">))</span>
+<span class="p">})</span>
+
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">del</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">del</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">watch</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="nx">gulp</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/css/*.css</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">))</span>
+  <span class="nx">gulp</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/sass/*.sass</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span><span class="dl">'</span><span class="s1">sass</span><span class="dl">'</span><span class="p">))</span>
+  <span class="nx">gulp</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/js/*.js</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span><span class="dl">'</span><span class="s1">js</span><span class="dl">'</span><span class="p">))</span>
+  <span class="nx">gulp</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/pages/*.html</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span><span class="dl">'</span><span class="s1">html</span><span class="dl">'</span><span class="p">))</span>
+  <span class="nx">gulp</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/lib/**</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span><span class="dl">'</span><span class="s1">lib</span><span class="dl">'</span><span class="p">))</span>
+  <span class="nx">gulp</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/data/**</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span><span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">))</span>
+  <span class="nx">gulp</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/static/images/**</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span><span class="dl">'</span><span class="s1">image</span><span class="dl">'</span><span class="p">))</span>
+  <span class="nx">gulp</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/static/videos/**</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span><span class="dl">'</span><span class="s1">video</span><span class="dl">'</span><span class="p">))</span>
+  <span class="nx">gulp</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/static/audios/**</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span><span class="dl">'</span><span class="s1">audio</span><span class="dl">'</span><span class="p">))</span>
+<span class="p">})</span>
+
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">webserver</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">gulp</span>
+    <span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="dl">'</span><span class="s1">./dist</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">webserver</span><span class="p">({</span>
+      <span class="na">host</span><span class="p">:</span> <span class="dl">'</span><span class="s1">localhost</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">port</span><span class="p">:</span> <span class="mi">3000</span><span class="p">,</span>
+      <span class="na">open</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./pages/index.html</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">livereload</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="na">proxies</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="na">source</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/a</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">target</span><span class="p">:</span> <span class="dl">''</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}))</span>
+<span class="p">})</span>
+
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="dl">'</span><span class="s1">default</span><span class="dl">'</span><span class="p">,</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">series</span><span class="p">(</span>
+  <span class="dl">'</span><span class="s1">del</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">gulp</span><span class="p">.</span><span class="nx">parallel</span><span class="p">(</span><span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">sass</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">js</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">html</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">image</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">video</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">audio</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">lib</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">),</span>
+  <span class="dl">'</span><span class="s1">webserver</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">watch</span><span class="dl">'</span>
+<span class="p">))</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+        </div>
+  
+      </article>
+        
+      <!-- 评论 -->
+      <div class="comments" id="comments">
+  <div class="title">评论留言：</div>
+  <div class="textareaDiv">
+    <textarea id="publishedInp" rows="3" cols="20"></textarea>
+    <div class="butDiv">
+      <div class="nicknameDiv">
+        昵称：
+        <input id="nickname" type="text" placeholder="游客">
+      </div>
+      <button id="publishedBut">发表评论</button>
+    </div>
+  </div>
+  <div class="commentsDiv" id="commentsDiv">
+    <!-- <div class="commentsItem">
+      <div class="headPortrait"></div>
+      <div class="right">
+        <span class="userName">
+          游客：
+        </span>
+        <span class="content">
+          评论评论评论评论评论评论评论评论评论评论评论评论评论
+        </span>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+<script>
+  const xhr = new XMLHttpRequest()
+  const xhrUrl = 'http://123.56.54.241:23000'
+  // const xhrUrl = 'https://www.kuaidaowanlilai.xyz'
+  // const xhrUrl = 'http://localhost:23000'
+
+  //发表评论
+  let publishedBut = document.querySelector('#publishedBut')
+  publishedBut.addEventListener('click', function () {
+    let publishedInp = document.querySelector('#publishedInp')
+    if (publishedInp.value) {
+      xhr.open('post', `${xhrUrl}/published`)
+      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+      xhr.send(JSON.stringify({
+        username: document.querySelector('#nickname').value,
+        blogUrl: window.location.pathname,
+        content: publishedInp.value
+      }))
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
+          //打印 xhr.responseText 来查看服务端给我们返回的内容
+          console.log('发表评论返回信息', xhr.responseText)
+          requestData()
+          publishedInp.value = ''
+        }
+      }
+    }else {
+      console.log('评论内容为空')
+    }
+  })
+
+  //请求渲染评论
+  requestData()
+  function requestData() {
+    xhr.open('post', `${xhrUrl}/comments`)
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+    xhr.send(JSON.stringify({
+      blogUrl: window.location.pathname
+    }))
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
+        //打印 xhr.responseText 来查看服务端给我们返回的内容
+        applyColours(JSON.parse(xhr.responseText))
+      }
+    }
+    function applyColours(data) {
+      let htmlStr = ''
+      for (let i = 0; i < data.length; i++) {
+        htmlStr += `
+      <div class="commentsItem">
+        <div class="headPortrait"></div>
+        <div class="right">
+          <span class="userName">
+            ${data[i].username}：
+          </span>
+          <span class="content">
+            ${data[i].content}
+          </span>
+        </div>
+      </div>`
+      }
+      document.querySelector('#commentsDiv').innerHTML = htmlStr
+    }
+  }
+</script>
+<style>
+  .comments {
+    width: 100%;
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+    padding: 10px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #333;
+  }
+
+  .comments .title {
+    color: #444;
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+
+  .comments .textareaDiv .butDiv {
+    text-align: right;
+  }
+
+  .comments .textareaDiv textarea {
+    border-radius: 3px;
+    width: calc(100% - 6px);
+    outline: none
+  }
+
+  .comments .textareaDiv .butDiv .nicknameDiv {
+    font-size: 14px;
+    display: inline-block;
+  }
+
+  .comments .textareaDiv .butDiv .nicknameDiv input {
+    width: 70px;
+    border: 1px solid rgb(189, 189, 189);
+    outline: none;
+    border-radius: 2px;
+  }
+
+  .comments .textareaDiv .butDiv button {
+    cursor: pointer;
+  }
+
+  .comments .commentsDiv {
+    margin-top: 5px;
+  }
+
+  .comments .commentsDiv .commentsItem {
+    font-size: 14px;
+    display: flex;
+    border-top: 1px solid rgb(240, 240, 240);
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .comments .commentsDiv .commentsItem .headPortrait {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: rgb(191, 226, 250);
+    margin-left: 5px;
+  }
+
+  .comments .commentsDiv .commentsItem .right {
+    width: calc(100% - 35px);
+    margin-left: 10px;
+  }
+
+  .comments .commentsDiv .commentsItem .right .userName {
+    color: #555666;
+  }
+
+  .comments .commentsDiv .commentsItem .right .content {
+    color: #222226;
+  }
+</style>
+
+    </div>
+    <div class="directory">
+      <div class="directory_header">全部文章</div>
+      <div style="margin-top:5px;">
+        
+        <div class="directory_title">
+          <a href="/%E8%BD%AC%E8%BD%BD/2020/12/16/JavaScript-%E9%82%A3%E4%BA%9B%E5%86%99%E5%87%BA%E6%9D%A5%E4%BC%9A%E8%A2%AB%E5%90%8C%E4%BA%8B%E6%8F%8D%E7%9A%84%E9%AA%9A%E6%93%8D%E4%BD%9C.html" 
+            
+          >
+            JavaScript 那些写出来会被同事揍的骚操作
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/css%E9%BB%91%E7%A7%91%E6%8A%80/2020/10/19/IE%E6%B5%8F%E8%A7%88%E5%99%A8%E5%A4%9A%E8%A1%8C%E6%96%87%E5%AD%97%E6%BA%A2%E5%87%BA%E6%98%BE%E7%A4%BA%E7%9C%81%E7%95%A5%E5%8F%B7.html" 
+            
+          >
+            IE浏览器多行文字溢出显示省略号
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/09/06/GIT%E5%92%8CGITHUB.html" 
+            
+          >
+            GIT和GITHUB
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/30/GULP.html" 
+            
+            style="color:#5094d5;"
+            
+          >
+            GULP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/23/SASS.html" 
+            
+          >
+            SASS
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/15/NODE%E4%BB%8B%E7%BB%8D.html" 
+            
+          >
+            NODE介绍
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/09/jQuery-%E4%B8%8B.html" 
+            
+          >
+            jQuery（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/02/jQuery-%E4%B8%AD.html" 
+            
+          >
+            jQuery（中）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/26/jQuery-%E4%B8%8A.html" 
+            
+          >
+            jQuery（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/19/Set%E5%92%8CMap.html" 
+            
+          >
+            Set和Map
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/12/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html" 
+            
+          >
+            设计模式
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/04/%E7%BB%A7%E6%89%BF.html" 
+            
+          >
+            继承
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/27/%E9%97%AD%E5%8C%85.html" 
+            
+          >
+            闭包
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/20/Promise.html" 
+            
+          >
+            Promise
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/14/%E5%B0%81%E8%A3%85AJAX.html" 
+            
+          >
+            封装AJAX
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/07/AJAX.html" 
+            
+          >
+            AJAX
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/31/COOKIE.html" 
+            
+          >
+            COOKIE
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/23/HTTP.html" 
+            
+          >
+            HTTP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/17/PHP.html" 
+            
+          >
+            PHP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/10/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.html" 
+            
+          >
+            面向对象
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/02/ES5%E5%92%8CES6.html" 
+            
+          >
+            ES5和ES6
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/19/%E6%AD%A3%E5%88%99.html" 
+            
+          >
+            正则
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/12/EVENT-%E4%B8%8B.html" 
+            
+          >
+            EVENT（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/04/EVENT-%E4%B8%8A.html" 
+            
+          >
+            EVENT（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/29/DOM-%E4%B8%8B.html" 
+            
+          >
+            DOM（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/22/DOM-%E4%B8%8A.html" 
+            
+          >
+            DOM（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/14/BOM.html" 
+            
+          >
+            BOM
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/08/Date.html" 
+            
+          >
+            Date
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/01/Math.html" 
+            
+          >
+            Math
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/23/%E5%AD%97%E7%AC%A6%E4%B8%B2.html" 
+            
+          >
+            字符串
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/16/ES5.html" 
+            
+          >
+            ES5
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/09/%E6%95%B0%E7%BB%84.html" 
+            
+          >
+            数组
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/01/12/%E5%87%BD%E6%95%B0-%E4%B8%8B.html" 
+            
+          >
+            函数（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/01/05/%E5%87%BD%E6%95%B0-%E4%B8%8A.html" 
+            
+          >
+            函数（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/29/%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84.html" 
+            
+          >
+            循环结构
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/22/%E5%88%86%E6%94%AF%E7%BB%93%E6%9E%84.html" 
+            
+          >
+            分支结构
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/15/JavaScript%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95.html" 
+            
+          >
+            JavaScript基础语法
+          </a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</main>
+<style>
+  @media screen and (min-width: 1200px) {
+    .blogMain {
+      background-color: #f3f4f6;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .wrapper {
+      max-width: calc(1200px - (10px * 2));
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .blogMain .wrapper .post {
+      width: 800px;
+      padding: 20px 20px;
+      background-color: #fff;
+      box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+    }
+
+    .blogMain .wrapper .directory {
+      width: 330px;
+      /* border: 1px solid #999; */
+      background-color: #fff;
+      float: left;
+      box-sizing: border-box;
+      box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+      font-size: 14px;
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'SimHei', 'Arial', 'SimSun';
+      padding-bottom: 5px;
+    }
+
+    .blogMain .wrapper .directory .directory_header {
+      line-height: 28px;
+      background-color: #fca60b;
+      padding: 0 10px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .blogMain .wrapper .directory .directory_title {
+      padding: 0 15px;
+      line-height: 26px;
+      color: #555666;
+    }
+
+    .blogMain .wrapper .directory .directory_title a {
+      color: #555666;
+      text-decoration: none
+    }
+
+    .blogMain .wrapper .directory .directory_title a:hover {
+      color: #5094d5;
+    }
+    .blogMain .wrapper .leftContent{
+      float: right;
+    }
+    .blogMain .wrapper .leftContent:after {
+      content:""; 
+      display: block; 
+      clear:both; 
+    }
+  }
+</style>
+
+  <footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+  <div class="wrapper">
+    <h2 class="footer-heading">徐hào的博客</h2>
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">徐hào的博客</li>
+          <li><a class="u-email" href="mailto:xh642508924@163.com">xh642508924@163.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          <li><a href="https://github.com/jekyll"><svg class="svg-icon">
+                <use xlink:href="/assets/minima-social-icons.svg#github"></use>
+              </svg> <span class="username">jekyll</span></a></li>
+          <li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon">
+                <use xlink:href="/assets/minima-social-icons.svg#twitter"></use>
+              </svg> <span class="username">jekyllrb</span></a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-3">
+        <p>I am a front-end engineer and have been engaged in front-end development for three years...</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <!-- 定位到评论留言 -->
+  
+<style>
+  .toCommentsDiv{
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    position: fixed;
+    right: 20px;
+    bottom: 120px;
+    cursor: pointer;
+    box-shadow: 0 0 5px #888888;
+    border-radius: 50%;
+    box-sizing: border-box;
+    padding: 10px 0 0 10px;
+  }
+</style>
+<a href="#comments">
+  <div class="toCommentsDiv" title="查看评论留言">
+    <svg t="1603851166634" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3420" width="30" height="30"><path d="M896 138.66666667H128c-38.4 0-64 25.6-64 64V746.66666667c0 38.4 25.6 64 64 64h128v128c83.2 0 166.4-44.8 256-128h384c38.4 0 64-25.6 64-64V202.66666667c0-38.4-25.6-64-64-64z m0 608H486.4l-19.2 19.2c-51.2 51.2-102.4 83.2-147.2 96V746.66666667H128V202.66666667h768V746.66666667z" p-id="3421" fill="#707070"></path><path d="M320 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3422" fill="#707070"></path><path d="M512 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3423" fill="#707070"></path><path d="M704 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3424" fill="#707070"></path></svg>
+  </div>
+</a>
+
+  <!-- 回到顶部 -->
+  
+<style>
+  .toTopDiv{
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    position: fixed;
+    right: 20px;
+    bottom: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 5px #888888;
+    border-radius: 50%;
+    box-sizing: border-box;
+    padding: 10px 0 0 10px;
+    display: none;
+  }
+</style>
+<div class="toTopDiv" title="回到顶部">
+  <svg t="1604044629111" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1093" width="30" height="30"><path d="M866.7 96H157.3c-17.8 0-32.2 14.4-32.2 32.2 0 17.8 14.4 32.2 32.2 32.2h709.5c17.8 0 32.2-14.4 32.2-32.2 0-17.8-14.4-32.2-32.3-32.2zM512 225c-16.5 0-33 6.3-45.6 18.9L169.9 540.3c-5.8 5.8-9.4 13.9-9.4 22.8s3.6 17 9.4 22.8c5.8 5.8 13.9 9.4 22.8 9.4s17-3.6 22.8-9.4l264.2-264.2v574c0 17.8 14.4 32.2 32.2 32.2 17.8 0 32.2-14.4 32.2-32.2v-574l264.2 264.2c5.8 5.8 13.9 9.4 22.8 9.4s17-3.6 22.8-9.4c5.8-5.8 9.4-13.9 9.4-22.8s-3.6-17-9.4-22.8L557.6 243.9C545 231.3 528.5 225 512 225z" p-id="1094" fill="#707070"></path></svg>
+</div>
+<script>
+  let htmlDiv = document.documentElement
+  let toTopDiv = document.querySelector('.toTopDiv')
+
+  document.addEventListener('scroll', () => {
+    if(htmlDiv.scrollTop > 1000){
+      toTopDiv.style.display = 'block'
+    }else{
+      toTopDiv.style.display = 'none'
+    }
+  })
+
+  toTopDiv.addEventListener('click', () => {
+    let scrollTop = htmlDiv.scrollTop
+    let interval = setInterval(() => {
+      htmlDiv.scrollTop -= 100
+      if(htmlDiv.scrollTop <= 0){
+        clearInterval(interval)
+      }
+    }, 5)
+  })
+</script>
+
+</body>
+
+</html>

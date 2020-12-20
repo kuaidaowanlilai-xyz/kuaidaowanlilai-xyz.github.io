@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>数组 | 徐hào的博客</title>
+  
+  <link rel="stylesheet" href="/assets/main.css">
+  <style>
+    .bottomLine {
+      color: #999;
+      font-size: 13px;
+    }
+
+    /* 滚动条样式设置 */
+    @media screen and (min-width: 600px) {
+      *::-webkit-scrollbar {
+        width: 10px;
+        height: 6px;
+      }
+      *::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.5);
+      }
+      *::-webkit-scrollbar-track {
+        background-color: #fff;
+      }
+    }
+    /* 滚动条样式设置 end */
+  </style>
+</head>
+
+<script>//remove baidu search ad
+  var _countAA = 0
+  function doBBBd() {
+    var alla = document.getElementsByTagName('a')
+    for (var i = 0; i < alla.length; i++) {
+      if (/baidu.com\/(baidu.php\?url=|adrc.php\?t)/.test(alla[i].href)) {
+        var _temp = alla[i].parentElement, loop = 0
+        while (loop < 5) {
+          _temp = _temp.parentElement
+          loop++
+          if (_temp.parentElement.id == 'content_left') {
+            _temp.remove()
+            break
+          }
+        }
+      }
+    }
+
+    if (_countAA++ < 20) {
+      setTimeout(doBBBd, 500)
+    }
+
+  }
+  doBBBd()
+  document.addEventListener('keyup', function () { _countAA -= 10; doBBBd() }, false)
+  document.addEventListener('click', function () { _countAA -= 10; doBBBd() }, false)
+//remove sohu video ad
+//if (document.URL.indexOf("tv.sohu.com") >= 0){
+//    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+//}
+//remove 56.com video ad
+//if (document.URL.indexOf("56.com") >= 0){
+//    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+//}
+</script>
+
+<body>
+  <header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">徐hào的博客</a>
+    <nav class="site-nav navDiv">
+      <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+      <label for="nav-trigger">
+        <span class="menu-icon">
+          <svg viewBox="0 0 18 15" width="18px" height="15px">
+            <path
+              d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z" />
+          </svg>
+        </span>
+      </label>
+      <!-- <div class="trigger"><a class="page-link" href="/jsVideo/">JS视频教程</a></div> -->
+      <!-- <div class="trigger"><a class="page-link" href="/myGame/">小游戏</a></div> -->
+      <div class="trigger"><a class="page-link" href="/about/">关于我</a></div>
+      <!-- <div class="trigger"><a class="page-link" href="/about/">其他</a></div> -->
+    </nav>
+  </div>
+</header>
+<style>
+  @media screen and (min-width: 600px) {
+    .navDiv {
+      display: flex;
+    }
+
+    .navDiv .trigger {
+      margin-left: 20px;
+    }
+  }
+</style>
+
+  <main class="page-content blogMain" aria-label="Content">
+  <div class="wrapper">
+    <div class="leftContent">
+      <article class="post h-entry" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+          <h1 class="post-title p-name" itemprop="name headline">数组</h1>
+          <p class="post-meta">
+            <time class="dt-published" datetime="2020-09-29T09:00:00+08:00" itemprop="datePublished">
+              Feb 09, 2020 &nbsp; 字数:3324
+            </time>
+          </p>
+        </header>
+        <div class="post-content e-content" itemprop="articleBody">
+          <h1 id="数组">数组</h1>
+
+<ul>
+  <li>
+    <p>什么是数组？</p>
+  </li>
+  <li>
+    <p>字面理解就是 <strong>数字的组合</strong></p>
+  </li>
+  <li>
+    <p>其实不太准确，准确的来说数组是一个 <strong>数据的集合</strong></p>
+  </li>
+  <li>
+    <p>也就是我们把一些数据放在一个盒子里面，按照顺序排好</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">false</span><span class="p">]</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>这个东西就是一个数组，存储着一些数据的集合</p>
+  </li>
+</ul>
+
+<h2 id="数据类型分类">数据类型分类</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">number</code> / <code class="language-plaintext highlighter-rouge">string</code> / <code class="language-plaintext highlighter-rouge">boolean</code> / <code class="language-plaintext highlighter-rouge">undefined</code> / <code class="language-plaintext highlighter-rouge">null</code> / <code class="language-plaintext highlighter-rouge">object</code> / <code class="language-plaintext highlighter-rouge">function</code>  /  <code class="language-plaintext highlighter-rouge">array</code> / …</li>
+  <li>数组也是数据类型中的一种</li>
+  <li>
+    <p>我们简单的把所有数据类型分为两个大类 <strong>基本数据类型</strong> 和 <strong>复杂数据类型</strong></p>
+  </li>
+  <li>基本数据类型： <code class="language-plaintext highlighter-rouge">number</code> / <code class="language-plaintext highlighter-rouge">string</code> / <code class="language-plaintext highlighter-rouge">boolean</code> / <code class="language-plaintext highlighter-rouge">undefined</code> / <code class="language-plaintext highlighter-rouge">null</code></li>
+  <li>复杂数据类型： <code class="language-plaintext highlighter-rouge">object</code> / <code class="language-plaintext highlighter-rouge">function</code>  /  <code class="language-plaintext highlighter-rouge">array</code> / …</li>
+</ul>
+
+<h2 id="创建一个数组">创建一个数组</h2>
+
+<ul>
+  <li>数组就是一个 <code class="language-plaintext highlighter-rouge">[]</code></li>
+  <li>在 <code class="language-plaintext highlighter-rouge">[]</code> 里面存储着各种各样的数据，按照顺序依次排好</li>
+</ul>
+
+<h3 id="字面量创建一个数组">字面量创建一个数组</h3>
+
+<ul>
+  <li>
+    <p>直接使用 <code class="language-plaintext highlighter-rouge">[]</code> 的方式创建一个数组</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 创建一个空数组</span>
+<span class="kd">var</span> <span class="nx">arr1</span> <span class="o">=</span> <span class="p">[]</span>
+  
+<span class="c1">// 创建一个有内容的数组</span>
+<span class="kd">var</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="内置构造函数创建数组">内置构造函数创建数组</h3>
+
+<ul>
+  <li>
+    <p>使用 js 的内置构造函数 <code class="language-plaintext highlighter-rouge">Array</code> 创建一个数组</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 创建一个空数组</span>
+<span class="kd">var</span> <span class="nx">arr1</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">()</span>
+  
+<span class="c1">// 创建一个长度为 10 的数组</span>
+<span class="kd">var</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+  
+<span class="c1">// 创建一个有内容的数组</span>
+<span class="kd">var</span> <span class="nx">arr3</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="数组的-length">数组的 length</h3>
+
+<ul>
+  <li>
+    <p>length:  长度的意思</p>
+  </li>
+  <li>
+    <p>length 就是表示数组的长度，数组里面有多少个成员，length 就是多少</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 创建一个数组</span>
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="c1">// 3</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="数组的索引">数组的索引</h3>
+
+<ul>
+  <li>
+    <p>索引，也叫做下标，是指一个数据在数组里面排在第几个的位置</p>
+  </li>
+  <li>
+    <p>注意： <strong>在所有的语言里面，索引都是从 0 开始的</strong></p>
+  </li>
+  <li>
+    <p>在 js 里面也一样，数组的索引从 0 开始</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 创建一个数组</span>
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">world</span><span class="dl">'</span><span class="p">]</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>上面这个数组中，<strong>第 0 个</strong> 数据就是字符串 <code class="language-plaintext highlighter-rouge">hello</code>，<strong>第 1 个</strong> 数据就是字符串 <code class="language-plaintext highlighter-rouge">world</code></p>
+  </li>
+  <li>
+    <p>想获取数组中的第几个就使用 <code class="language-plaintext highlighter-rouge">数组[索引]</code> 来获取</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">world</span><span class="dl">'</span><span class="p">]</span>
+  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1">// hello</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1">// world</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="数据类型之间存储的区别重点">数据类型之间存储的区别（重点）</h2>
+
+<ul>
+  <li>既然我们区分了基本数据类型和复杂数据类型</li>
+  <li>那么他们之间就一定会存在一些区别</li>
+  <li>他们最大的区别就是在存储上的区别</li>
+  <li>我们的存储空间分成两种 <strong>栈</strong> 和 <strong>堆</strong></li>
+  <li>栈： 主要存储基本数据类型的内容</li>
+  <li>堆： 主要存储复杂数据类型的内容</li>
+</ul>
+
+<h3 id="基本数据类型在内存中的存储情况">基本数据类型在内存中的存储情况</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">var num = 100</code>，在内存中的存储情况</li>
+  <li><img src="http://localhost:4000/assets/img/基本数据类型在内存中的存储情况.png" alt="" /></li>
+  <li>直接在 <strong>栈空间</strong> 内有存储一个数据</li>
+</ul>
+
+<h3 id="复杂数据类型在内存中的存储情况">复杂数据类型在内存中的存储情况</h3>
+
+<ul>
+  <li>
+    <p>下面这个 对象 的存储</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Jack</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">age</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
+  <span class="na">gender</span><span class="p">:</span> <span class="dl">'</span><span class="s1">男</span><span class="dl">'</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><img src="http://localhost:4000/assets/img/复杂数据类型在内存中的存储情况.png" alt="" /></p>
+  </li>
+  <li>
+    <p>复杂数据类型的存储</p>
+
+    <ol>
+      <li>在堆里面开辟一个存储空间</li>
+      <li>把数据存储到存储空间内</li>
+      <li>把存储空间的地址赋值给栈里面的变量</li>
+    </ol>
+  </li>
+  <li>
+    <p>这就是数据类型之间存储的区别</p>
+  </li>
+</ul>
+
+<h3 id="数据类型之间的比较">数据类型之间的比较</h3>
+
+<ul>
+  <li>
+    <p>基本数据类型是 <strong>值</strong> 之间的比较</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">1</span><span class="dl">'</span>
+  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">num</span> <span class="o">==</span> <span class="nx">str</span><span class="p">)</span> <span class="c1">// true</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>复杂数据类型是 <strong>地址</strong> 之间的比较</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Jack</span><span class="dl">'</span> <span class="p">}</span>
+<span class="kd">var</span> <span class="nx">obj2</span> <span class="o">=</span> <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Jack</span><span class="dl">'</span> <span class="p">}</span>
+  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span> <span class="o">==</span> <span class="nx">obj2</span><span class="p">)</span> <span class="c1">// false</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>因为我们创建了两个对象，那么就会在 堆空间 里面开辟两个存储空间存储数据（两个地址）</li>
+      <li>虽然存储的内容是一样的，那么也是两个存储空间，两个地址</li>
+      <li>复杂数据类型之间就是地址的比较，所以 <code class="language-plaintext highlighter-rouge">obj</code> 和 <code class="language-plaintext highlighter-rouge">obj2</code> 两个变量的地址不一样</li>
+      <li>所以我们得到的就是 <code class="language-plaintext highlighter-rouge">false</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="数组的常用方法">数组的常用方法</h2>
+
+<ul>
+  <li>
+    <p>数组是一个复杂数据类型，我们在操作它的时候就不能再想基本数据类型一样操作了</p>
+  </li>
+  <li>
+    <p>比如我们想改变一个数组</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 创建一个数组</span>
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+  
+<span class="c1">// 我们想把数组变成只有 1 和 2</span>
+<span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>这样肯定是不合理，因为这样不是在改变之前的数组</li>
+      <li>相当于心弄了一个数组给到 arr 这个变量了</li>
+      <li>相当于把 arr 里面存储的地址给换了，也就是把存储空间换掉了，而不是在之前的空间里面修改</li>
+      <li>所以我们就需要借助一些方法，在不改变存储空间的情况下，把存储空间里面的数据改变了</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="数组常用方法之-push">数组常用方法之 push</h3>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">push</code> 是用来在数组的末尾追加一个元素</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+  
+<span class="c1">// 使用 push 方法追加一个元素在末尾</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="c1">// [1, 2, 3, 4]</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="数组常用方法之-pop">数组常用方法之 pop</h3>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">pop</code> 是用来删除数组末尾的一个元素</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+  
+<span class="c1">// 使用 pop 方法删除末尾的一个元素</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">pop</span><span class="p">()</span>
+  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="c1">// [1, 2]</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="数组常用方法之-unshift">数组常用方法之 unshift</h3>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">unshift</code> 是在数组的最前面添加一个元素</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+  
+<span class="c1">// 使用 unshift 方法想数组的最前面添加一个元素</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="c1">// [4, 1, 2, 3]</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="数组常用方法之--shift">数组常用方法之  shift</h3>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">shift</code> 是删除数组最前面的一个元素</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+  
+<span class="c1">// 使用 shift 方法删除数组最前面的一个元素</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span>
+  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="c1">// [2, 3]</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="数组常用方法之-splice">数组常用方法之 splice</h3>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">splice</code> 是截取数组中的某些内容，按照数组的索引来截取</p>
+  </li>
+  <li>
+    <p>语法： <code class="language-plaintext highlighter-rouge">splice(从哪一个索引位置开始，截取多少个，替换的新元素)</code> （第三个参数可以不写）</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+  
+<span class="c1">// 使用 splice 方法截取数组</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="c1">// [1, 4, 5]</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">arr.splice(1, 2)</code> 表示从索引 1 开始截取 2 个内容</li>
+      <li>第三个参数没有写，就是没有新内容替换掉截取位置</li>
+    </ul>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+  
+<span class="c1">// 使用 splice 方法截取数组</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="dl">'</span><span class="s1">我是新内容</span><span class="dl">'</span><span class="p">)</span>
+  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="c1">// [1, '我是新内容', 4, 5]</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">arr.splice(1, 2, '我是新内容')</code> 表示从索引 1 开始截取 2 个内容</li>
+      <li>然后用第三个参数把截取完空出来的位置填充</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="数组常用方法之-reverse">数组常用方法之 reverse</h3>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">reverse</code> 是用来反转数组使用的</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+  
+<span class="c1">// 使用 reverse 方法来反转数组</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">reverse</span><span class="p">()</span>
+  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="c1">// [3, 2, 1]</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="数组常用方法之-sort">数组常用方法之 sort</h3>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">sort</code> 是用来给数组排序的</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+  
+<span class="c1">// 使用 sort 方法给数组排序</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">sort</span><span class="p">()</span>
+  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="c1">// [1, 2, 3]</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>这个只是一个基本的简单用法</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="数组常用方法之-concat">数组常用方法之 concat</h3>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">concat</code> 是把多个数组进行拼接</p>
+  </li>
+  <li>
+    <p>和之前的方法有一些不一样的地方，就是 <code class="language-plaintext highlighter-rouge">concat</code> 不会改变原始数组，而是返回一个新的数组</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+  
+<span class="c1">// 使用 concat 方法拼接数组</span>
+<span class="kd">var</span> <span class="nx">newArr</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">concat</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="c1">// [1, 2, 3]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">newArr</span><span class="p">)</span> <span class="c1">// [1, 2, 3, 4, 5, 6]</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>注意： <strong>concat 方法不会改变原始数组</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="数组常用方法之-join">数组常用方法之 join</h3>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">join</code> 是把数组里面的每一项内容链接起来，变成一个字符串</p>
+  </li>
+  <li>
+    <p>可以自己定义每一项之间链接的内容 <code class="language-plaintext highlighter-rouge">join(要以什么内容链接)</code></p>
+  </li>
+  <li>
+    <p>不会改变原始数组，而是把链接好的字符串返回</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+  
+<span class="c1">// 使用 join 链接数组</span>
+<span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="dl">'</span><span class="s1">-</span><span class="dl">'</span><span class="p">)</span>
+  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="c1">// [1, 2, 3]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="c1">// 1-2-3</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>注意： <strong>join 方法不会改变原始数组，而是返回链接好的字符串</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="for-和-for-in-循环">for 和 for in 循环</h2>
+
+<ul>
+  <li>
+    <p>因为数组的索引就可以获取数组中的内容</p>
+  </li>
+  <li>
+    <p>数组的索引又是按照 0 ～ n 顺序排列</p>
+  </li>
+  <li>
+    <p>我们就可以使用 for 循环来循环数组，因为 for 循环我们也可以设置成 0 ～ n 顺序增加</p>
+  </li>
+  <li>
+    <p>我们把这个行为叫做 <strong>遍历</strong></p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+  
+<span class="c1">// 使用 for 循环遍历数组</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+<span class="p">}</span>
+  
+<span class="c1">// 会在控制台依次打印出 1， 2， 3， 4， 5</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">i &lt; arr.length</code> 因为 length 就是数组的长度，就是一个数字，所以我们可以直接用它来决定循环次数</li>
+      <li><code class="language-plaintext highlighter-rouge">console.log(arr[i])</code> 因为随着循环，i 的值会从 0 开始依次增加</li>
+      <li>所以我们实际上就相当于在打印 <code class="language-plaintext highlighter-rouge">arr[0]</code> / <code class="language-plaintext highlighter-rouge">arr[1]</code> / …</li>
+    </ul>
+  </li>
+  <li>
+    <p>因为 <strong>对象</strong> 是没有索引的，所以我们没有办法使用 for 循环来遍历</p>
+  </li>
+  <li>
+    <p>这里我们使用 for in 循环来遍历对象</p>
+  </li>
+  <li>
+    <p>先来看一段代码</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Jack</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">age</span><span class="p">:</span> <span class="mi">18</span>
+<span class="p">}</span>
+  
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+<span class="p">}</span>
+  
+<span class="c1">// 会在控制台打印两次内容，分别是 name 和 age</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>for in 循环的遍历是按照对象中有多少成员来决定了</li>
+      <li>有多少成员，就会执行多少次</li>
+      <li><code class="language-plaintext highlighter-rouge">key</code> 是我们自己定义的一个变量，就和 for 循环的时候我们定义的 i 一个道理</li>
+      <li>在每次循环的过程中，key 就代表着对象中某一个成员的 <strong>属性名</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="数组的排序">数组的排序</h2>
+
+<ul>
+  <li>排序，就是把一个乱序的数组，通过我们的处理，让他变成一个有序的数组</li>
+  <li>今天我们讲解两种方式来排序一个数组 <strong>冒泡排序</strong> 和 <strong>选择排序</strong></li>
+</ul>
+
+<h3 id="冒泡排序">冒泡排序</h3>
+
+<ul>
+  <li>
+    <p>先遍历数组，让挨着的两个进行比较，如果前一个比后一个大，那么就把两个换个位置</p>
+  </li>
+  <li>
+    <p>数组遍历一遍以后，那么最后一个数字就是最大的那个了</p>
+  </li>
+  <li>
+    <p>然后进行第二遍的遍历，还是按照之前的规则，第二大的数字就会跑到倒数第二的位置</p>
+  </li>
+  <li>
+    <p>以此类推，最后就会按照顺序把数组排好了</p>
+
+    <ol>
+      <li>
+        <p>我们先来准备一个乱序的数组</p>
+
+        <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+</code></pre></div>        </div>
+
+        <ul>
+          <li>接下来我们就会用代码让数组排序</li>
+        </ul>
+      </li>
+      <li>
+        <p>先不着急循环，先来看数组里面内容换个位置</p>
+
+        <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 假定我现在要让数组中的第 0 项和第 1 项换个位置</span>
+<span class="c1">// 需要借助第三个变量</span>
+<span class="kd">var</span> <span class="nx">tmp</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">tmp</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>第一次遍历数组，把最大的放到最后面去</p>
+
+        <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// 判断，如果数组中的当前一个比后一个大，那么两个交换一下位置</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">tmp</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+    <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">tmp</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+     
+<span class="c1">// 遍历完毕以后，数组就会变成 [3, 1, 5, 6, 4, 7, 2, 8, 9]</span>
+</code></pre></div>        </div>
+
+        <ul>
+          <li>第一次结束以后，数组中的最后一个，就会是最大的那个数字</li>
+          <li>然后我们把上面的这段代码执行多次。数组有多少项就执行多少次</li>
+        </ul>
+      </li>
+      <li>
+        <p>按照数组的长度来遍历多少次</p>
+
+        <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 判断，如果数组中的当前一个比后一个大，那么两个交换一下位置</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">tmp</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+      <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+      <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">tmp</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+     
+<span class="c1">// 结束以后，数组就排序好了</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>给一些优化</p>
+
+        <ul>
+          <li>
+            <p>想象一个问题，假设数组长度是 9，第八次排完以后</p>
+          </li>
+          <li>
+            <p>后面八个数字已经按照顺序排列好了，剩下的那个最小的一定是在最前面</p>
+          </li>
+          <li>
+            <p>那么第九次就已经没有意义了，因为最小的已经在最前面了，不会再有任何换位置出现了</p>
+          </li>
+          <li>
+            <p>那么我们第九次遍历就不需要了，所以我们可以减少一次</p>
+
+            <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 判断，如果数组中的当前一个比后一个大，那么两个交换一下位置</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">tmp</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+      <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+      <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">tmp</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>            </div>
+          </li>
+          <li>
+            <p>第二个问题，第一次的时候，已经把最大的数字放在最后面了</p>
+          </li>
+          <li>
+            <p>那么第二次的时候，其实倒数第二个和最后一个就不用比了</p>
+          </li>
+          <li>
+            <p>因为我们就是要把倒数第二大的放在倒数第二的位置，即使比较了，也不会换位置</p>
+          </li>
+          <li>
+            <p>第三次就要倒数第三个数字就不用再和后两个比较了</p>
+          </li>
+          <li>
+            <p>以此类推，那么其实每次遍历的时候，就遍历当前次数 - 1 次</p>
+
+            <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="nx">j</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 判断，如果数组中的当前一个比后一个大，那么两个交换一下位置</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">tmp</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+      <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+      <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">tmp</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>            </div>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>至此，一个冒泡排序就完成了</p>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h3 id="选择排序">选择排序</h3>
+
+<ul>
+  <li>
+    <p>先假定数组中的第 0 个就是最小的数字的索引</p>
+  </li>
+  <li>
+    <p>然后遍历数组，只要有一个数字比我小，那么就替换之前记录的索引</p>
+  </li>
+  <li>
+    <p>知道数组遍历结束后，就能找到最小的那个索引，然后让最小的索引换到第 0 个的位置</p>
+  </li>
+  <li>
+    <p>再来第二趟遍历，假定第 1 个是最小的数字的索引</p>
+  </li>
+  <li>
+    <p>在遍历一次数组，找到比我小的那个数字的索引</p>
+  </li>
+  <li>
+    <p>遍历结束后换个位置</p>
+  </li>
+  <li>
+    <p>依次类推，也可以把数组排序好</p>
+
+    <ol>
+      <li>
+        <p>准备一个数组</p>
+
+        <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>假定数组中的第 0 个是最小数字的索引</p>
+
+        <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">minIndex</span> <span class="o">=</span> <span class="mi">0</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>遍历数组，判断，只要数字比我小，那么就替换掉原先记录的索引</p>
+
+        <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">minIndex</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">minIndex</span><span class="p">])</span> <span class="p">{</span>
+    <span class="nx">minIndex</span> <span class="o">=</span> <span class="nx">i</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+     
+<span class="c1">// 遍历结束后找到最小的索引</span>
+<span class="c1">// 让第 minIndex 个和第 0 个交换</span>
+<span class="kd">var</span> <span class="nx">tmp</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">minIndex</span><span class="p">]</span>
+<span class="nx">arr</span><span class="p">[</span><span class="nx">minIndex</span><span class="p">]</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">tmp</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>按照数组的长度重复执行上面的代码</p>
+
+        <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// 因为第一遍的时候假定第 0 个，第二遍的时候假定第 1 个</span>
+  <span class="c1">// 所以我们要假定第 j 个就行</span>
+  <span class="kd">var</span> <span class="nx">minIndex</span> <span class="o">=</span> <span class="nx">j</span>
+       
+  <span class="c1">// 因为之前已经把最小的放在最前面了，后面的循环就不需要判断前面的了</span>
+  <span class="c1">// 直接从 j + 1 开始</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">minIndex</span><span class="p">])</span> <span class="p">{</span>
+      <span class="nx">minIndex</span> <span class="o">=</span> <span class="nx">i</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+     
+  <span class="c1">// 遍历结束后找到最小的索引</span>
+  <span class="c1">// 第一堂的时候是和第 0 个交换，第二趟的时候是和第 1 个交换</span>
+  <span class="c1">// 我们直接和第 j 个交换就行</span>
+  <span class="kd">var</span> <span class="nx">tmp</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">minIndex</span><span class="p">]</span>
+  <span class="nx">arr</span><span class="p">[</span><span class="nx">minIndex</span><span class="p">]</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span>
+  <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">=</span> <span class="nx">tmp</span>
+<span class="p">}</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>一些优化</p>
+
+        <ul>
+          <li>
+            <p>和之前一样，倒数第二次排序完毕以后，就已经排好了，最后一次没有必要了</p>
+
+            <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">minIndex</span> <span class="o">=</span> <span class="nx">j</span>
+         
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">minIndex</span><span class="p">])</span> <span class="p">{</span>
+      <span class="nx">minIndex</span> <span class="o">=</span> <span class="nx">i</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+       
+  <span class="kd">var</span> <span class="nx">tmp</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">minIndex</span><span class="p">]</span>
+  <span class="nx">arr</span><span class="p">[</span><span class="nx">minIndex</span><span class="p">]</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span>
+  <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">=</span> <span class="nx">tmp</span>
+<span class="p">}</span>
+</code></pre></div>            </div>
+          </li>
+          <li>
+            <p>在交换变量之前，可以判断一下，如果我们遍历后得到的索引和当前的索引一直</p>
+          </li>
+          <li>
+            <p>那么就证明当前这个就是目前最小的，那么就没有必要交换</p>
+          </li>
+          <li>
+            <p>做一我们要判断，最小作引和当前作引不一样的时候，才交换</p>
+
+            <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">minIndex</span> <span class="o">=</span> <span class="nx">j</span>
+         
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">minIndex</span><span class="p">])</span> <span class="p">{</span>
+      <span class="nx">minIndex</span> <span class="o">=</span> <span class="nx">i</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+       
+  <span class="k">if</span> <span class="p">(</span><span class="nx">minIndex</span> <span class="o">!==</span> <span class="nx">j</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">tmp</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">minIndex</span><span class="p">]</span>
+    <span class="nx">arr</span><span class="p">[</span><span class="nx">minIndex</span><span class="p">]</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span>
+    <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">=</span> <span class="nx">tmp</span>   
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>            </div>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>至此，选择排序完成</p>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="函数参数传递基本数据类型和复杂数据类型的区别">函数参数传递基本数据类型和复杂数据类型的区别</h2>
+
+<ul>
+  <li>
+    <p>之前我们知道了，基本数据类型和复杂数据类型在存储上是有区别的</p>
+  </li>
+  <li>
+    <p>那么他们在赋值之间也是有区别的</p>
+  </li>
+  <li>
+    <p>基本数据类型之间的赋值</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="kd">var</span> <span class="nx">num2</span> <span class="o">=</span> <span class="nx">num</span>
+  
+<span class="nx">num2</span> <span class="o">=</span> <span class="mi">200</span>
+  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span> <span class="c1">// 100</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">num2</span><span class="p">)</span> <span class="c1">// 200</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>相当于是把 num 的值复制了一份一摸一样的给了 num2 变量</li>
+      <li>赋值以后两个在没有关系</li>
+    </ul>
+  </li>
+  <li>
+    <p>复杂数据类型之间的赋值</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Jack</span><span class="dl">'</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">obj2</span> <span class="o">=</span> <span class="nx">obj</span>
+  
+<span class="nx">obj2</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Rose</span><span class="dl">'</span>
+  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="c1">// Rose</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj2</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="c1">// Rose</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>因为复杂数据类型，变量存储的是地址，真实内容在 堆空间 内存储</li>
+      <li>所以赋值的时候相当于把 obj 存储的那个地址复制了一份给到了 obj2 变量</li>
+      <li>现在 obj 和 obj2 两个变量存储的地址一样，指向一个内存空间</li>
+      <li>所以使用 obj2 这个变量修改空间内的内容，obj 指向的空间也会跟着改变了</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="函数的参数">函数的参数</h3>
+
+<ul>
+  <li>
+    <p>函数的参数也是赋值的之中，在函数调用的时候，实参给行参赋值</p>
+  </li>
+  <li>
+    <p>和之前变量赋值的规则是一样的</p>
+  </li>
+  <li>
+    <p>函数传递基本数据类型</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">fn</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">n</span> <span class="o">=</span> <span class="mi">200</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="c1">// 200</span>
+<span class="p">}</span>
+  
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="nx">fn</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span> <span class="c1">// 100</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>和之前变量赋值的时候一样，在把 num 的值复制了一份一摸一样的给到了函数内部的行参 n</li>
+      <li>两个之间在没有任何关系了</li>
+    </ul>
+  </li>
+  <li>
+    <p>函数传递复杂数据类型</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">fn</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">o</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Rose</span><span class="dl">'</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">o</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="c1">// Rose</span>
+<span class="p">}</span>
+  
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Jack</span><span class="dl">'</span>
+<span class="p">}</span>
+<span class="nx">fn</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="c1">// Rose</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>和之前变量赋值的时候一样，把 obj 内存储的地址复制了一份一摸一样的给到函数内部的行参 o</li>
+      <li>函数外部的 obj 和函数内部的行参 o，存储的是一个地址，指向的是一个存储空间</li>
+      <li>所以两个变量操作的是一个存储空间</li>
+      <li>在函数内部改变了空间内的数据</li>
+      <li>obj 看到的也是改变以后的内容</li>
+    </ul>
+  </li>
+</ul>
+
+        </div>
+  
+      </article>
+        
+      <!-- 评论 -->
+      <div class="comments" id="comments">
+  <div class="title">评论留言：</div>
+  <div class="textareaDiv">
+    <textarea id="publishedInp" rows="3" cols="20"></textarea>
+    <div class="butDiv">
+      <div class="nicknameDiv">
+        昵称：
+        <input id="nickname" type="text" placeholder="游客">
+      </div>
+      <button id="publishedBut">发表评论</button>
+    </div>
+  </div>
+  <div class="commentsDiv" id="commentsDiv">
+    <!-- <div class="commentsItem">
+      <div class="headPortrait"></div>
+      <div class="right">
+        <span class="userName">
+          游客：
+        </span>
+        <span class="content">
+          评论评论评论评论评论评论评论评论评论评论评论评论评论
+        </span>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+<script>
+  const xhr = new XMLHttpRequest()
+  const xhrUrl = 'http://123.56.54.241:23000'
+  // const xhrUrl = 'https://www.kuaidaowanlilai.xyz'
+  // const xhrUrl = 'http://localhost:23000'
+
+  //发表评论
+  let publishedBut = document.querySelector('#publishedBut')
+  publishedBut.addEventListener('click', function () {
+    let publishedInp = document.querySelector('#publishedInp')
+    if (publishedInp.value) {
+      xhr.open('post', `${xhrUrl}/published`)
+      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+      xhr.send(JSON.stringify({
+        username: document.querySelector('#nickname').value,
+        blogUrl: window.location.pathname,
+        content: publishedInp.value
+      }))
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
+          //打印 xhr.responseText 来查看服务端给我们返回的内容
+          console.log('发表评论返回信息', xhr.responseText)
+          requestData()
+          publishedInp.value = ''
+        }
+      }
+    }else {
+      console.log('评论内容为空')
+    }
+  })
+
+  //请求渲染评论
+  requestData()
+  function requestData() {
+    xhr.open('post', `${xhrUrl}/comments`)
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+    xhr.send(JSON.stringify({
+      blogUrl: window.location.pathname
+    }))
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
+        //打印 xhr.responseText 来查看服务端给我们返回的内容
+        applyColours(JSON.parse(xhr.responseText))
+      }
+    }
+    function applyColours(data) {
+      let htmlStr = ''
+      for (let i = 0; i < data.length; i++) {
+        htmlStr += `
+      <div class="commentsItem">
+        <div class="headPortrait"></div>
+        <div class="right">
+          <span class="userName">
+            ${data[i].username}：
+          </span>
+          <span class="content">
+            ${data[i].content}
+          </span>
+        </div>
+      </div>`
+      }
+      document.querySelector('#commentsDiv').innerHTML = htmlStr
+    }
+  }
+</script>
+<style>
+  .comments {
+    width: 100%;
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+    padding: 10px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #333;
+  }
+
+  .comments .title {
+    color: #444;
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+
+  .comments .textareaDiv .butDiv {
+    text-align: right;
+  }
+
+  .comments .textareaDiv textarea {
+    border-radius: 3px;
+    width: calc(100% - 6px);
+    outline: none
+  }
+
+  .comments .textareaDiv .butDiv .nicknameDiv {
+    font-size: 14px;
+    display: inline-block;
+  }
+
+  .comments .textareaDiv .butDiv .nicknameDiv input {
+    width: 70px;
+    border: 1px solid rgb(189, 189, 189);
+    outline: none;
+    border-radius: 2px;
+  }
+
+  .comments .textareaDiv .butDiv button {
+    cursor: pointer;
+  }
+
+  .comments .commentsDiv {
+    margin-top: 5px;
+  }
+
+  .comments .commentsDiv .commentsItem {
+    font-size: 14px;
+    display: flex;
+    border-top: 1px solid rgb(240, 240, 240);
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .comments .commentsDiv .commentsItem .headPortrait {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: rgb(191, 226, 250);
+    margin-left: 5px;
+  }
+
+  .comments .commentsDiv .commentsItem .right {
+    width: calc(100% - 35px);
+    margin-left: 10px;
+  }
+
+  .comments .commentsDiv .commentsItem .right .userName {
+    color: #555666;
+  }
+
+  .comments .commentsDiv .commentsItem .right .content {
+    color: #222226;
+  }
+</style>
+
+    </div>
+    <div class="directory">
+      <div class="directory_header">全部文章</div>
+      <div style="margin-top:5px;">
+        
+        <div class="directory_title">
+          <a href="/%E8%BD%AC%E8%BD%BD/2020/12/16/JavaScript-%E9%82%A3%E4%BA%9B%E5%86%99%E5%87%BA%E6%9D%A5%E4%BC%9A%E8%A2%AB%E5%90%8C%E4%BA%8B%E6%8F%8D%E7%9A%84%E9%AA%9A%E6%93%8D%E4%BD%9C.html" 
+            
+          >
+            JavaScript 那些写出来会被同事揍的骚操作
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/css%E9%BB%91%E7%A7%91%E6%8A%80/2020/10/19/IE%E6%B5%8F%E8%A7%88%E5%99%A8%E5%A4%9A%E8%A1%8C%E6%96%87%E5%AD%97%E6%BA%A2%E5%87%BA%E6%98%BE%E7%A4%BA%E7%9C%81%E7%95%A5%E5%8F%B7.html" 
+            
+          >
+            IE浏览器多行文字溢出显示省略号
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/09/06/GIT%E5%92%8CGITHUB.html" 
+            
+          >
+            GIT和GITHUB
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/30/GULP.html" 
+            
+          >
+            GULP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/23/SASS.html" 
+            
+          >
+            SASS
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/15/NODE%E4%BB%8B%E7%BB%8D.html" 
+            
+          >
+            NODE介绍
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/09/jQuery-%E4%B8%8B.html" 
+            
+          >
+            jQuery（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/02/jQuery-%E4%B8%AD.html" 
+            
+          >
+            jQuery（中）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/26/jQuery-%E4%B8%8A.html" 
+            
+          >
+            jQuery（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/19/Set%E5%92%8CMap.html" 
+            
+          >
+            Set和Map
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/12/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html" 
+            
+          >
+            设计模式
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/04/%E7%BB%A7%E6%89%BF.html" 
+            
+          >
+            继承
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/27/%E9%97%AD%E5%8C%85.html" 
+            
+          >
+            闭包
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/20/Promise.html" 
+            
+          >
+            Promise
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/14/%E5%B0%81%E8%A3%85AJAX.html" 
+            
+          >
+            封装AJAX
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/07/AJAX.html" 
+            
+          >
+            AJAX
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/31/COOKIE.html" 
+            
+          >
+            COOKIE
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/23/HTTP.html" 
+            
+          >
+            HTTP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/17/PHP.html" 
+            
+          >
+            PHP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/10/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.html" 
+            
+          >
+            面向对象
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/02/ES5%E5%92%8CES6.html" 
+            
+          >
+            ES5和ES6
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/19/%E6%AD%A3%E5%88%99.html" 
+            
+          >
+            正则
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/12/EVENT-%E4%B8%8B.html" 
+            
+          >
+            EVENT（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/04/EVENT-%E4%B8%8A.html" 
+            
+          >
+            EVENT（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/29/DOM-%E4%B8%8B.html" 
+            
+          >
+            DOM（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/22/DOM-%E4%B8%8A.html" 
+            
+          >
+            DOM（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/14/BOM.html" 
+            
+          >
+            BOM
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/08/Date.html" 
+            
+          >
+            Date
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/01/Math.html" 
+            
+          >
+            Math
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/23/%E5%AD%97%E7%AC%A6%E4%B8%B2.html" 
+            
+          >
+            字符串
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/16/ES5.html" 
+            
+          >
+            ES5
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/09/%E6%95%B0%E7%BB%84.html" 
+            
+            style="color:#5094d5;"
+            
+          >
+            数组
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/01/12/%E5%87%BD%E6%95%B0-%E4%B8%8B.html" 
+            
+          >
+            函数（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/01/05/%E5%87%BD%E6%95%B0-%E4%B8%8A.html" 
+            
+          >
+            函数（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/29/%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84.html" 
+            
+          >
+            循环结构
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/22/%E5%88%86%E6%94%AF%E7%BB%93%E6%9E%84.html" 
+            
+          >
+            分支结构
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/15/JavaScript%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95.html" 
+            
+          >
+            JavaScript基础语法
+          </a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</main>
+<style>
+  @media screen and (min-width: 1200px) {
+    .blogMain {
+      background-color: #f3f4f6;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .wrapper {
+      max-width: calc(1200px - (10px * 2));
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .blogMain .wrapper .post {
+      width: 800px;
+      padding: 20px 20px;
+      background-color: #fff;
+      box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+    }
+
+    .blogMain .wrapper .directory {
+      width: 330px;
+      /* border: 1px solid #999; */
+      background-color: #fff;
+      float: left;
+      box-sizing: border-box;
+      box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+      font-size: 14px;
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'SimHei', 'Arial', 'SimSun';
+      padding-bottom: 5px;
+    }
+
+    .blogMain .wrapper .directory .directory_header {
+      line-height: 28px;
+      background-color: #fca60b;
+      padding: 0 10px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .blogMain .wrapper .directory .directory_title {
+      padding: 0 15px;
+      line-height: 26px;
+      color: #555666;
+    }
+
+    .blogMain .wrapper .directory .directory_title a {
+      color: #555666;
+      text-decoration: none
+    }
+
+    .blogMain .wrapper .directory .directory_title a:hover {
+      color: #5094d5;
+    }
+    .blogMain .wrapper .leftContent{
+      float: right;
+    }
+    .blogMain .wrapper .leftContent:after {
+      content:""; 
+      display: block; 
+      clear:both; 
+    }
+  }
+</style>
+
+  <footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+  <div class="wrapper">
+    <h2 class="footer-heading">徐hào的博客</h2>
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">徐hào的博客</li>
+          <li><a class="u-email" href="mailto:xh642508924@163.com">xh642508924@163.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          <li><a href="https://github.com/jekyll"><svg class="svg-icon">
+                <use xlink:href="/assets/minima-social-icons.svg#github"></use>
+              </svg> <span class="username">jekyll</span></a></li>
+          <li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon">
+                <use xlink:href="/assets/minima-social-icons.svg#twitter"></use>
+              </svg> <span class="username">jekyllrb</span></a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-3">
+        <p>I am a front-end engineer and have been engaged in front-end development for three years...</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <!-- 定位到评论留言 -->
+  
+<style>
+  .toCommentsDiv{
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    position: fixed;
+    right: 20px;
+    bottom: 120px;
+    cursor: pointer;
+    box-shadow: 0 0 5px #888888;
+    border-radius: 50%;
+    box-sizing: border-box;
+    padding: 10px 0 0 10px;
+  }
+</style>
+<a href="#comments">
+  <div class="toCommentsDiv" title="查看评论留言">
+    <svg t="1603851166634" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3420" width="30" height="30"><path d="M896 138.66666667H128c-38.4 0-64 25.6-64 64V746.66666667c0 38.4 25.6 64 64 64h128v128c83.2 0 166.4-44.8 256-128h384c38.4 0 64-25.6 64-64V202.66666667c0-38.4-25.6-64-64-64z m0 608H486.4l-19.2 19.2c-51.2 51.2-102.4 83.2-147.2 96V746.66666667H128V202.66666667h768V746.66666667z" p-id="3421" fill="#707070"></path><path d="M320 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3422" fill="#707070"></path><path d="M512 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3423" fill="#707070"></path><path d="M704 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3424" fill="#707070"></path></svg>
+  </div>
+</a>
+
+  <!-- 回到顶部 -->
+  
+<style>
+  .toTopDiv{
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    position: fixed;
+    right: 20px;
+    bottom: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 5px #888888;
+    border-radius: 50%;
+    box-sizing: border-box;
+    padding: 10px 0 0 10px;
+    display: none;
+  }
+</style>
+<div class="toTopDiv" title="回到顶部">
+  <svg t="1604044629111" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1093" width="30" height="30"><path d="M866.7 96H157.3c-17.8 0-32.2 14.4-32.2 32.2 0 17.8 14.4 32.2 32.2 32.2h709.5c17.8 0 32.2-14.4 32.2-32.2 0-17.8-14.4-32.2-32.3-32.2zM512 225c-16.5 0-33 6.3-45.6 18.9L169.9 540.3c-5.8 5.8-9.4 13.9-9.4 22.8s3.6 17 9.4 22.8c5.8 5.8 13.9 9.4 22.8 9.4s17-3.6 22.8-9.4l264.2-264.2v574c0 17.8 14.4 32.2 32.2 32.2 17.8 0 32.2-14.4 32.2-32.2v-574l264.2 264.2c5.8 5.8 13.9 9.4 22.8 9.4s17-3.6 22.8-9.4c5.8-5.8 9.4-13.9 9.4-22.8s-3.6-17-9.4-22.8L557.6 243.9C545 231.3 528.5 225 512 225z" p-id="1094" fill="#707070"></path></svg>
+</div>
+<script>
+  let htmlDiv = document.documentElement
+  let toTopDiv = document.querySelector('.toTopDiv')
+
+  document.addEventListener('scroll', () => {
+    if(htmlDiv.scrollTop > 1000){
+      toTopDiv.style.display = 'block'
+    }else{
+      toTopDiv.style.display = 'none'
+    }
+  })
+
+  toTopDiv.addEventListener('click', () => {
+    let scrollTop = htmlDiv.scrollTop
+    let interval = setInterval(() => {
+      htmlDiv.scrollTop -= 100
+      if(htmlDiv.scrollTop <= 0){
+        clearInterval(interval)
+      }
+    }, 5)
+  })
+</script>
+
+</body>
+
+</html>

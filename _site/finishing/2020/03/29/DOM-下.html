@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>DOM（下） | 徐hào的博客</title>
+  
+  <link rel="stylesheet" href="/assets/main.css">
+  <style>
+    .bottomLine {
+      color: #999;
+      font-size: 13px;
+    }
+
+    /* 滚动条样式设置 */
+    @media screen and (min-width: 600px) {
+      *::-webkit-scrollbar {
+        width: 10px;
+        height: 6px;
+      }
+      *::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.5);
+      }
+      *::-webkit-scrollbar-track {
+        background-color: #fff;
+      }
+    }
+    /* 滚动条样式设置 end */
+  </style>
+</head>
+
+<script>//remove baidu search ad
+  var _countAA = 0
+  function doBBBd() {
+    var alla = document.getElementsByTagName('a')
+    for (var i = 0; i < alla.length; i++) {
+      if (/baidu.com\/(baidu.php\?url=|adrc.php\?t)/.test(alla[i].href)) {
+        var _temp = alla[i].parentElement, loop = 0
+        while (loop < 5) {
+          _temp = _temp.parentElement
+          loop++
+          if (_temp.parentElement.id == 'content_left') {
+            _temp.remove()
+            break
+          }
+        }
+      }
+    }
+
+    if (_countAA++ < 20) {
+      setTimeout(doBBBd, 500)
+    }
+
+  }
+  doBBBd()
+  document.addEventListener('keyup', function () { _countAA -= 10; doBBBd() }, false)
+  document.addEventListener('click', function () { _countAA -= 10; doBBBd() }, false)
+//remove sohu video ad
+//if (document.URL.indexOf("tv.sohu.com") >= 0){
+//    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+//}
+//remove 56.com video ad
+//if (document.URL.indexOf("56.com") >= 0){
+//    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+//}
+</script>
+
+<body>
+  <header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">徐hào的博客</a>
+    <nav class="site-nav navDiv">
+      <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+      <label for="nav-trigger">
+        <span class="menu-icon">
+          <svg viewBox="0 0 18 15" width="18px" height="15px">
+            <path
+              d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z" />
+          </svg>
+        </span>
+      </label>
+      <!-- <div class="trigger"><a class="page-link" href="/jsVideo/">JS视频教程</a></div> -->
+      <!-- <div class="trigger"><a class="page-link" href="/myGame/">小游戏</a></div> -->
+      <div class="trigger"><a class="page-link" href="/about/">关于我</a></div>
+      <!-- <div class="trigger"><a class="page-link" href="/about/">其他</a></div> -->
+    </nav>
+  </div>
+</header>
+<style>
+  @media screen and (min-width: 600px) {
+    .navDiv {
+      display: flex;
+    }
+
+    .navDiv .trigger {
+      margin-left: 20px;
+    }
+  }
+</style>
+
+  <main class="page-content blogMain" aria-label="Content">
+  <div class="wrapper">
+    <div class="leftContent">
+      <article class="post h-entry" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+          <h1 class="post-title p-name" itemprop="name headline">DOM（下）</h1>
+          <p class="post-meta">
+            <time class="dt-published" datetime="2020-09-29T09:00:00+08:00" itemprop="datePublished">
+              Mar 29, 2020 &nbsp; 字数:2430
+            </time>
+          </p>
+        </header>
+        <div class="post-content e-content" itemprop="articleBody">
+          <h1 id="dom下">DOM（下）</h1>
+
+<ul>
+  <li>DOM 就是我们 html 结构中一个一个的节点构成的</li>
+  <li>不光我们的标签是一个节点，我们写的文本内容也是一个节点，注释，包括空格都是节点</li>
+</ul>
+
+<h2 id="dom节点">DOM节点</h2>
+
+<ul>
+  <li>DOM 的节点我们一般分为常用的三大类 <strong>元素节点</strong> / <strong>文本节点</strong> / <strong>属性节点</strong></li>
+  <li>什么是分类，比如我们在获取元素的时候，通过各种方法获取到的我们叫做元素节点（标签节点）</li>
+  <li>比如我们标签里面写的文字，那么就是文本节点</li>
+  <li>写在每一个标签上的属性，就是属性节点</li>
+</ul>
+
+<h3 id="元素节点">元素节点</h3>
+
+<ul>
+  <li>我们通过 <code class="language-plaintext highlighter-rouge">getElementBy...</code> 获取到的都是元素节点</li>
+</ul>
+
+<h3 id="属性节点">属性节点</h3>
+
+<ul>
+  <li>我们通过 <code class="language-plaintext highlighter-rouge">getAttribute</code> 获取的就是元素的属性节点</li>
+</ul>
+
+<h3 id="文本节点">文本节点</h3>
+
+<ul>
+  <li>我们通过 <code class="language-plaintext highlighter-rouge">innerText</code> 获取到的就是元素的文本节点</li>
+</ul>
+
+<h3 id="获取节点">获取节点</h3>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">childNodes</code>：获取某一个节点下 <strong>所有的子一级节点</strong></p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;p&gt;</span>hello<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+    
+  <span class="nt">&lt;script&gt;</span>
+    <span class="c1">// 这个 oDiv 获取的是页面中的 div 元素，就是一个元素节点</span>
+  	<span class="kd">var</span> <span class="nx">oDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">)</span>
+      
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oDiv</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">)</span> 
+    <span class="cm">/*
+    	NodeList(3) [text, p, text]
+      0: text
+      1: p
+      2: text
+      length: 3
+      __proto__: NodeList
+    */</span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>我们会发现，拿到以后是一个伪数组，里面有三个节点</li>
+      <li>一个 text：从 &lt;div&gt; 一直到 &lt;p&gt; 中间有一个换行和一堆空格，这个是第一个节点，是一个文本节点</li>
+      <li>一个 p：这个 p 标签就是第二个节点，这个是一个元素节点</li>
+      <li>一个 text：从 &lt;/p&gt; 一直到 &lt;/div&gt; 中间有一个换行和一堆空格，这个是第三个节点，是一个文本节点</li>
+      <li>这个时候就能看到我们有不同的节点类型了</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">children</code> ：获取某一节点下所有的子一级 <strong>元素节点</strong></p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;p&gt;</span>hello<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+    
+  <span class="nt">&lt;script&gt;</span>
+    <span class="c1">// 这个 oDiv 获取的是页面中的 div 元素，就是一个元素节点</span>
+  	<span class="kd">var</span> <span class="nx">oDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">)</span>
+      
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oDiv</span><span class="p">.</span><span class="nx">children</span><span class="p">)</span> 
+    <span class="cm">/*
+    	HTMLCollection [p]
+      0: p
+      length: 1
+      __proto__: HTMLCollection
+    */</span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>我们发现只有一个节点了，因为 <code class="language-plaintext highlighter-rouge">children</code> 只要元素节点</li>
+      <li>div 下面又只有一个元素节点，就是 p</li>
+      <li>所以就只有一个，虽然只有一个，但是也是一个 <strong>伪数组</strong></li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">firstChild</code>：获取某一节点下子一级的 <strong>第一个节点</strong></p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;p&gt;</span>hello<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+    
+  <span class="nt">&lt;script&gt;</span>
+    <span class="c1">// 这个 oDiv 获取的是页面中的 div 元素，就是一个元素节点</span>
+  	<span class="kd">var</span> <span class="nx">oDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">)</span>
+      
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oDiv</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">)</span> <span class="c1">// #text </span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>这个是只获取一个节点，不再是伪数组了</li>
+      <li>获取的是第一个</li>
+      <li>第一个就是 &lt;div&gt; 一直到 &lt;p&gt; 的那个换行和空格，是个文本节点</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">lastChild</code>：获取某一节点下子一级的 <strong>最后一个节点</strong></p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;p&gt;</span>hello<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+    
+  <span class="nt">&lt;script&gt;</span>
+    <span class="c1">// 这个 oDiv 获取的是页面中的 div 元素，就是一个元素节点</span>
+  	<span class="kd">var</span> <span class="nx">oDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">)</span>
+      
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oDiv</span><span class="p">.</span><span class="nx">lastChild</span><span class="p">)</span> <span class="c1">// #text </span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>只获取一个节点，不再是伪数组</li>
+      <li>获取的是最后一个</li>
+      <li>最后一个就是 &lt;/p&gt; 一直到 &lt;/div&gt; 之间的换行和空格，是个文本节点</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">firstElementChild</code>：获取某一节点下子一级 <strong>第一个元素节点</strong></p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;p&gt;</span>hello<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+    
+  <span class="nt">&lt;script&gt;</span>
+    <span class="c1">// 这个 oDiv 获取的是页面中的 div 元素，就是一个元素节点</span>
+  	<span class="kd">var</span> <span class="nx">oDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">)</span>
+      
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oDiv</span><span class="p">.</span><span class="nx">firstElementChild</span><span class="p">)</span> <span class="c1">// </span><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">hello</span><span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span>  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>只获取一个节点，不在是伪数组</li>
+      <li>获取的是第一个 <strong>元素节点</strong></li>
+      <li>第一个元素节点就是 p 标签，是一个元素节点</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">lastElementChild</code>：获取某一节点下子一级 <strong>最后一个元素节点</strong></p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;p&gt;</span>hello<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>world<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+    
+  <span class="nt">&lt;script&gt;</span>
+    <span class="c1">// 这个 oDiv 获取的是页面中的 div 元素，就是一个元素节点</span>
+  	<span class="kd">var</span> <span class="nx">oDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">)</span>
+      
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oDiv</span><span class="p">.</span><span class="nx">lastElementChild</span><span class="p">)</span> <span class="c1">// </span><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">world</span><span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span>  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>只获取一个节点，不在是伪数组</li>
+      <li>获取的是最后一个 <strong>元素节点</strong></li>
+      <li>最后一个元素节点是 <code class="language-plaintext highlighter-rouge">&lt;p&gt;world&lt;/p&gt;</code>，是一个元素节点</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">nextSibling</code>：获取某一个节点的 <strong>下一个兄弟节点</strong></p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"a"</span><span class="nt">&gt;</span>hello<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"b"</span><span class="nt">&gt;</span>world<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"c"</span><span class="nt">&gt;</span>!!!<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+    
+  <span class="nt">&lt;script&gt;</span>
+    <span class="c1">// 这个 oLi 获取的是页面中的 li 元素，就是一个元素节点</span>
+  	<span class="kd">var</span> <span class="nx">oLi</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">#b</span><span class="dl">'</span><span class="p">)</span>
+      
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oLi</span><span class="p">.</span><span class="nx">nextSibling</span><span class="p">)</span> <span class="c1">// #text</span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>只获取一个节点，不在是伪数组</li>
+      <li>获取的是 <code class="language-plaintext highlighter-rouge">id="b"</code> 这个 li 的下一个兄弟节点</li>
+      <li>因为 <code class="language-plaintext highlighter-rouge">id="b"</code> 的下一个节点，是两个 li 标签之间的换行和空格，所以是一个文本节点</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">previousSibling</code>：获取某一个节点的 <strong>上一个兄弟节点</strong></p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"a"</span><span class="nt">&gt;</span>hello<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"b"</span><span class="nt">&gt;</span>world<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"c"</span><span class="nt">&gt;</span>!!!<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+    
+  <span class="nt">&lt;script&gt;</span>
+    <span class="c1">// 这个 oLi 获取的是页面中的 li 元素，就是一个元素节点</span>
+  	<span class="kd">var</span> <span class="nx">oLi</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">#b</span><span class="dl">'</span><span class="p">)</span>
+      
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oLi</span><span class="p">.</span><span class="nx">previousSibling</span><span class="p">)</span> <span class="c1">// #text</span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>只获取一个节点，不在是伪数组</li>
+      <li>获取的是 <code class="language-plaintext highlighter-rouge">id="b"</code> 这个 li 的上一个兄弟节点</li>
+      <li>因为 <code class="language-plaintext highlighter-rouge">id="b"</code> 的上一个节点，是两个 li 标签之间的换行和空格，所以是一个文本节点</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">nextElementSibling</code>：获取某一个节点的 <strong>下一个元素节点</strong></p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"a"</span><span class="nt">&gt;</span>hello<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"b"</span><span class="nt">&gt;</span>world<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"c"</span><span class="nt">&gt;</span>!!!<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+    
+  <span class="nt">&lt;script&gt;</span>
+    <span class="c1">// 这个 oLi 获取的是页面中的 li 元素，就是一个元素节点</span>
+  	<span class="kd">var</span> <span class="nx">oLi</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">#b</span><span class="dl">'</span><span class="p">)</span>
+      
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oLi</span><span class="p">.</span><span class="nx">nextElementSibling</span><span class="p">)</span> <span class="c1">// </span><span class="o">&lt;</span><span class="nx">li</span> <span class="nx">id</span><span class="o">=</span><span class="dl">"</span><span class="s2">c</span><span class="dl">"</span><span class="o">&gt;!!!&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>只获取一个节点，不在是伪数组</li>
+      <li>获取的是 <code class="language-plaintext highlighter-rouge">id="b"</code> 这个 li 的下一个兄弟元素节点</li>
+      <li>因为 <code class="language-plaintext highlighter-rouge">id="b"</code> 的下一个兄弟元素节点就是 <code class="language-plaintext highlighter-rouge">id="c"</code> 的 li，是一个元素节点</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">previousElementSibling</code>：获取某一个节点的 <strong>上一个元素节点</strong></p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"a"</span><span class="nt">&gt;</span>hello<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"b"</span><span class="nt">&gt;</span>world<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"c"</span><span class="nt">&gt;</span>!!!<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+    
+  <span class="nt">&lt;script&gt;</span>
+    <span class="c1">// 这个 oLi 获取的是页面中的 li 元素，就是一个元素节点</span>
+  	<span class="kd">var</span> <span class="nx">oLi</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">#b</span><span class="dl">'</span><span class="p">)</span>
+      
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oLi</span><span class="p">.</span><span class="nx">previousElementSibling</span><span class="p">)</span> <span class="c1">// </span><span class="o">&lt;</span><span class="nx">li</span> <span class="nx">id</span><span class="o">=</span><span class="dl">"</span><span class="s2">a</span><span class="dl">"</span><span class="o">&gt;</span><span class="nx">hello</span><span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>只获取一个节点，不在是伪数组</li>
+      <li>获取的是 <code class="language-plaintext highlighter-rouge">id="b"</code> 这个 li 的上一个兄弟元素节点</li>
+      <li>因为 <code class="language-plaintext highlighter-rouge">id="b"</code> 的上一个兄弟元素节点就是 <code class="language-plaintext highlighter-rouge">id="a"</code> 的 li，是一个元素节点</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">parentNode</code>：获取某一个节点的 <strong>父节点</strong></p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"a"</span><span class="nt">&gt;</span>hello<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"b"</span><span class="nt">&gt;</span>world<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"c"</span><span class="nt">&gt;</span>!!!<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+    
+  <span class="nt">&lt;script&gt;</span>
+    <span class="c1">// 这个 oLi 获取的是页面中的 li 元素，就是一个元素节点</span>
+  	<span class="kd">var</span> <span class="nx">oLi</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">#b</span><span class="dl">'</span><span class="p">)</span>
+      
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oLi</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">)</span> <span class="c1">// </span><span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span><span class="p">...</span><span class="o">&lt;</span><span class="sr">/ul</span><span class="err">&gt;
+</span>  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>只获取一个节点，不在是伪数组</li>
+      <li>获取的是当前这个 li 的父元素节点</li>
+      <li>因为这个 li 的父亲就是 ul，所以获取到的就是 ul，是一个元素节点</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">attributes</code>：获取某一个 <strong>元素节点</strong> 的所有 <strong>属性节点</strong></p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"a"</span> <span class="na">a=</span><span class="s">"100"</span> <span class="na">test=</span><span class="s">"test"</span><span class="nt">&gt;</span>hello<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+    
+  <span class="nt">&lt;script&gt;</span>
+    <span class="c1">// 这个 oLi 获取的是页面中的 li 元素，就是一个元素节点</span>
+  	<span class="kd">var</span> <span class="nx">oLi</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">#a</span><span class="dl">'</span><span class="p">)</span>
+      
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oLi</span><span class="p">.</span><span class="nx">attributes</span><span class="p">)</span> 
+    <span class="cm">/*
+    	NamedNodeMap {0: id, 1: a, 2: test, id: id, a: a, test: test, length: 3}
+      0: id
+      1: a
+      2: test
+      length: 3
+      a: a
+      id: id
+      test: test
+      __proto__: NamedNodeMap
+      
+    */</span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>获取的是一组数据，是该元素的所有属性，也是一个伪数组</li>
+      <li>这个 li 有三个属性，id / a / test 三个，所以就获取到了这三个</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="节点属性">节点属性</h3>
+
+<ul>
+  <li>
+    <p>我们已经知道节点会分成很多种，而且我们也能获取到各种不同的节点</p>
+  </li>
+  <li>
+    <p>接下来我们就来聊一些各种节点之间属性的区别</p>
+  </li>
+  <li>
+    <p>我们先准备一段代码</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;ul</span> <span class="na">test=</span><span class="s">"我是 ul 的一个属性"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li&gt;</span>hello<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+  
+  <span class="nt">&lt;script&gt;</span>
+    <span class="c1">// 先获取 ul</span>
+    <span class="kd">var</span> <span class="nx">oUl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">ul</span><span class="dl">'</span><span class="p">)</span>
+      
+    <span class="c1">// 获取到 ul 下的第一个子元素节点，是一个元素节点</span>
+    <span class="kd">var</span> <span class="nx">eleNode</span> <span class="o">=</span> <span class="nx">oUl</span><span class="p">.</span><span class="nx">firstElementChild</span>
+      
+    <span class="c1">// 获取到 ul 的属性节点组合，因为是个组合，我们要拿到节点的话要用索引</span>
+    <span class="kd">var</span> <span class="nx">attrNode</span> <span class="o">=</span> <span class="nx">oUl</span><span class="p">.</span><span class="nx">attributes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  
+    <span class="c1">// 获取到 ul 下的第一个子节点，是一个文本节点</span>
+    <span class="kd">var</span> <span class="nx">textNode</span> <span class="o">=</span> <span class="nx">oUl</span><span class="p">.</span><span class="nx">firstChild</span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h4 id="nodetype">nodeType</h4>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">nodeType</code>：获取节点的节点类型，用数字表示</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">eleNode</span><span class="p">.</span><span class="nx">nodeType</span><span class="p">)</span> <span class="c1">// 1</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">attrNode</span><span class="p">.</span><span class="nx">nodeType</span><span class="p">)</span> <span class="c1">// 2</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">textNode</span><span class="p">.</span><span class="nx">nodeType</span><span class="p">)</span> <span class="c1">// 3</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">nodeType === 1</code> 就表示该节点是一个 <strong>元素节点</strong></li>
+      <li><code class="language-plaintext highlighter-rouge">nodeType === 2</code> 就表示该节点是一个 <strong>属性节点</strong></li>
+      <li><code class="language-plaintext highlighter-rouge">nodeType === 3</code> 就表示该节点是一个 <strong>注释节点</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="nodename">nodeName</h4>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">nodeName</code>：获取节点的节点名称</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">eleNode</span><span class="p">.</span><span class="nx">nodeName</span><span class="p">)</span> <span class="c1">// LI</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">attrNode</span><span class="p">.</span><span class="nx">nodeName</span><span class="p">)</span> <span class="c1">// test</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">textNode</span><span class="p">.</span><span class="nx">nodeName</span><span class="p">)</span> <span class="c1">// #text</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>元素节点的 <code class="language-plaintext highlighter-rouge">nodeName</code> 就是 <strong>大写标签名</strong></li>
+      <li>属性节点的 <code class="language-plaintext highlighter-rouge">nodeName</code> 就是 <strong>属性名</strong></li>
+      <li>文本节点的 <code class="language-plaintext highlighter-rouge">nodeName</code> 都是 <strong>#text</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="nodevalue">nodeValue</h4>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">nodeValue</code>： 获取节点的值</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">eleNode</span><span class="p">.</span><span class="nx">nodeValue</span><span class="p">)</span> <span class="c1">// null</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">attrNode</span><span class="p">.</span><span class="nx">nodeValue</span><span class="p">)</span> <span class="c1">// 我是 ul 的一个属性</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">textNode</span><span class="p">.</span><span class="nx">nodeValue</span><span class="p">)</span> <span class="c1">// 换行 + 空格</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>元素节点没有 <code class="language-plaintext highlighter-rouge">nodeValue</code></li>
+      <li>属性节点的 <code class="language-plaintext highlighter-rouge">nodeValue</code> 就是 <strong>属性值</strong></li>
+      <li>文本节点的 <code class="language-plaintext highlighter-rouge">nodeValue</code> 就是 <strong>文本内容</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="汇总">汇总</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>-</th>
+      <th>nodeType</th>
+      <th>nodeName</th>
+      <th>nodeValue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>元素节点</td>
+      <td>1</td>
+      <td>大写标签名</td>
+      <td>null</td>
+    </tr>
+    <tr>
+      <td>属性节点</td>
+      <td>2</td>
+      <td>属性名</td>
+      <td>属性值</td>
+    </tr>
+    <tr>
+      <td>文本节点</td>
+      <td>3</td>
+      <td>#text</td>
+      <td>文本内容</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="操作-dom-节点">操作 DOM 节点</h2>
+
+<ul>
+  <li>我们所说的操作无非就是 <strong>增删改查（CRUD）</strong></li>
+  <li>创建一个节点（因为向页面中增加之前，我们需要先创建一个节点出来）</li>
+  <li>向页面中增加一个节点</li>
+  <li>删除页面中的某一个节点</li>
+  <li>修改页面中的某一个节点</li>
+  <li>获取页面中的某一个节点</li>
+</ul>
+
+<h3 id="创建一个节点">创建一个节点</h3>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">createElement</code>：用于创建一个元素节点</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 创建一个 div 元素节点</span>
+<span class="kd">var</span> <span class="nx">oDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">)</span>
+  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oDiv</span><span class="p">)</span> <span class="c1">// &lt;div&gt;&lt;/div&gt;</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>创建出来的就是一个可以使用的 div 元素</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">createTextNode</code>：用于创建一个文本节点</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 创建一个文本节点</span>
+<span class="kd">var</span> <span class="nx">oText</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="dl">'</span><span class="s1">我是一个文本</span><span class="dl">'</span><span class="p">)</span>
+  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oText</span><span class="p">)</span> <span class="c1">// "我是一个文本"</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="向页面中加入一个节点">向页面中加入一个节点</h3>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">appendChild</code>：是向一个元素节点的末尾追加一个节点</p>
+  </li>
+  <li>
+    <p>语法： <code class="language-plaintext highlighter-rouge">父节点.appendChild(要插入的子节点)</code></p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 创建一个 div 元素节点</span>
+<span class="kd">var</span> <span class="nx">oDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">oText</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="dl">'</span><span class="s1">我是一个文本</span><span class="dl">'</span><span class="p">)</span>
+  
+<span class="c1">// 向 div 中追加一个文本节点</span>
+<span class="nx">oDiv</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">oText</span><span class="p">)</span>
+  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oDiv</span><span class="p">)</span> <span class="c1">// &lt;div&gt;我是一个文本&lt;/div&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">insertBefore</code>：向某一个节点前插入一个节点</p>
+  </li>
+  <li>
+    <p>语法： <code class="language-plaintext highlighter-rouge">父节点.insertBefore(要插入的节点，插入在哪一个节点的前面)</code></p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;p&gt;</span>我是一个 p 标签<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+    
+  <span class="nt">&lt;script&gt;</span>
+  	<span class="kd">var</span> <span class="nx">oDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">)</span>
+    <span class="kd">var</span> <span class="nx">oP</span> <span class="o">=</span> <span class="nx">oDiv</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">p</span><span class="dl">'</span><span class="p">)</span>
+      
+    <span class="c1">// 创建一个元素节点</span>
+    <span class="kd">var</span> <span class="nx">oSpan</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">'</span><span class="s1">span</span><span class="dl">'</span><span class="p">)</span>
+      
+    <span class="c1">// 将这个元素节点添加到 div 下的 p 的前面</span>
+    <span class="nx">oDiv</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">oSpan</span><span class="p">,</span> <span class="nx">oP</span><span class="p">)</span>
+      
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oDiv</span><span class="p">)</span>
+    <span class="cm">/*
+    	&lt;div&gt;
+    		&lt;span&gt;&lt;/span&gt;
+    		&lt;p&gt;我是一个 p 标签&lt;/p&gt;
+    	&lt;/div&gt;
+    */</span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="删除页面中的某一个节点">删除页面中的某一个节点</h3>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">removeChild</code>：移除某一节点下的某一个节点</p>
+  </li>
+  <li>
+    <p>语法：<code class="language-plaintext highlighter-rouge">父节点.removeChild(要移除的字节点)</code></p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;p&gt;</span>我是一个 p 标签<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+    
+  <span class="nt">&lt;script&gt;</span>
+  	<span class="kd">var</span> <span class="nx">oDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">)</span>
+    <span class="kd">var</span> <span class="nx">oP</span> <span class="o">=</span> <span class="nx">oDiv</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">p</span><span class="dl">'</span><span class="p">)</span>
+      
+    <span class="c1">// 移除 div 下面的 p 标签</span>
+    <span class="nx">oDiv</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">oP</span><span class="p">)</span>
+      
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oDiv</span><span class="p">)</span> <span class="c1">// </span><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="修改页面中的某一个节点">修改页面中的某一个节点</h3>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">replaceChild</code>：将页面中的某一个节点替换掉</p>
+  </li>
+  <li>
+    <p>语法： <code class="language-plaintext highlighter-rouge">父节点.replaceChild(新节点，旧节点)</code></p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;p&gt;</span>我是一个 p 标签<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+    
+  <span class="nt">&lt;script&gt;</span>
+  	<span class="kd">var</span> <span class="nx">oDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">)</span>
+    <span class="kd">var</span> <span class="nx">oP</span> <span class="o">=</span> <span class="nx">oDiv</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">p</span><span class="dl">'</span><span class="p">)</span>
+      
+    <span class="c1">// 创建一个 span 节点</span>
+    <span class="kd">var</span> <span class="nx">oSpan</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">'</span><span class="s1">span</span><span class="dl">'</span><span class="p">)</span>
+    <span class="c1">// 向 span 元素中加点文字</span>
+    <span class="nx">oSpan</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">我是新创建的 span 标签</span><span class="dl">'</span>
+      
+   	<span class="c1">// 用创建的 span 标签替换原先 div 下的 p 标签</span>
+    <span class="nx">oDiv</span><span class="p">.</span><span class="nx">replaceChild</span><span class="p">(</span><span class="nx">oSpan</span><span class="p">,</span> <span class="nx">oP</span><span class="p">)</span>
+      
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oDiv</span><span class="p">)</span>
+    <span class="cm">/*
+    	&lt;div&gt;
+    		&lt;span&gt;我是新创建的 span 标签&lt;/span&gt;
+    	&lt;/div&gt;
+    */</span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="获取元素的非行间样式">获取元素的非行间样式</h2>
+
+<ul>
+  <li>
+    <p>我们在操作 DOM 的时候，很重要的一点就是要操作元素的 css 样式</p>
+  </li>
+  <li>
+    <p>那么在操作 css 样式的时候，我们避免不了就要获取元素的样式</p>
+  </li>
+  <li>
+    <p>之前我们说过可以用 <code class="language-plaintext highlighter-rouge">元素.style.xxx</code> 来获取</p>
+  </li>
+  <li>
+    <p>但是这个方法只能获取到元素 <strong>行间样式</strong>，也就是写在行内的样式</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;style&gt;</span>
+  <span class="nt">div</span> <span class="p">{</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">"height: 100px;"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p&gt;</span>我是一个 p 标签<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  
+  <span class="nt">&lt;script&gt;</span>
+    <span class="kd">var</span> <span class="nx">oDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">)</span>
+		<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oDiv</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span> <span class="c1">// 100px</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oDIv</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span> <span class="c1">// ''</span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>不管是外链式还是内嵌式，我们都获取不到该元素的样式</p>
+  </li>
+  <li>
+    <p>这里我们就要使用方法来获取了 <strong>getComputedStyle</strong> 和 <strong>currentStyle</strong></p>
+  </li>
+  <li>
+    <p>这两个方法的作用是一样的，只不过一个在 <strong>非 IE</strong> 浏览器，一个在 <strong>IE</strong> 浏览器</p>
+  </li>
+</ul>
+
+<h3 id="getcomputedstyle非ie使用">getComputedStyle（非IE使用）</h3>
+
+<ul>
+  <li>
+    <p>语法：<code class="language-plaintext highlighter-rouge">window.getComputedStyle(元素, null).要获取的属性</code></p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;style&gt;</span>
+  <span class="nt">div</span> <span class="p">{</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">"height: 100px;"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p&gt;</span>我是一个 p 标签<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  
+  <span class="nt">&lt;script&gt;</span>
+    <span class="kd">var</span> <span class="nx">oDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">)</span>
+		<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">getComputedStyle</span><span class="p">(</span><span class="nx">oDiv</span><span class="p">).</span><span class="nx">width</span><span class="p">)</span> <span class="c1">// 100px</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">getComputedStyle</span><span class="p">(</span><span class="nx">oDiv</span><span class="p">).</span><span class="nx">height</span><span class="p">)</span> <span class="c1">// 100px</span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>这个方法获取行间样式和非行间样式都可以</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="currentstyleie使用">currentStyle（IE使用）</h3>
+
+<ul>
+  <li>
+    <p>语法： <code class="language-plaintext highlighter-rouge">元素.currentStyle.要获取的属性</code></p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;style&gt;</span>
+  <span class="nt">div</span> <span class="p">{</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">"height: 100px;"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p&gt;</span>我是一个 p 标签<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  
+  <span class="nt">&lt;script&gt;</span>
+    <span class="kd">var</span> <span class="nx">oDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">)</span>
+		<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oDiv</span><span class="p">.</span><span class="nx">currentStyle</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span> <span class="c1">// 100px</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">oDiv</span><span class="p">.</span><span class="nx">currentStyle</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span> <span class="c1">// 100px</span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="获取元素的偏移量">获取元素的偏移量</h2>
+
+<ul>
+  <li>就是元素在页面上的什么位置</li>
+  <li>我们有几个属性来获取，<strong>offsetLeft</strong> 和 <strong>offsetTop</strong> 和 <strong>offsetWidth</strong> 和 <strong>offsetHeight</strong></li>
+</ul>
+
+<h3 id="offsetleft-和-offsettop">offsetLeft 和 offsetTop</h3>
+
+<ul>
+  <li>获取的是元左边的偏移量和上边的偏移量</li>
+  <li>分成两个情况来看</li>
+  <li>没有定位的情况下
+    <ul>
+      <li>获取元素边框外侧到页面内侧的距离</li>
+    </ul>
+  </li>
+  <li>有定位的情况下
+    <ul>
+      <li>获取元素边框外侧到定位父级边框内侧的距离（其实就是我们写的 left 和 top 值）</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="offsetwidth-和-offsetheight">offsetWidth 和 offsetHeight</h3>
+
+<ul>
+  <li>获取元素 <code class="language-plaintext highlighter-rouge">内容宽高 + padding宽高 + border宽高</code> 的和</li>
+</ul>
+
+
+        </div>
+  
+      </article>
+        
+      <!-- 评论 -->
+      <div class="comments" id="comments">
+  <div class="title">评论留言：</div>
+  <div class="textareaDiv">
+    <textarea id="publishedInp" rows="3" cols="20"></textarea>
+    <div class="butDiv">
+      <div class="nicknameDiv">
+        昵称：
+        <input id="nickname" type="text" placeholder="游客">
+      </div>
+      <button id="publishedBut">发表评论</button>
+    </div>
+  </div>
+  <div class="commentsDiv" id="commentsDiv">
+    <!-- <div class="commentsItem">
+      <div class="headPortrait"></div>
+      <div class="right">
+        <span class="userName">
+          游客：
+        </span>
+        <span class="content">
+          评论评论评论评论评论评论评论评论评论评论评论评论评论
+        </span>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+<script>
+  const xhr = new XMLHttpRequest()
+  const xhrUrl = 'http://123.56.54.241:23000'
+  // const xhrUrl = 'https://www.kuaidaowanlilai.xyz'
+  // const xhrUrl = 'http://localhost:23000'
+
+  //发表评论
+  let publishedBut = document.querySelector('#publishedBut')
+  publishedBut.addEventListener('click', function () {
+    let publishedInp = document.querySelector('#publishedInp')
+    if (publishedInp.value) {
+      xhr.open('post', `${xhrUrl}/published`)
+      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+      xhr.send(JSON.stringify({
+        username: document.querySelector('#nickname').value,
+        blogUrl: window.location.pathname,
+        content: publishedInp.value
+      }))
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
+          //打印 xhr.responseText 来查看服务端给我们返回的内容
+          console.log('发表评论返回信息', xhr.responseText)
+          requestData()
+          publishedInp.value = ''
+        }
+      }
+    }else {
+      console.log('评论内容为空')
+    }
+  })
+
+  //请求渲染评论
+  requestData()
+  function requestData() {
+    xhr.open('post', `${xhrUrl}/comments`)
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+    xhr.send(JSON.stringify({
+      blogUrl: window.location.pathname
+    }))
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
+        //打印 xhr.responseText 来查看服务端给我们返回的内容
+        applyColours(JSON.parse(xhr.responseText))
+      }
+    }
+    function applyColours(data) {
+      let htmlStr = ''
+      for (let i = 0; i < data.length; i++) {
+        htmlStr += `
+      <div class="commentsItem">
+        <div class="headPortrait"></div>
+        <div class="right">
+          <span class="userName">
+            ${data[i].username}：
+          </span>
+          <span class="content">
+            ${data[i].content}
+          </span>
+        </div>
+      </div>`
+      }
+      document.querySelector('#commentsDiv').innerHTML = htmlStr
+    }
+  }
+</script>
+<style>
+  .comments {
+    width: 100%;
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+    padding: 10px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #333;
+  }
+
+  .comments .title {
+    color: #444;
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+
+  .comments .textareaDiv .butDiv {
+    text-align: right;
+  }
+
+  .comments .textareaDiv textarea {
+    border-radius: 3px;
+    width: calc(100% - 6px);
+    outline: none
+  }
+
+  .comments .textareaDiv .butDiv .nicknameDiv {
+    font-size: 14px;
+    display: inline-block;
+  }
+
+  .comments .textareaDiv .butDiv .nicknameDiv input {
+    width: 70px;
+    border: 1px solid rgb(189, 189, 189);
+    outline: none;
+    border-radius: 2px;
+  }
+
+  .comments .textareaDiv .butDiv button {
+    cursor: pointer;
+  }
+
+  .comments .commentsDiv {
+    margin-top: 5px;
+  }
+
+  .comments .commentsDiv .commentsItem {
+    font-size: 14px;
+    display: flex;
+    border-top: 1px solid rgb(240, 240, 240);
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .comments .commentsDiv .commentsItem .headPortrait {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: rgb(191, 226, 250);
+    margin-left: 5px;
+  }
+
+  .comments .commentsDiv .commentsItem .right {
+    width: calc(100% - 35px);
+    margin-left: 10px;
+  }
+
+  .comments .commentsDiv .commentsItem .right .userName {
+    color: #555666;
+  }
+
+  .comments .commentsDiv .commentsItem .right .content {
+    color: #222226;
+  }
+</style>
+
+    </div>
+    <div class="directory">
+      <div class="directory_header">全部文章</div>
+      <div style="margin-top:5px;">
+        
+        <div class="directory_title">
+          <a href="/%E8%BD%AC%E8%BD%BD/2020/12/16/JavaScript-%E9%82%A3%E4%BA%9B%E5%86%99%E5%87%BA%E6%9D%A5%E4%BC%9A%E8%A2%AB%E5%90%8C%E4%BA%8B%E6%8F%8D%E7%9A%84%E9%AA%9A%E6%93%8D%E4%BD%9C.html" 
+            
+          >
+            JavaScript 那些写出来会被同事揍的骚操作
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/css%E9%BB%91%E7%A7%91%E6%8A%80/2020/10/19/IE%E6%B5%8F%E8%A7%88%E5%99%A8%E5%A4%9A%E8%A1%8C%E6%96%87%E5%AD%97%E6%BA%A2%E5%87%BA%E6%98%BE%E7%A4%BA%E7%9C%81%E7%95%A5%E5%8F%B7.html" 
+            
+          >
+            IE浏览器多行文字溢出显示省略号
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/09/06/GIT%E5%92%8CGITHUB.html" 
+            
+          >
+            GIT和GITHUB
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/30/GULP.html" 
+            
+          >
+            GULP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/23/SASS.html" 
+            
+          >
+            SASS
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/15/NODE%E4%BB%8B%E7%BB%8D.html" 
+            
+          >
+            NODE介绍
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/09/jQuery-%E4%B8%8B.html" 
+            
+          >
+            jQuery（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/02/jQuery-%E4%B8%AD.html" 
+            
+          >
+            jQuery（中）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/26/jQuery-%E4%B8%8A.html" 
+            
+          >
+            jQuery（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/19/Set%E5%92%8CMap.html" 
+            
+          >
+            Set和Map
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/12/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html" 
+            
+          >
+            设计模式
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/04/%E7%BB%A7%E6%89%BF.html" 
+            
+          >
+            继承
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/27/%E9%97%AD%E5%8C%85.html" 
+            
+          >
+            闭包
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/20/Promise.html" 
+            
+          >
+            Promise
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/14/%E5%B0%81%E8%A3%85AJAX.html" 
+            
+          >
+            封装AJAX
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/07/AJAX.html" 
+            
+          >
+            AJAX
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/31/COOKIE.html" 
+            
+          >
+            COOKIE
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/23/HTTP.html" 
+            
+          >
+            HTTP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/17/PHP.html" 
+            
+          >
+            PHP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/10/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.html" 
+            
+          >
+            面向对象
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/02/ES5%E5%92%8CES6.html" 
+            
+          >
+            ES5和ES6
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/19/%E6%AD%A3%E5%88%99.html" 
+            
+          >
+            正则
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/12/EVENT-%E4%B8%8B.html" 
+            
+          >
+            EVENT（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/04/EVENT-%E4%B8%8A.html" 
+            
+          >
+            EVENT（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/29/DOM-%E4%B8%8B.html" 
+            
+            style="color:#5094d5;"
+            
+          >
+            DOM（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/22/DOM-%E4%B8%8A.html" 
+            
+          >
+            DOM（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/14/BOM.html" 
+            
+          >
+            BOM
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/08/Date.html" 
+            
+          >
+            Date
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/01/Math.html" 
+            
+          >
+            Math
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/23/%E5%AD%97%E7%AC%A6%E4%B8%B2.html" 
+            
+          >
+            字符串
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/16/ES5.html" 
+            
+          >
+            ES5
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/09/%E6%95%B0%E7%BB%84.html" 
+            
+          >
+            数组
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/01/12/%E5%87%BD%E6%95%B0-%E4%B8%8B.html" 
+            
+          >
+            函数（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/01/05/%E5%87%BD%E6%95%B0-%E4%B8%8A.html" 
+            
+          >
+            函数（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/29/%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84.html" 
+            
+          >
+            循环结构
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/22/%E5%88%86%E6%94%AF%E7%BB%93%E6%9E%84.html" 
+            
+          >
+            分支结构
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/15/JavaScript%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95.html" 
+            
+          >
+            JavaScript基础语法
+          </a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</main>
+<style>
+  @media screen and (min-width: 1200px) {
+    .blogMain {
+      background-color: #f3f4f6;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .wrapper {
+      max-width: calc(1200px - (10px * 2));
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .blogMain .wrapper .post {
+      width: 800px;
+      padding: 20px 20px;
+      background-color: #fff;
+      box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+    }
+
+    .blogMain .wrapper .directory {
+      width: 330px;
+      /* border: 1px solid #999; */
+      background-color: #fff;
+      float: left;
+      box-sizing: border-box;
+      box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+      font-size: 14px;
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'SimHei', 'Arial', 'SimSun';
+      padding-bottom: 5px;
+    }
+
+    .blogMain .wrapper .directory .directory_header {
+      line-height: 28px;
+      background-color: #fca60b;
+      padding: 0 10px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .blogMain .wrapper .directory .directory_title {
+      padding: 0 15px;
+      line-height: 26px;
+      color: #555666;
+    }
+
+    .blogMain .wrapper .directory .directory_title a {
+      color: #555666;
+      text-decoration: none
+    }
+
+    .blogMain .wrapper .directory .directory_title a:hover {
+      color: #5094d5;
+    }
+    .blogMain .wrapper .leftContent{
+      float: right;
+    }
+    .blogMain .wrapper .leftContent:after {
+      content:""; 
+      display: block; 
+      clear:both; 
+    }
+  }
+</style>
+
+  <footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+  <div class="wrapper">
+    <h2 class="footer-heading">徐hào的博客</h2>
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">徐hào的博客</li>
+          <li><a class="u-email" href="mailto:xh642508924@163.com">xh642508924@163.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          <li><a href="https://github.com/jekyll"><svg class="svg-icon">
+                <use xlink:href="/assets/minima-social-icons.svg#github"></use>
+              </svg> <span class="username">jekyll</span></a></li>
+          <li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon">
+                <use xlink:href="/assets/minima-social-icons.svg#twitter"></use>
+              </svg> <span class="username">jekyllrb</span></a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-3">
+        <p>I am a front-end engineer and have been engaged in front-end development for three years...</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <!-- 定位到评论留言 -->
+  
+<style>
+  .toCommentsDiv{
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    position: fixed;
+    right: 20px;
+    bottom: 120px;
+    cursor: pointer;
+    box-shadow: 0 0 5px #888888;
+    border-radius: 50%;
+    box-sizing: border-box;
+    padding: 10px 0 0 10px;
+  }
+</style>
+<a href="#comments">
+  <div class="toCommentsDiv" title="查看评论留言">
+    <svg t="1603851166634" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3420" width="30" height="30"><path d="M896 138.66666667H128c-38.4 0-64 25.6-64 64V746.66666667c0 38.4 25.6 64 64 64h128v128c83.2 0 166.4-44.8 256-128h384c38.4 0 64-25.6 64-64V202.66666667c0-38.4-25.6-64-64-64z m0 608H486.4l-19.2 19.2c-51.2 51.2-102.4 83.2-147.2 96V746.66666667H128V202.66666667h768V746.66666667z" p-id="3421" fill="#707070"></path><path d="M320 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3422" fill="#707070"></path><path d="M512 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3423" fill="#707070"></path><path d="M704 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3424" fill="#707070"></path></svg>
+  </div>
+</a>
+
+  <!-- 回到顶部 -->
+  
+<style>
+  .toTopDiv{
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    position: fixed;
+    right: 20px;
+    bottom: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 5px #888888;
+    border-radius: 50%;
+    box-sizing: border-box;
+    padding: 10px 0 0 10px;
+    display: none;
+  }
+</style>
+<div class="toTopDiv" title="回到顶部">
+  <svg t="1604044629111" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1093" width="30" height="30"><path d="M866.7 96H157.3c-17.8 0-32.2 14.4-32.2 32.2 0 17.8 14.4 32.2 32.2 32.2h709.5c17.8 0 32.2-14.4 32.2-32.2 0-17.8-14.4-32.2-32.3-32.2zM512 225c-16.5 0-33 6.3-45.6 18.9L169.9 540.3c-5.8 5.8-9.4 13.9-9.4 22.8s3.6 17 9.4 22.8c5.8 5.8 13.9 9.4 22.8 9.4s17-3.6 22.8-9.4l264.2-264.2v574c0 17.8 14.4 32.2 32.2 32.2 17.8 0 32.2-14.4 32.2-32.2v-574l264.2 264.2c5.8 5.8 13.9 9.4 22.8 9.4s17-3.6 22.8-9.4c5.8-5.8 9.4-13.9 9.4-22.8s-3.6-17-9.4-22.8L557.6 243.9C545 231.3 528.5 225 512 225z" p-id="1094" fill="#707070"></path></svg>
+</div>
+<script>
+  let htmlDiv = document.documentElement
+  let toTopDiv = document.querySelector('.toTopDiv')
+
+  document.addEventListener('scroll', () => {
+    if(htmlDiv.scrollTop > 1000){
+      toTopDiv.style.display = 'block'
+    }else{
+      toTopDiv.style.display = 'none'
+    }
+  })
+
+  toTopDiv.addEventListener('click', () => {
+    let scrollTop = htmlDiv.scrollTop
+    let interval = setInterval(() => {
+      htmlDiv.scrollTop -= 100
+      if(htmlDiv.scrollTop <= 0){
+        clearInterval(interval)
+      }
+    }, 5)
+  })
+</script>
+
+</body>
+
+</html>

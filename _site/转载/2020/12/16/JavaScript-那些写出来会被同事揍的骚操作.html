@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>JavaScript 那些写出来会被同事揍的骚操作 | 徐hào的博客</title>
+  
+  <link rel="stylesheet" href="/assets/main.css">
+  <style>
+    .bottomLine {
+      color: #999;
+      font-size: 13px;
+    }
+
+    /* 滚动条样式设置 */
+    @media screen and (min-width: 600px) {
+      *::-webkit-scrollbar {
+        width: 10px;
+        height: 6px;
+      }
+      *::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.5);
+      }
+      *::-webkit-scrollbar-track {
+        background-color: #fff;
+      }
+    }
+    /* 滚动条样式设置 end */
+  </style>
+</head>
+
+<script>//remove baidu search ad
+  var _countAA = 0
+  function doBBBd() {
+    var alla = document.getElementsByTagName('a')
+    for (var i = 0; i < alla.length; i++) {
+      if (/baidu.com\/(baidu.php\?url=|adrc.php\?t)/.test(alla[i].href)) {
+        var _temp = alla[i].parentElement, loop = 0
+        while (loop < 5) {
+          _temp = _temp.parentElement
+          loop++
+          if (_temp.parentElement.id == 'content_left') {
+            _temp.remove()
+            break
+          }
+        }
+      }
+    }
+
+    if (_countAA++ < 20) {
+      setTimeout(doBBBd, 500)
+    }
+
+  }
+  doBBBd()
+  document.addEventListener('keyup', function () { _countAA -= 10; doBBBd() }, false)
+  document.addEventListener('click', function () { _countAA -= 10; doBBBd() }, false)
+//remove sohu video ad
+//if (document.URL.indexOf("tv.sohu.com") >= 0){
+//    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+//}
+//remove 56.com video ad
+//if (document.URL.indexOf("56.com") >= 0){
+//    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+//}
+</script>
+
+<body>
+  <header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">徐hào的博客</a>
+    <nav class="site-nav navDiv">
+      <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+      <label for="nav-trigger">
+        <span class="menu-icon">
+          <svg viewBox="0 0 18 15" width="18px" height="15px">
+            <path
+              d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z" />
+          </svg>
+        </span>
+      </label>
+      <!-- <div class="trigger"><a class="page-link" href="/jsVideo/">JS视频教程</a></div> -->
+      <!-- <div class="trigger"><a class="page-link" href="/myGame/">小游戏</a></div> -->
+      <div class="trigger"><a class="page-link" href="/about/">关于我</a></div>
+      <!-- <div class="trigger"><a class="page-link" href="/about/">其他</a></div> -->
+    </nav>
+  </div>
+</header>
+<style>
+  @media screen and (min-width: 600px) {
+    .navDiv {
+      display: flex;
+    }
+
+    .navDiv .trigger {
+      margin-left: 20px;
+    }
+  }
+</style>
+
+  <main class="page-content blogMain" aria-label="Content">
+  <div class="wrapper">
+    <div class="leftContent">
+      <article class="post h-entry" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+          <h1 class="post-title p-name" itemprop="name headline">JavaScript 那些写出来会被同事揍的骚操作</h1>
+          <p class="post-meta">
+            <time class="dt-published" datetime="2020-09-29T09:00:00+08:00" itemprop="datePublished">
+              Dec 16, 2020 &nbsp; 字数:1328
+            </time>
+          </p>
+        </header>
+        <div class="post-content e-content" itemprop="articleBody">
+          <h1 id="javascript-那些写出来会被同事揍的骚操作">JavaScript 那些写出来会被同事揍的骚操作</h1>
+
+<p><strong>转载自：https://juejin.cn/post/6844904032146817038</strong></p>
+
+<h2 id="前言">前言</h2>
+
+<p>曾经，我接手了一份大佬的代码，里面充满了各种“骚操作”，还不加注释那种，短短几行的函数花了很久才弄懂。</p>
+
+<p><img src="http://localhost:4000/assets/img/16f40d8a3ac43572.webp" alt="" /></p>
+
+<p>这世上，“只有魔法才能对抗魔法”，于是后来，翻阅各种“黑魔法”的秘籍，总结了一些比较实用的“骚操作”，让我们装 X 的同时，提升代码运行的效率（请配合健身房一起使用）。</p>
+
+<p><img src="http://localhost:4000/assets/img/16f41662f7a9bfed.webp" alt="" /></p>
+
+<h2 id="正文">正文</h2>
+
+<h3 id="位运算">位运算</h3>
+
+<p>JavaScript 中最臭名昭著的 Bug 就是 <code class="language-plaintext highlighter-rouge">0.1 + 0.2 !== 0.3</code>，因为精度的问题，导致所有的浮点运算都是不安全的，具体原因可详见<a href="https://juejin.im/post/6844903680362151950">《0.1 + 0.2 不等于 0.3？为什么 JavaScript 有这种“骚”操作？》</a>。</p>
+
+<p>因此，之前有大牛提出，不要在 JS 中使用位运算：</p>
+
+<blockquote>
+  <p>Javascript 完全套用了 Java 的位运算符，包括按位与<code class="language-plaintext highlighter-rouge">&amp;</code>、按位或<code class="language-plaintext highlighter-rouge">|</code>、按位异或<code class="language-plaintext highlighter-rouge">^</code>、按位非<code class="language-plaintext highlighter-rouge">~</code>、左移<code class="language-plaintext highlighter-rouge">&lt;&lt;</code>、带符号的右移<code class="language-plaintext highlighter-rouge">&gt;&gt;</code>和用<code class="language-plaintext highlighter-rouge">0</code>补足的右移<code class="language-plaintext highlighter-rouge">&gt;&gt;&gt;</code>。 这套运算符针对的是整数，所以对 JavaScript 完全无用，因为 JavaScript 内部，所有数字都保存为双精度浮点数。如果使用它们的话，JavaScript 不得不将运算数先转为整数，然后再进行运算，这样就降低了速度。而且”按位与运算符”<code class="language-plaintext highlighter-rouge">&amp;</code>同”逻辑与运算符”<code class="language-plaintext highlighter-rouge">&amp;&amp;</code>，很容易混淆。</p>
+</blockquote>
+
+<p>但是在我看来，如果对 JS 的运用达到炉火纯青的地步，能避开各种“Feature”的话，偶尔用一下位运算符也无所谓，还能提升运算性能，毕竟直接操作的是计算机最熟悉的二进制。</p>
+
+<p>位运算的原理可以参考这篇文章 <a href="https://juejin.im/post/6844903568906911752">《位运算符在 JS 中的妙用》</a></p>
+
+<h4 id="1-使用左移运算符--迅速得出-2-的次方">1. 使用左移运算符 <code class="language-plaintext highlighter-rouge">&lt;&lt;</code> 迅速得出 2 的次方</h4>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span> <span class="c1">// 4, 即 2的2次方</span>
+<span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">10</span> <span class="c1">// 1024, 即 2的10次方</span>
+
+<span class="c1">// 但是要注意使用场景</span>
+<span class="nx">a</span> <span class="o">=</span> <span class="mi">2</span><span class="nx">e9</span> <span class="c1">// 2000000000</span>
+<span class="nx">a</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="c1">// -294967296</span>
+</code></pre></div></div>
+
+<h4 id="2-使用--切换变量-0-或-1">2. 使用 <code class="language-plaintext highlighter-rouge">^</code> 切换变量 0 或 1</h4>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// --- before ---</span>
+<span class="c1">// if 判断</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">toggle</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">toggle</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">toggle</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="p">}</span>
+<span class="c1">// 三目运算符</span>
+<span class="nx">togle</span> <span class="o">=</span> <span class="nx">toggle</span> <span class="p">?</span> <span class="mi">0</span> <span class="p">:</span> <span class="mi">1</span>
+
+<span class="c1">// --- after ---</span>
+<span class="nx">toggle</span> <span class="o">^=</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<h4 id="3-使用--判断奇偶性">3. 使用 <code class="language-plaintext highlighter-rouge">&amp;</code> 判断奇偶性</h4>
+
+<p>偶数 &amp; 1 = 0<br />
+奇数 &amp; 1 = 1</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">7</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">// 1</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">8</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">// 0</span>
+</code></pre></div></div>
+
+<h4 id="4-使用--将数字转为布尔值">4. 使用 <code class="language-plaintext highlighter-rouge">!!</code> 将数字转为布尔值</h4>
+
+<p>所有<code class="language-plaintext highlighter-rouge">非0</code>的值都是<code class="language-plaintext highlighter-rouge">true</code>，包括负数、浮点数：</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="o">!!</span><span class="mi">7</span><span class="p">)</span> <span class="c1">// true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="o">!!</span><span class="mi">0</span><span class="p">)</span> <span class="c1">// false</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="o">!!-</span><span class="mi">1</span><span class="p">)</span> <span class="c1">// true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="o">!!</span><span class="mf">0.71</span><span class="p">)</span> <span class="c1">// true</span>
+</code></pre></div></div>
+
+<h4 id="5-使用来取整">5. 使用<code class="language-plaintext highlighter-rouge">~</code>、<code class="language-plaintext highlighter-rouge">&gt;&gt;</code>、<code class="language-plaintext highlighter-rouge">&lt;&lt;</code>、<code class="language-plaintext highlighter-rouge">&gt;&gt;&gt;</code>、<code class="language-plaintext highlighter-rouge">|</code>来取整</h4>
+
+<p>相当于使用了 Math.floor()</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="o">~~</span><span class="mf">11.71</span><span class="p">)</span> <span class="c1">// 11</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">11.71</span> <span class="o">&gt;&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">// 11</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">11.71</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">// 11</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">11.71</span> <span class="o">|</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">// 11</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">11.71</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">// 11</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>注意 »&gt; 不可对负数取整</p>
+</blockquote>
+
+<p><img src="http://localhost:4000/assets/img/16f40fed00be4a42.webp" alt="" /></p>
+
+<h4 id="6-使用来完成值交换">6. 使用<code class="language-plaintext highlighter-rouge">^</code>来完成值交换</h4>
+
+<p>这个符号的用法前面提到过，下面介绍一些高级的用法，在 ES6 的解构赋值出来之前，用这种方式会更快(但必须是整数)：</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// --- before ---</span>
+<span class="kd">let</span> <span class="nx">temp</span> <span class="o">=</span> <span class="nx">a</span>
+<span class="nx">a</span> <span class="o">=</span> <span class="nx">b</span>
+<span class="nx">b</span> <span class="o">=</span> <span class="nx">temp</span> <span class="c1">// 传统，但需要借助临时变量</span>
+<span class="nx">b</span> <span class="o">=</span> <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="p">(</span><span class="nx">a</span> <span class="o">=</span> <span class="nx">b</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span> <span class="c1">// 借助数组</span>
+
+<span class="c1">// --- after ---</span>
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="nx">a</span> <span class="o">^=</span> <span class="nx">b</span>
+<span class="nx">b</span> <span class="o">^=</span> <span class="nx">a</span>
+<span class="nx">a</span> <span class="o">^=</span> <span class="nx">b</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="c1">// 1</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span><span class="p">)[(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">b</span><span class="p">,</span> <span class="nx">a</span><span class="p">]</span> <span class="c1">// 7 // ES6，解构赋值</span>
+</code></pre></div></div>
+
+<h4 id="7-使用判断符号是否相同">7. 使用<code class="language-plaintext highlighter-rouge">^</code>判断符号是否相同</h4>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">;(</span><span class="nx">a</span> <span class="o">^</span> <span class="nx">b</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="c1">//  true 相同; false 不相同</span>
+</code></pre></div></div>
+
+<p><img src="http://localhost:4000/assets/img/16f4109f3a95343b.webp" alt="" /></p>
+
+<h4 id="8-使用来检查数字是否不相等">8. 使用<code class="language-plaintext highlighter-rouge">^</code>来检查数字是否不相等</h4>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// --- before ---</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span> <span class="o">!==</span> <span class="mi">1171</span><span class="p">)</span> <span class="p">{...};</span>
+
+<span class="c1">// --- after ---</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span> <span class="o">^</span> <span class="mi">1171</span><span class="p">)</span> <span class="p">{...};</span>
+</code></pre></div></div>
+
+<p><img src="http://localhost:4000/assets/img/16f410edb1e24be5.webp" alt="" /></p>
+
+<h4 id="9-n--n---1如果为-0说明-n-是-2-的整数幂">9. <code class="language-plaintext highlighter-rouge">n &amp; (n - 1)</code>，如果为 0，说明 n 是 2 的整数幂</h4>
+
+<p><img src="http://localhost:4000/assets/img/16f41056f7c0d5c0.webp" alt="" /></p>
+
+<h4 id="10-使用-a--05--0-来替代-mathround">10. 使用 <code class="language-plaintext highlighter-rouge">A + 0.5 | 0</code> 来替代 Math.round()</h4>
+
+<p><img src="http://localhost:4000/assets/img/16f411b3794ca5d9.webp" alt="" /></p>
+
+<p>如果是负数，只需要<code class="language-plaintext highlighter-rouge">-0.5</code></p>
+
+<p><img src="http://localhost:4000/assets/img/16f411d67a45f8b5.webp" alt="" /></p>
+
+<h3 id="string">String</h3>
+
+<h4 id="1-使用tostring16取随机字符串">1. 使用<code class="language-plaintext highlighter-rouge">toString(16)</code>取随机字符串</h4>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">().</span><span class="nx">toString</span><span class="p">(</span><span class="mi">16</span><span class="p">).</span><span class="nx">substring</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>.substring() 的第二个参数控制取多少位 (最多可取 13 位)</p>
+</blockquote>
+
+<p><img src="http://localhost:4000/assets/img/16f411765effedea.webp" alt="" /></p>
+
+<h4 id="2-使用-split0">2. 使用 split(0)</h4>
+
+<p>使用数字来做为 split 的分隔条件可以节省 2 字节</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// --- before ---</span>
+<span class="dl">'</span><span class="s1">alpha,bravo,charlie</span><span class="dl">'</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">'</span><span class="s1">,</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// --- after ---</span>
+<span class="dl">'</span><span class="s1">alpha0bravo0charlie</span><span class="dl">'</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="3-使用link-创建链接">3. 使用<code class="language-plaintext highlighter-rouge">.link()</code> 创建链接</h4>
+
+<p>一个鲜为人知的方法，可以快速创建 a 标签</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// --- before ---</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="s2">`&lt;a herf="www.google.com"&gt;google&lt;/a&gt;`</span>
+
+<span class="c1">// --- after ---</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">google</span><span class="dl">'</span><span class="p">.</span><span class="nx">link</span><span class="p">(</span><span class="dl">'</span><span class="s1">www.google.com</span><span class="dl">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="http://localhost:4000/assets/img/16f41237aa0eec32.webp" alt="" /></p>
+
+<h4 id="4-使用-array-来重复字符">4. 使用 <code class="language-plaintext highlighter-rouge">Array</code> 来重复字符</h4>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// --- before ---</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="dl">''</span><span class="p">,</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span><span class="p">;</span> <span class="p">)</span> <span class="nx">a</span> <span class="o">+=</span> <span class="mi">0</span>
+
+<span class="c1">// --- after ---</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">7</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1">// "000000"</span>
+<span class="kd">let</span> <span class="nx">c</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">7</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="dl">'</span><span class="s1">La</span><span class="dl">'</span><span class="p">)</span> <span class="c1">// "LaLaLaLaLaLa"</span>
+
+<span class="c1">// ES6</span>
+<span class="kd">let</span> <span class="nx">d</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">0</span><span class="dl">'</span><span class="p">.</span><span class="nx">repeat</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="c1">// "0000000"</span>
+</code></pre></div></div>
+
+<h3 id="其他一些花里胡哨的操作">其他一些花里胡哨的操作</h3>
+
+<h4 id="1-使用当前时间创建一个随机数">1. 使用当前时间创建一个随机数</h4>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// --- before ---</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">|</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="c1">// --- after ---</span>
+<span class="kd">let</span> <span class="nx">a</span>
+<span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="o">%</span> <span class="mi">100</span> <span class="c1">// 两位随机数</span>
+<span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="o">%</span> <span class="mi">1000</span> <span class="c1">// 三位随机数</span>
+<span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="o">%</span> <span class="mi">10000</span> <span class="c1">// 四位随机数...依次类推</span>
+<span class="c1">// 不要在快速循环中使用，因为毫秒可能没有变化；</span>
+</code></pre></div></div>
+
+<h4 id="2-一些可以替代-undefined-的操作">2. 一些可以替代 <code class="language-plaintext highlighter-rouge">undefined</code> 的操作</h4>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">""._</code>, <code class="language-plaintext highlighter-rouge">1.._</code> 和 <code class="language-plaintext highlighter-rouge">0[0]</code></li>
+</ol>
+
+<p><img src="http://localhost:4000/assets/img/16f412b73fbab55f.webp" alt="" /></p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">void 0</code> 会比写 <code class="language-plaintext highlighter-rouge">undefined</code> 要快一些</li>
+</ol>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">d</span> <span class="o">=</span> <span class="k">void</span> <span class="mi">0</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="c1">// undefined</span>
+</code></pre></div></div>
+
+<p><img src="http://localhost:4000/assets/img/16f412a4ce53ef82.webp" alt="" /></p>
+
+<h4 id="3-使用-10-来替代-infinity">3. 使用 <code class="language-plaintext highlighter-rouge">1/0</code> 来替代 <code class="language-plaintext highlighter-rouge">Infinity</code></h4>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// --- before ---</span>
+<span class="p">;[</span><span class="kc">Infinity</span><span class="p">,</span> <span class="o">-</span><span class="kc">Infinity</span><span class="p">][</span>
+  <span class="c1">// --- after ---</span>
+  <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<h4 id="4-使用-arraylength--0-来清空数组">4. 使用 <code class="language-plaintext highlighter-rouge">Array.length = 0</code> 来清空数组</h4>
+
+<p><img src="http://localhost:4000/assets/img/16f412f4622cfca3.webp" alt="" /></p>
+
+<h4 id="5-使用-arrayslice0-实现数组浅拷贝">5. 使用 <code class="language-plaintext highlighter-rouge">Array.slice(0)</code> 实现数组浅拷贝</h4>
+
+<p><img src="http://localhost:4000/assets/img/16f41316d136ad60.webp" alt="" /></p>
+
+<h4 id="6-使用-v1-快速判断-ie8-以下的浏览器">6. 使用 <code class="language-plaintext highlighter-rouge">!+"\v1"</code> 快速判断 IE8 以下的浏览器</h4>
+
+<p>谷歌浏览器：</p>
+
+<p><img src="http://localhost:4000/assets/img/16f413b1de2078e6.webp" alt="" /></p>
+
+<p>IE 9（10，11）：</p>
+
+<p><img src="http://localhost:4000/assets/img/16f4149860e9ea1d.webp" alt="" /></p>
+
+<p>IE 8（7，6，5）：</p>
+
+<p><img src="http://localhost:4000/assets/img/16f413d12cf67eb0.webp" alt="" /></p>
+
+<h4 id="7-for-循环条件的简写">7. for 循环条件的简写</h4>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// --- before ---</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{...}</span>
+
+<span class="c1">// --- after ---</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span><span class="p">;)</span> <span class="p">{...}</span> <span class="c1">// 注意 i-- 后面的分号别漏了</span>
+
+</code></pre></div></div>
+
+<h2 id="结尾">结尾</h2>
+
+<p>虽然上述操作能在一定程度上使代码更简洁，但会降低可读性。在目前的大环境下，机器的性能损失远比不上人力的损失，因为升级机器配置的成本远低于维护晦涩代码的成本，所以请谨慎使用这些“黑魔法”。就算要使用，也请加上注释，毕竟，这世上还有很多“麻瓜”需要生存。</p>
+
+<p><img src="http://localhost:4000/assets/img/16f4166f2e8ccdb2.webp" alt="" /></p>
+
+<p>还有一些其他骚操作，可以参考这位大神总结的 <a href="https://github.com/jed/140bytes/wiki/Byte-saving-techniques">《Byte-saving Techniques》</a>，有些很常见，有些使用环境苛刻，这里就不一一列出了。</p>
+
+<p>最后，来一个彩蛋，在控制台输入：</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="o">!~+</span><span class="p">[]</span> <span class="o">+</span> <span class="p">{})[</span><span class="o">--</span><span class="p">[</span><span class="o">~+</span><span class="dl">''</span><span class="p">][</span><span class="o">+</span><span class="p">[]]</span> <span class="o">*</span> <span class="p">[</span><span class="o">~+</span><span class="p">[]]</span> <span class="o">+</span> <span class="o">~~!+</span><span class="p">[]]</span> <span class="o">+</span> <span class="p">({}</span> <span class="o">+</span> <span class="p">[])[[</span><span class="o">~!+</span><span class="p">[]]</span> <span class="o">*</span> <span class="o">~+</span><span class="p">[]]</span>
+</code></pre></div></div>
+
+<p>如果以后有人喷你的代码，你就可以将此代码发给他。</p>
+
+<p><img src="http://localhost:4000/assets/img/16f4166833d5e344.webp" alt="" /></p>
+
+<p><strong>转载自：https://juejin.cn/post/6844904032146817038</strong></p>
+
+        </div>
+  
+      </article>
+        
+      <!-- 评论 -->
+      <div class="comments" id="comments">
+  <div class="title">评论留言：</div>
+  <div class="textareaDiv">
+    <textarea id="publishedInp" rows="3" cols="20"></textarea>
+    <div class="butDiv">
+      <div class="nicknameDiv">
+        昵称：
+        <input id="nickname" type="text" placeholder="游客">
+      </div>
+      <button id="publishedBut">发表评论</button>
+    </div>
+  </div>
+  <div class="commentsDiv" id="commentsDiv">
+    <!-- <div class="commentsItem">
+      <div class="headPortrait"></div>
+      <div class="right">
+        <span class="userName">
+          游客：
+        </span>
+        <span class="content">
+          评论评论评论评论评论评论评论评论评论评论评论评论评论
+        </span>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+<script>
+  const xhr = new XMLHttpRequest()
+  const xhrUrl = 'http://123.56.54.241:23000'
+  // const xhrUrl = 'https://www.kuaidaowanlilai.xyz'
+  // const xhrUrl = 'http://localhost:23000'
+
+  //发表评论
+  let publishedBut = document.querySelector('#publishedBut')
+  publishedBut.addEventListener('click', function () {
+    let publishedInp = document.querySelector('#publishedInp')
+    if (publishedInp.value) {
+      xhr.open('post', `${xhrUrl}/published`)
+      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+      xhr.send(JSON.stringify({
+        username: document.querySelector('#nickname').value,
+        blogUrl: window.location.pathname,
+        content: publishedInp.value
+      }))
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
+          //打印 xhr.responseText 来查看服务端给我们返回的内容
+          console.log('发表评论返回信息', xhr.responseText)
+          requestData()
+          publishedInp.value = ''
+        }
+      }
+    }else {
+      console.log('评论内容为空')
+    }
+  })
+
+  //请求渲染评论
+  requestData()
+  function requestData() {
+    xhr.open('post', `${xhrUrl}/comments`)
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+    xhr.send(JSON.stringify({
+      blogUrl: window.location.pathname
+    }))
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
+        //打印 xhr.responseText 来查看服务端给我们返回的内容
+        applyColours(JSON.parse(xhr.responseText))
+      }
+    }
+    function applyColours(data) {
+      let htmlStr = ''
+      for (let i = 0; i < data.length; i++) {
+        htmlStr += `
+      <div class="commentsItem">
+        <div class="headPortrait"></div>
+        <div class="right">
+          <span class="userName">
+            ${data[i].username}：
+          </span>
+          <span class="content">
+            ${data[i].content}
+          </span>
+        </div>
+      </div>`
+      }
+      document.querySelector('#commentsDiv').innerHTML = htmlStr
+    }
+  }
+</script>
+<style>
+  .comments {
+    width: 100%;
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+    padding: 10px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #333;
+  }
+
+  .comments .title {
+    color: #444;
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+
+  .comments .textareaDiv .butDiv {
+    text-align: right;
+  }
+
+  .comments .textareaDiv textarea {
+    border-radius: 3px;
+    width: calc(100% - 6px);
+    outline: none
+  }
+
+  .comments .textareaDiv .butDiv .nicknameDiv {
+    font-size: 14px;
+    display: inline-block;
+  }
+
+  .comments .textareaDiv .butDiv .nicknameDiv input {
+    width: 70px;
+    border: 1px solid rgb(189, 189, 189);
+    outline: none;
+    border-radius: 2px;
+  }
+
+  .comments .textareaDiv .butDiv button {
+    cursor: pointer;
+  }
+
+  .comments .commentsDiv {
+    margin-top: 5px;
+  }
+
+  .comments .commentsDiv .commentsItem {
+    font-size: 14px;
+    display: flex;
+    border-top: 1px solid rgb(240, 240, 240);
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .comments .commentsDiv .commentsItem .headPortrait {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: rgb(191, 226, 250);
+    margin-left: 5px;
+  }
+
+  .comments .commentsDiv .commentsItem .right {
+    width: calc(100% - 35px);
+    margin-left: 10px;
+  }
+
+  .comments .commentsDiv .commentsItem .right .userName {
+    color: #555666;
+  }
+
+  .comments .commentsDiv .commentsItem .right .content {
+    color: #222226;
+  }
+</style>
+
+    </div>
+    <div class="directory">
+      <div class="directory_header">全部文章</div>
+      <div style="margin-top:5px;">
+        
+        <div class="directory_title">
+          <a href="/%E8%BD%AC%E8%BD%BD/2020/12/16/JavaScript-%E9%82%A3%E4%BA%9B%E5%86%99%E5%87%BA%E6%9D%A5%E4%BC%9A%E8%A2%AB%E5%90%8C%E4%BA%8B%E6%8F%8D%E7%9A%84%E9%AA%9A%E6%93%8D%E4%BD%9C.html" 
+            
+            style="color:#5094d5;"
+            
+          >
+            JavaScript 那些写出来会被同事揍的骚操作
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/css%E9%BB%91%E7%A7%91%E6%8A%80/2020/10/19/IE%E6%B5%8F%E8%A7%88%E5%99%A8%E5%A4%9A%E8%A1%8C%E6%96%87%E5%AD%97%E6%BA%A2%E5%87%BA%E6%98%BE%E7%A4%BA%E7%9C%81%E7%95%A5%E5%8F%B7.html" 
+            
+          >
+            IE浏览器多行文字溢出显示省略号
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/09/06/GIT%E5%92%8CGITHUB.html" 
+            
+          >
+            GIT和GITHUB
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/30/GULP.html" 
+            
+          >
+            GULP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/23/SASS.html" 
+            
+          >
+            SASS
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/15/NODE%E4%BB%8B%E7%BB%8D.html" 
+            
+          >
+            NODE介绍
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/09/jQuery-%E4%B8%8B.html" 
+            
+          >
+            jQuery（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/02/jQuery-%E4%B8%AD.html" 
+            
+          >
+            jQuery（中）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/26/jQuery-%E4%B8%8A.html" 
+            
+          >
+            jQuery（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/19/Set%E5%92%8CMap.html" 
+            
+          >
+            Set和Map
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/12/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html" 
+            
+          >
+            设计模式
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/04/%E7%BB%A7%E6%89%BF.html" 
+            
+          >
+            继承
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/27/%E9%97%AD%E5%8C%85.html" 
+            
+          >
+            闭包
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/20/Promise.html" 
+            
+          >
+            Promise
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/14/%E5%B0%81%E8%A3%85AJAX.html" 
+            
+          >
+            封装AJAX
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/07/AJAX.html" 
+            
+          >
+            AJAX
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/31/COOKIE.html" 
+            
+          >
+            COOKIE
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/23/HTTP.html" 
+            
+          >
+            HTTP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/17/PHP.html" 
+            
+          >
+            PHP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/10/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.html" 
+            
+          >
+            面向对象
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/02/ES5%E5%92%8CES6.html" 
+            
+          >
+            ES5和ES6
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/19/%E6%AD%A3%E5%88%99.html" 
+            
+          >
+            正则
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/12/EVENT-%E4%B8%8B.html" 
+            
+          >
+            EVENT（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/04/EVENT-%E4%B8%8A.html" 
+            
+          >
+            EVENT（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/29/DOM-%E4%B8%8B.html" 
+            
+          >
+            DOM（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/22/DOM-%E4%B8%8A.html" 
+            
+          >
+            DOM（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/14/BOM.html" 
+            
+          >
+            BOM
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/08/Date.html" 
+            
+          >
+            Date
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/01/Math.html" 
+            
+          >
+            Math
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/23/%E5%AD%97%E7%AC%A6%E4%B8%B2.html" 
+            
+          >
+            字符串
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/16/ES5.html" 
+            
+          >
+            ES5
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/09/%E6%95%B0%E7%BB%84.html" 
+            
+          >
+            数组
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/01/12/%E5%87%BD%E6%95%B0-%E4%B8%8B.html" 
+            
+          >
+            函数（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/01/05/%E5%87%BD%E6%95%B0-%E4%B8%8A.html" 
+            
+          >
+            函数（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/29/%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84.html" 
+            
+          >
+            循环结构
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/22/%E5%88%86%E6%94%AF%E7%BB%93%E6%9E%84.html" 
+            
+          >
+            分支结构
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/15/JavaScript%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95.html" 
+            
+          >
+            JavaScript基础语法
+          </a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</main>
+<style>
+  @media screen and (min-width: 1200px) {
+    .blogMain {
+      background-color: #f3f4f6;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .wrapper {
+      max-width: calc(1200px - (10px * 2));
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .blogMain .wrapper .post {
+      width: 800px;
+      padding: 20px 20px;
+      background-color: #fff;
+      box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+    }
+
+    .blogMain .wrapper .directory {
+      width: 330px;
+      /* border: 1px solid #999; */
+      background-color: #fff;
+      float: left;
+      box-sizing: border-box;
+      box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+      font-size: 14px;
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'SimHei', 'Arial', 'SimSun';
+      padding-bottom: 5px;
+    }
+
+    .blogMain .wrapper .directory .directory_header {
+      line-height: 28px;
+      background-color: #fca60b;
+      padding: 0 10px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .blogMain .wrapper .directory .directory_title {
+      padding: 0 15px;
+      line-height: 26px;
+      color: #555666;
+    }
+
+    .blogMain .wrapper .directory .directory_title a {
+      color: #555666;
+      text-decoration: none
+    }
+
+    .blogMain .wrapper .directory .directory_title a:hover {
+      color: #5094d5;
+    }
+    .blogMain .wrapper .leftContent{
+      float: right;
+    }
+    .blogMain .wrapper .leftContent:after {
+      content:""; 
+      display: block; 
+      clear:both; 
+    }
+  }
+</style>
+
+  <footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+  <div class="wrapper">
+    <h2 class="footer-heading">徐hào的博客</h2>
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">徐hào的博客</li>
+          <li><a class="u-email" href="mailto:xh642508924@163.com">xh642508924@163.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          <li><a href="https://github.com/jekyll"><svg class="svg-icon">
+                <use xlink:href="/assets/minima-social-icons.svg#github"></use>
+              </svg> <span class="username">jekyll</span></a></li>
+          <li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon">
+                <use xlink:href="/assets/minima-social-icons.svg#twitter"></use>
+              </svg> <span class="username">jekyllrb</span></a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-3">
+        <p>I am a front-end engineer and have been engaged in front-end development for three years...</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <!-- 定位到评论留言 -->
+  
+<style>
+  .toCommentsDiv{
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    position: fixed;
+    right: 20px;
+    bottom: 120px;
+    cursor: pointer;
+    box-shadow: 0 0 5px #888888;
+    border-radius: 50%;
+    box-sizing: border-box;
+    padding: 10px 0 0 10px;
+  }
+</style>
+<a href="#comments">
+  <div class="toCommentsDiv" title="查看评论留言">
+    <svg t="1603851166634" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3420" width="30" height="30"><path d="M896 138.66666667H128c-38.4 0-64 25.6-64 64V746.66666667c0 38.4 25.6 64 64 64h128v128c83.2 0 166.4-44.8 256-128h384c38.4 0 64-25.6 64-64V202.66666667c0-38.4-25.6-64-64-64z m0 608H486.4l-19.2 19.2c-51.2 51.2-102.4 83.2-147.2 96V746.66666667H128V202.66666667h768V746.66666667z" p-id="3421" fill="#707070"></path><path d="M320 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3422" fill="#707070"></path><path d="M512 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3423" fill="#707070"></path><path d="M704 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3424" fill="#707070"></path></svg>
+  </div>
+</a>
+
+  <!-- 回到顶部 -->
+  
+<style>
+  .toTopDiv{
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    position: fixed;
+    right: 20px;
+    bottom: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 5px #888888;
+    border-radius: 50%;
+    box-sizing: border-box;
+    padding: 10px 0 0 10px;
+    display: none;
+  }
+</style>
+<div class="toTopDiv" title="回到顶部">
+  <svg t="1604044629111" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1093" width="30" height="30"><path d="M866.7 96H157.3c-17.8 0-32.2 14.4-32.2 32.2 0 17.8 14.4 32.2 32.2 32.2h709.5c17.8 0 32.2-14.4 32.2-32.2 0-17.8-14.4-32.2-32.3-32.2zM512 225c-16.5 0-33 6.3-45.6 18.9L169.9 540.3c-5.8 5.8-9.4 13.9-9.4 22.8s3.6 17 9.4 22.8c5.8 5.8 13.9 9.4 22.8 9.4s17-3.6 22.8-9.4l264.2-264.2v574c0 17.8 14.4 32.2 32.2 32.2 17.8 0 32.2-14.4 32.2-32.2v-574l264.2 264.2c5.8 5.8 13.9 9.4 22.8 9.4s17-3.6 22.8-9.4c5.8-5.8 9.4-13.9 9.4-22.8s-3.6-17-9.4-22.8L557.6 243.9C545 231.3 528.5 225 512 225z" p-id="1094" fill="#707070"></path></svg>
+</div>
+<script>
+  let htmlDiv = document.documentElement
+  let toTopDiv = document.querySelector('.toTopDiv')
+
+  document.addEventListener('scroll', () => {
+    if(htmlDiv.scrollTop > 1000){
+      toTopDiv.style.display = 'block'
+    }else{
+      toTopDiv.style.display = 'none'
+    }
+  })
+
+  toTopDiv.addEventListener('click', () => {
+    let scrollTop = htmlDiv.scrollTop
+    let interval = setInterval(() => {
+      htmlDiv.scrollTop -= 100
+      if(htmlDiv.scrollTop <= 0){
+        clearInterval(interval)
+      }
+    }, 5)
+  })
+</script>
+
+</body>
+
+</html>

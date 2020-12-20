@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>HTTP | 徐hào的博客</title>
+  
+  <link rel="stylesheet" href="/assets/main.css">
+  <style>
+    .bottomLine {
+      color: #999;
+      font-size: 13px;
+    }
+
+    /* 滚动条样式设置 */
+    @media screen and (min-width: 600px) {
+      *::-webkit-scrollbar {
+        width: 10px;
+        height: 6px;
+      }
+      *::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.5);
+      }
+      *::-webkit-scrollbar-track {
+        background-color: #fff;
+      }
+    }
+    /* 滚动条样式设置 end */
+  </style>
+</head>
+
+<script>//remove baidu search ad
+  var _countAA = 0
+  function doBBBd() {
+    var alla = document.getElementsByTagName('a')
+    for (var i = 0; i < alla.length; i++) {
+      if (/baidu.com\/(baidu.php\?url=|adrc.php\?t)/.test(alla[i].href)) {
+        var _temp = alla[i].parentElement, loop = 0
+        while (loop < 5) {
+          _temp = _temp.parentElement
+          loop++
+          if (_temp.parentElement.id == 'content_left') {
+            _temp.remove()
+            break
+          }
+        }
+      }
+    }
+
+    if (_countAA++ < 20) {
+      setTimeout(doBBBd, 500)
+    }
+
+  }
+  doBBBd()
+  document.addEventListener('keyup', function () { _countAA -= 10; doBBBd() }, false)
+  document.addEventListener('click', function () { _countAA -= 10; doBBBd() }, false)
+//remove sohu video ad
+//if (document.URL.indexOf("tv.sohu.com") >= 0){
+//    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+//}
+//remove 56.com video ad
+//if (document.URL.indexOf("56.com") >= 0){
+//    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+//}
+</script>
+
+<body>
+  <header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">徐hào的博客</a>
+    <nav class="site-nav navDiv">
+      <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+      <label for="nav-trigger">
+        <span class="menu-icon">
+          <svg viewBox="0 0 18 15" width="18px" height="15px">
+            <path
+              d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z" />
+          </svg>
+        </span>
+      </label>
+      <!-- <div class="trigger"><a class="page-link" href="/jsVideo/">JS视频教程</a></div> -->
+      <!-- <div class="trigger"><a class="page-link" href="/myGame/">小游戏</a></div> -->
+      <div class="trigger"><a class="page-link" href="/about/">关于我</a></div>
+      <!-- <div class="trigger"><a class="page-link" href="/about/">其他</a></div> -->
+    </nav>
+  </div>
+</header>
+<style>
+  @media screen and (min-width: 600px) {
+    .navDiv {
+      display: flex;
+    }
+
+    .navDiv .trigger {
+      margin-left: 20px;
+    }
+  }
+</style>
+
+  <main class="page-content blogMain" aria-label="Content">
+  <div class="wrapper">
+    <div class="leftContent">
+      <article class="post h-entry" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+          <h1 class="post-title p-name" itemprop="name headline">HTTP</h1>
+          <p class="post-meta">
+            <time class="dt-published" datetime="2020-09-29T09:00:00+08:00" itemprop="datePublished">
+              May 23, 2020 &nbsp; 字数:650
+            </time>
+          </p>
+        </header>
+        <div class="post-content e-content" itemprop="articleBody">
+          <h1 id="http">HTTP</h1>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">http</code> 是我们前后台交互的时候的传输协议（即超文本传输协议）</li>
+</ul>
+
+<h2 id="http-的工作流程">HTTP 的工作流程</h2>
+
+<ol>
+  <li>和服务器建立链接</li>
+  <li>建立链接后，发送一个请求给服务器（请求）</li>
+  <li>服务器接受到请求以后进行相应的处理并给出一个回应（响应）</li>
+  <li>断开于服务器的链接</li>
+</ol>
+
+<h3 id="和服务器建立链接">和服务器建立链接</h3>
+
+<ul>
+  <li>
+    <p>怎么和服务器建立链接呢？</p>
+  </li>
+  <li>
+    <p>需要保证客户端的接受和发送正常，服务器端的接受和发送正常</p>
+  </li>
+  <li>
+    <p>这里就涉及到一个东西叫做 <code class="language-plaintext highlighter-rouge">TCP/IP</code> 协议</p>
+  </li>
+  <li>
+    <p>建立链接的主要步骤叫做 <code class="language-plaintext highlighter-rouge">三次握手</code></p>
+
+    <ol>
+      <li>
+        <p>客户端发送一个消息给到服务端</p>
+
+        <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>此时：
+	服务端知道了 客户端可以正常发送消息
+	服务端知道了 服务端可以正常接受消息
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>服务端回给客户端一个消息</p>
+
+        <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>此时：
+	服务端知道了 客户端可以正常发送消息
+	服务端知道了 服务端可以正常接受消息
+	客户端知道了 客户端可以正常发送消息
+	客户端知道了 客户端可以正常接受消息
+	客户端知道了 服务端可以正常接受消息
+	客户端知道了 服务端可以正常发送消息
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>客户端再回给服务端一个消息</p>
+
+        <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>此时：
+	服务端知道了 客户端可以正常发送消息
+	服务端知道了 服务端可以正常接受消息
+	客户端知道了 客户端可以正常发送消息
+	客户端知道了 客户端可以正常接受消息
+	客户端知道了 服务端可以正常接受消息
+	客户端知道了 服务端可以正常发送消息
+	服务端知道了 服务端可以正常发送消息
+	服务端知道了 客户端可以正常接受消息
+</code></pre></div>        </div>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p>至此，依照 <code class="language-plaintext highlighter-rouge">TCP/IP</code> 协议的建立链接就建立好了</p>
+  </li>
+  <li>
+    <p>双方都知道双方可以正常收发消息</p>
+  </li>
+  <li>
+    <p>就可以进入到第二步，通讯了</p>
+  </li>
+</ul>
+
+<h3 id="发送一个请求">发送一个请求</h3>
+
+<ul>
+  <li>
+    <p>建立完链接以后就是发送请求的过程</p>
+  </li>
+  <li>
+    <p>我们的每一个请求都要把我们的所有信息都包含请求</p>
+  </li>
+  <li>
+    <p>每一个请求都会有一个 <code class="language-plaintext highlighter-rouge">请求报文</code></p>
+  </li>
+  <li>
+    <p>在 <code class="language-plaintext highlighter-rouge">请求报文</code> 中会包含我们所有的请求信息（也就是我们要和服务端说的话都在里面）</p>
+  </li>
+  <li>
+    <p>我们的请求报文中会包含几个东西</p>
+
+    <ol>
+      <li>
+        <p>请求行</p>
+
+        <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /user HTTP/1.1
+<span class="c"># POST 请求方式</span>
+<span class="c"># /user 请求URL（不包含域名）</span>
+<span class="c"># HTTP/1.1 请求协议版本</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>请求头（请求头都是键值对的形式出现的）</p>
+
+        <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>user-agent: Mozilla/5.0 <span class="c"># 产生请求的浏览器信息</span>
+accept: application/json <span class="c"># 表示客户端希望接受的数据类型</span>
+Content-Type: application/x-www-form-urlencoded <span class="c"># 客户端发送的实体数据格式</span>
+Host: 127.0.0.1 <span class="c"># 请求的主机名（IP）</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>请求空行（请求头和请求主体之间要留一个空白行）</p>
+
+        <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 就是一个空行</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>请求体（本次请求携带的数据）</p>
+
+        <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># GET 请求是没有请求体数据的</span>
+<span class="c"># POST 请求才有请求体数据</span>
+</code></pre></div>        </div>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p>接下来看一个完整的请求报文</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /user HTTP/1.1      <span class="c"># 请求行</span>
+Host: www.user.com
+Content-Type: application/x-www-form-urlencoded
+accept: application/json
+User-agent: Mozilla/5.0.     <span class="c"># 以上是首部</span>
+<span class="c">#（此处必须有一空行）  # 空行分割header和请求内容 </span>
+<span class="nv">name</span><span class="o">=</span>world   <span class="c"># 请求体</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="接受一个响应">接受一个响应</h3>
+
+<ul>
+  <li>
+    <p>客户端的请求发送到服务端以后</p>
+  </li>
+  <li>
+    <p>服务端进行对应的处理</p>
+  </li>
+  <li>
+    <p>会给我们返回一个响应</p>
+  </li>
+  <li>
+    <p>每一个响应都会有一个 <code class="language-plaintext highlighter-rouge">响应报文</code></p>
+  </li>
+  <li>
+    <p>在 <code class="language-plaintext highlighter-rouge">响应报文</code> 中会包含我们所有的响应信息（也就是服务端在接受到客户端请求以后，给我们的回信）</p>
+  </li>
+  <li>
+    <p>我们的 <code class="language-plaintext highlighter-rouge">响应报文</code> 中会包含几个信息</p>
+
+    <ol>
+      <li>
+        <p>状态行</p>
+
+        <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 200 OK
+<span class="c"># HTTP/1.1 服务器使用的 HTTP 协议版本</span>
+<span class="c"># 200 响应状态码</span>
+<span class="c"># OK 对响应状态码的简单解释</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>响应头</p>
+
+        <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Date: Jan, 14 Aug 2019 12:42:30 GMT <span class="c"># 服务器时间</span>
+Server: Apache/2.4.23 <span class="o">(</span>Win32<span class="o">)</span> OpenSSL/1.0.2j PHP/5.4.45 <span class="c"># 服务器类型</span>
+Content-Type: text/html <span class="c"># 服务端给客户端的数据类型</span>
+Content-Length: 11 <span class="c"># 服务端给客户端的数据长度</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>响应体</p>
+
+        <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello world
+<span class="c"># 服务端给客户端的响应数据</span>
+</code></pre></div>        </div>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h3 id="断开于服务端的链接">断开于服务端的链接</h3>
+
+<ul>
+  <li>之前我们的建立链接是基于 <code class="language-plaintext highlighter-rouge">TCP/IP</code> 协议的 <code class="language-plaintext highlighter-rouge">三次握手</code></li>
+  <li>我们的断开链接是基于 <code class="language-plaintext highlighter-rouge">TCP/IP</code> 协议的 <code class="language-plaintext highlighter-rouge">四次挥手</code>
+    <ol>
+      <li>客户端发送一个我要断开的消息给服务端</li>
+      <li>服务端接受到以后发送一个消息告诉客户端我已经进入关闭等待状态</li>
+      <li>服务端再次发送一个消息告诉客户端，这个是我的最后一次消息给你，当我再接受到消息的时候就会关闭</li>
+      <li>客户端接受到服务端的消息以后，告诉服务器，我已经关闭，这个是给你的最后一个消息</li>
+    </ol>
+  </li>
+</ul>
+
+<h3 id="完成一个-http-请求">完成一个 HTTP 请求</h3>
+
+<ul>
+  <li>至此，一个 HTTP 请求就完整的完成了</li>
+  <li>一个 HTTP 请求必须要包含的四个步骤就是
+    <ol>
+      <li>建立链接</li>
+      <li>发送请求</li>
+      <li>接受响应</li>
+      <li>断开链接</li>
+    </ol>
+  </li>
+  <li>在一个 HTTP 请求中，请求的部分有请求报文，接受响应的部分有响应报文</li>
+  <li>请求报文包含
+    <ol>
+      <li>请求行</li>
+      <li>请求头</li>
+      <li>请求空行</li>
+      <li>请求体</li>
+    </ol>
+  </li>
+  <li>响应报文
+    <ol>
+      <li>状态行</li>
+      <li>响应头</li>
+      <li>响应体</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="常见的-http-响应状态码">常见的 HTTP 响应状态码</h2>
+
+<ul>
+  <li>在一个 HTTP 请求的响应报文中的状态行会有一个响应状态码</li>
+  <li>这个状态码是用来描述本次响应的状态的</li>
+  <li>通常会出现五种状态码
+    <ol>
+      <li>100 ~ 199</li>
+      <li>200 ~ 299</li>
+      <li>300 ~ 399</li>
+      <li>400 ~ 499</li>
+      <li>500 ~ 599</li>
+    </ol>
+  </li>
+</ul>
+
+<h3 id="100--199">100 ~ 199</h3>
+
+<ul>
+  <li>
+    <p>一般我们看不到，因为表示请求继续</p>
+  </li>
+  <li>100：  继续请求，前面的一部分内容服务端已经接受到了，正在等待后续内容</li>
+  <li>101： 请求者已经准备切换协议，服务器也表示同意</li>
+</ul>
+
+<h3 id="200--299">200 ~ 299</h3>
+
+<ul>
+  <li>2 开头的都是表示成功，本次请求成功了，只不过不一样的状态码有不一样的含义（语义化）</li>
+  <li>200： 标准请求成功（一般表示服务端提供的是网页）</li>
+  <li>201： 创建成功（一般是注册的时候，表示新用户信息已经添加到数据库）</li>
+  <li>203： 表示服务器已经成功处理了请求，但是返回的信息可能来自另一源</li>
+  <li>204： 服务端已经成功处理了请求，但是没有任何数据返回</li>
+</ul>
+
+<h3 id="300--399">300 ~ 399</h3>
+
+<ul>
+  <li>3 开头也是成功的一种，但是一般表示重定向</li>
+  <li>301： 永久重定向</li>
+  <li>302： 临时重定向</li>
+  <li>304： 使用的是缓存的数据</li>
+  <li>305： 使用代理</li>
+</ul>
+
+<h3 id="400--499">400 ~ 499</h3>
+
+<ul>
+  <li>4 开头表示客户端出现错误了</li>
+  <li>400： 请求的语法服务端不认识</li>
+  <li>401： 未授权（你要登录的网站需要授权登录）</li>
+  <li>403： 服务器拒绝了你的请求</li>
+  <li>404： 服务器找不到你请求的 URL</li>
+  <li>407： 你的代理没有授权</li>
+  <li>408： 请求超时</li>
+  <li>410： 你请求的数据已经被服务端永久删除</li>
+</ul>
+
+<h3 id="500--599">500 ~ 599</h3>
+
+<ul>
+  <li>5 开头的表示服务端出现了错误</li>
+  <li>500： 服务器内部错误</li>
+  <li>503： 服务器当前不可用（过载或者维护）</li>
+  <li>505： 请求的协议服务器不支持</li>
+</ul>
+
+<h2 id="常见的-http-请求方式">常见的 HTTP 请求方式</h2>
+
+<ul>
+  <li>每一个 HTTP 请求在请求行里面会有一个东西叫做请求方式</li>
+  <li>不同的请求方式代表的含义不同
+    <ol>
+      <li>GET： 一般用于获取一些信息使用（获取列表）</li>
+      <li>POST： 一般用于发送一些数据给服务端（登录）</li>
+      <li>PUT： 一般用于发送一些数据给服务当让其添加新数据（注册）</li>
+      <li>DELETE： 一般用域删除某些数据</li>
+      <li>HEAD： 类似于 GET 的请求，只不过一般没有响应的具体内容，用于获取报文头</li>
+      <li>CONNECT： HTTP/1.1 中预留的方式，一般用于管道链接改变为代理的时候使用</li>
+      <li>PATCH： 是和 PUT 方式类似的一个方式，一般用于更新局部数据</li>
+      <li>OPTIONS： 允许客户端查看服务端性能</li>
+    </ol>
+  </li>
+  <li>我们比较常用的就是 GET 和 POST</li>
+</ul>
+
+<h3 id="get-请求">GET 请求</h3>
+
+<ul>
+  <li>参数以 <code class="language-plaintext highlighter-rouge">querystring</code> 的形式发送，也就是直接拼接在 请求路径的后面</li>
+  <li>GET 请求会被浏览器主动缓存</li>
+  <li>GET 请求根据不同的浏览器对长度是有限制的
+    <ul>
+      <li>IE： 2083 个字符</li>
+      <li>FireFox： 65536 个字符</li>
+      <li>Safari： 80000 个字符</li>
+      <li>Opera： 190000 个字符</li>
+      <li>Chrome： 8182 个字符</li>
+      <li>APACHE(server)： 理论上接受的最大长度是 8192 个字符（有待商榷）</li>
+    </ul>
+  </li>
+  <li>对参数的类型有限制，只接受 ASCII 码的格式</li>
+  <li>GET 请求是明文发送，相对不安全</li>
+</ul>
+
+<h3 id="post-请求">POST 请求</h3>
+
+<ul>
+  <li>参数以 <code class="language-plaintext highlighter-rouge">request body</code>的形式发送，也就是放在请求体中</li>
+  <li>POST 请求不会被浏览器主动缓存，除非手动设置</li>
+  <li>POST 请求理论上是没有限制的，除非服务端做了限制</li>
+  <li>对参数类型没有限制，理论上可以传递任意数据类型，只不过要和请求头对应</li>
+  <li>POST 请求是密文发送，相对安全</li>
+</ul>
+
+
+        </div>
+  
+      </article>
+        
+      <!-- 评论 -->
+      <div class="comments" id="comments">
+  <div class="title">评论留言：</div>
+  <div class="textareaDiv">
+    <textarea id="publishedInp" rows="3" cols="20"></textarea>
+    <div class="butDiv">
+      <div class="nicknameDiv">
+        昵称：
+        <input id="nickname" type="text" placeholder="游客">
+      </div>
+      <button id="publishedBut">发表评论</button>
+    </div>
+  </div>
+  <div class="commentsDiv" id="commentsDiv">
+    <!-- <div class="commentsItem">
+      <div class="headPortrait"></div>
+      <div class="right">
+        <span class="userName">
+          游客：
+        </span>
+        <span class="content">
+          评论评论评论评论评论评论评论评论评论评论评论评论评论
+        </span>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+<script>
+  const xhr = new XMLHttpRequest()
+  const xhrUrl = 'http://123.56.54.241:23000'
+  // const xhrUrl = 'https://www.kuaidaowanlilai.xyz'
+  // const xhrUrl = 'http://localhost:23000'
+
+  //发表评论
+  let publishedBut = document.querySelector('#publishedBut')
+  publishedBut.addEventListener('click', function () {
+    let publishedInp = document.querySelector('#publishedInp')
+    if (publishedInp.value) {
+      xhr.open('post', `${xhrUrl}/published`)
+      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+      xhr.send(JSON.stringify({
+        username: document.querySelector('#nickname').value,
+        blogUrl: window.location.pathname,
+        content: publishedInp.value
+      }))
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
+          //打印 xhr.responseText 来查看服务端给我们返回的内容
+          console.log('发表评论返回信息', xhr.responseText)
+          requestData()
+          publishedInp.value = ''
+        }
+      }
+    }else {
+      console.log('评论内容为空')
+    }
+  })
+
+  //请求渲染评论
+  requestData()
+  function requestData() {
+    xhr.open('post', `${xhrUrl}/comments`)
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+    xhr.send(JSON.stringify({
+      blogUrl: window.location.pathname
+    }))
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
+        //打印 xhr.responseText 来查看服务端给我们返回的内容
+        applyColours(JSON.parse(xhr.responseText))
+      }
+    }
+    function applyColours(data) {
+      let htmlStr = ''
+      for (let i = 0; i < data.length; i++) {
+        htmlStr += `
+      <div class="commentsItem">
+        <div class="headPortrait"></div>
+        <div class="right">
+          <span class="userName">
+            ${data[i].username}：
+          </span>
+          <span class="content">
+            ${data[i].content}
+          </span>
+        </div>
+      </div>`
+      }
+      document.querySelector('#commentsDiv').innerHTML = htmlStr
+    }
+  }
+</script>
+<style>
+  .comments {
+    width: 100%;
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+    padding: 10px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #333;
+  }
+
+  .comments .title {
+    color: #444;
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+
+  .comments .textareaDiv .butDiv {
+    text-align: right;
+  }
+
+  .comments .textareaDiv textarea {
+    border-radius: 3px;
+    width: calc(100% - 6px);
+    outline: none
+  }
+
+  .comments .textareaDiv .butDiv .nicknameDiv {
+    font-size: 14px;
+    display: inline-block;
+  }
+
+  .comments .textareaDiv .butDiv .nicknameDiv input {
+    width: 70px;
+    border: 1px solid rgb(189, 189, 189);
+    outline: none;
+    border-radius: 2px;
+  }
+
+  .comments .textareaDiv .butDiv button {
+    cursor: pointer;
+  }
+
+  .comments .commentsDiv {
+    margin-top: 5px;
+  }
+
+  .comments .commentsDiv .commentsItem {
+    font-size: 14px;
+    display: flex;
+    border-top: 1px solid rgb(240, 240, 240);
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .comments .commentsDiv .commentsItem .headPortrait {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: rgb(191, 226, 250);
+    margin-left: 5px;
+  }
+
+  .comments .commentsDiv .commentsItem .right {
+    width: calc(100% - 35px);
+    margin-left: 10px;
+  }
+
+  .comments .commentsDiv .commentsItem .right .userName {
+    color: #555666;
+  }
+
+  .comments .commentsDiv .commentsItem .right .content {
+    color: #222226;
+  }
+</style>
+
+    </div>
+    <div class="directory">
+      <div class="directory_header">全部文章</div>
+      <div style="margin-top:5px;">
+        
+        <div class="directory_title">
+          <a href="/%E8%BD%AC%E8%BD%BD/2020/12/16/JavaScript-%E9%82%A3%E4%BA%9B%E5%86%99%E5%87%BA%E6%9D%A5%E4%BC%9A%E8%A2%AB%E5%90%8C%E4%BA%8B%E6%8F%8D%E7%9A%84%E9%AA%9A%E6%93%8D%E4%BD%9C.html" 
+            
+          >
+            JavaScript 那些写出来会被同事揍的骚操作
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/css%E9%BB%91%E7%A7%91%E6%8A%80/2020/10/19/IE%E6%B5%8F%E8%A7%88%E5%99%A8%E5%A4%9A%E8%A1%8C%E6%96%87%E5%AD%97%E6%BA%A2%E5%87%BA%E6%98%BE%E7%A4%BA%E7%9C%81%E7%95%A5%E5%8F%B7.html" 
+            
+          >
+            IE浏览器多行文字溢出显示省略号
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/09/06/GIT%E5%92%8CGITHUB.html" 
+            
+          >
+            GIT和GITHUB
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/30/GULP.html" 
+            
+          >
+            GULP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/23/SASS.html" 
+            
+          >
+            SASS
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/15/NODE%E4%BB%8B%E7%BB%8D.html" 
+            
+          >
+            NODE介绍
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/09/jQuery-%E4%B8%8B.html" 
+            
+          >
+            jQuery（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/02/jQuery-%E4%B8%AD.html" 
+            
+          >
+            jQuery（中）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/26/jQuery-%E4%B8%8A.html" 
+            
+          >
+            jQuery（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/19/Set%E5%92%8CMap.html" 
+            
+          >
+            Set和Map
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/12/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html" 
+            
+          >
+            设计模式
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/04/%E7%BB%A7%E6%89%BF.html" 
+            
+          >
+            继承
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/27/%E9%97%AD%E5%8C%85.html" 
+            
+          >
+            闭包
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/20/Promise.html" 
+            
+          >
+            Promise
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/14/%E5%B0%81%E8%A3%85AJAX.html" 
+            
+          >
+            封装AJAX
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/07/AJAX.html" 
+            
+          >
+            AJAX
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/31/COOKIE.html" 
+            
+          >
+            COOKIE
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/23/HTTP.html" 
+            
+            style="color:#5094d5;"
+            
+          >
+            HTTP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/17/PHP.html" 
+            
+          >
+            PHP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/10/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.html" 
+            
+          >
+            面向对象
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/02/ES5%E5%92%8CES6.html" 
+            
+          >
+            ES5和ES6
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/19/%E6%AD%A3%E5%88%99.html" 
+            
+          >
+            正则
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/12/EVENT-%E4%B8%8B.html" 
+            
+          >
+            EVENT（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/04/EVENT-%E4%B8%8A.html" 
+            
+          >
+            EVENT（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/29/DOM-%E4%B8%8B.html" 
+            
+          >
+            DOM（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/22/DOM-%E4%B8%8A.html" 
+            
+          >
+            DOM（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/14/BOM.html" 
+            
+          >
+            BOM
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/08/Date.html" 
+            
+          >
+            Date
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/01/Math.html" 
+            
+          >
+            Math
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/23/%E5%AD%97%E7%AC%A6%E4%B8%B2.html" 
+            
+          >
+            字符串
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/16/ES5.html" 
+            
+          >
+            ES5
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/09/%E6%95%B0%E7%BB%84.html" 
+            
+          >
+            数组
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/01/12/%E5%87%BD%E6%95%B0-%E4%B8%8B.html" 
+            
+          >
+            函数（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/01/05/%E5%87%BD%E6%95%B0-%E4%B8%8A.html" 
+            
+          >
+            函数（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/29/%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84.html" 
+            
+          >
+            循环结构
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/22/%E5%88%86%E6%94%AF%E7%BB%93%E6%9E%84.html" 
+            
+          >
+            分支结构
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/15/JavaScript%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95.html" 
+            
+          >
+            JavaScript基础语法
+          </a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</main>
+<style>
+  @media screen and (min-width: 1200px) {
+    .blogMain {
+      background-color: #f3f4f6;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .wrapper {
+      max-width: calc(1200px - (10px * 2));
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .blogMain .wrapper .post {
+      width: 800px;
+      padding: 20px 20px;
+      background-color: #fff;
+      box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+    }
+
+    .blogMain .wrapper .directory {
+      width: 330px;
+      /* border: 1px solid #999; */
+      background-color: #fff;
+      float: left;
+      box-sizing: border-box;
+      box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+      font-size: 14px;
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'SimHei', 'Arial', 'SimSun';
+      padding-bottom: 5px;
+    }
+
+    .blogMain .wrapper .directory .directory_header {
+      line-height: 28px;
+      background-color: #fca60b;
+      padding: 0 10px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .blogMain .wrapper .directory .directory_title {
+      padding: 0 15px;
+      line-height: 26px;
+      color: #555666;
+    }
+
+    .blogMain .wrapper .directory .directory_title a {
+      color: #555666;
+      text-decoration: none
+    }
+
+    .blogMain .wrapper .directory .directory_title a:hover {
+      color: #5094d5;
+    }
+    .blogMain .wrapper .leftContent{
+      float: right;
+    }
+    .blogMain .wrapper .leftContent:after {
+      content:""; 
+      display: block; 
+      clear:both; 
+    }
+  }
+</style>
+
+  <footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+  <div class="wrapper">
+    <h2 class="footer-heading">徐hào的博客</h2>
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">徐hào的博客</li>
+          <li><a class="u-email" href="mailto:xh642508924@163.com">xh642508924@163.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          <li><a href="https://github.com/jekyll"><svg class="svg-icon">
+                <use xlink:href="/assets/minima-social-icons.svg#github"></use>
+              </svg> <span class="username">jekyll</span></a></li>
+          <li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon">
+                <use xlink:href="/assets/minima-social-icons.svg#twitter"></use>
+              </svg> <span class="username">jekyllrb</span></a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-3">
+        <p>I am a front-end engineer and have been engaged in front-end development for three years...</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <!-- 定位到评论留言 -->
+  
+<style>
+  .toCommentsDiv{
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    position: fixed;
+    right: 20px;
+    bottom: 120px;
+    cursor: pointer;
+    box-shadow: 0 0 5px #888888;
+    border-radius: 50%;
+    box-sizing: border-box;
+    padding: 10px 0 0 10px;
+  }
+</style>
+<a href="#comments">
+  <div class="toCommentsDiv" title="查看评论留言">
+    <svg t="1603851166634" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3420" width="30" height="30"><path d="M896 138.66666667H128c-38.4 0-64 25.6-64 64V746.66666667c0 38.4 25.6 64 64 64h128v128c83.2 0 166.4-44.8 256-128h384c38.4 0 64-25.6 64-64V202.66666667c0-38.4-25.6-64-64-64z m0 608H486.4l-19.2 19.2c-51.2 51.2-102.4 83.2-147.2 96V746.66666667H128V202.66666667h768V746.66666667z" p-id="3421" fill="#707070"></path><path d="M320 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3422" fill="#707070"></path><path d="M512 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3423" fill="#707070"></path><path d="M704 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3424" fill="#707070"></path></svg>
+  </div>
+</a>
+
+  <!-- 回到顶部 -->
+  
+<style>
+  .toTopDiv{
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    position: fixed;
+    right: 20px;
+    bottom: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 5px #888888;
+    border-radius: 50%;
+    box-sizing: border-box;
+    padding: 10px 0 0 10px;
+    display: none;
+  }
+</style>
+<div class="toTopDiv" title="回到顶部">
+  <svg t="1604044629111" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1093" width="30" height="30"><path d="M866.7 96H157.3c-17.8 0-32.2 14.4-32.2 32.2 0 17.8 14.4 32.2 32.2 32.2h709.5c17.8 0 32.2-14.4 32.2-32.2 0-17.8-14.4-32.2-32.3-32.2zM512 225c-16.5 0-33 6.3-45.6 18.9L169.9 540.3c-5.8 5.8-9.4 13.9-9.4 22.8s3.6 17 9.4 22.8c5.8 5.8 13.9 9.4 22.8 9.4s17-3.6 22.8-9.4l264.2-264.2v574c0 17.8 14.4 32.2 32.2 32.2 17.8 0 32.2-14.4 32.2-32.2v-574l264.2 264.2c5.8 5.8 13.9 9.4 22.8 9.4s17-3.6 22.8-9.4c5.8-5.8 9.4-13.9 9.4-22.8s-3.6-17-9.4-22.8L557.6 243.9C545 231.3 528.5 225 512 225z" p-id="1094" fill="#707070"></path></svg>
+</div>
+<script>
+  let htmlDiv = document.documentElement
+  let toTopDiv = document.querySelector('.toTopDiv')
+
+  document.addEventListener('scroll', () => {
+    if(htmlDiv.scrollTop > 1000){
+      toTopDiv.style.display = 'block'
+    }else{
+      toTopDiv.style.display = 'none'
+    }
+  })
+
+  toTopDiv.addEventListener('click', () => {
+    let scrollTop = htmlDiv.scrollTop
+    let interval = setInterval(() => {
+      htmlDiv.scrollTop -= 100
+      if(htmlDiv.scrollTop <= 0){
+        clearInterval(interval)
+      }
+    }, 5)
+  })
+</script>
+
+</body>
+
+</html>

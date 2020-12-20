@@ -1,0 +1,632 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+.body {
+    width: 100%;
+    height: 100%;
+    min-height: 700px;
+    min-width: 1500px;
+    background-color: rgb(219, 218, 218);
+    font-size: 12px;
+    /* color: transparent; */
+    position: relative;
+    /* overflow: hidden; */
+}
+
+.youxichangjing {
+    width: 8920px;
+    height: 600px;
+    background-color: rgb(204, 223, 198);
+    background-image: url(./img/beijing.png);
+    background-size: auto 583px;
+    background-position: -79px 0px;
+    position: absolute;
+    top: 67px;
+    /* left: 200px; */
+    left: 0px;
+    overflow: hidden;
+}
+
+
+/* maliao开头的css顺序不能改变 */
+
+.maliao {
+    width: 35px;
+    height: 40px;
+    background-image: url(./img/maliao.png);
+    background-repeat: no-repeat;
+    background-size: 80px 85px;
+    position: absolute;
+    top: 60px;
+    /* top: 0px; */
+    left: 250px;
+    z-index: 10;
+}
+
+.maliao_zuoqianjin {
+    background-position: -42px 0px;
+}
+
+.maliao_you {
+    background-position: 0px -42px;
+}
+
+.maliao_youqianjin {
+    background-position: -42px -42px;
+}
+
+.maliao_D {
+    width: 35px;
+    height: 80px;
+    background-image: url(./img/maliao.png);
+    background-repeat: no-repeat;
+    background-size: 80px 170px;
+    position: absolute;
+    top: 60px;
+    /* top: 0px; */
+    left: 250px;
+    z-index: 10;
+}
+
+.maliao_zuoqianjin_D {
+    background-position: -42px 0px;
+}
+
+.maliao_you_D {
+    background-position: 0px -84px;
+}
+
+.maliao_youqianjin_D {
+    background-position: -42px -84px;
+}
+
+
+/* maliao开头的css顺序不能改变 */
+
+.zhuankuai {
+    width: 40px;
+    height: 40px;
+    background-image: url(./img/zhuankuai2.png);
+    background-size: 40px 40px;
+    position: absolute;
+    z-index: 10;
+}
+
+.zhuankuai1 {
+    background-image: url(./img/diban.png);
+    width: 3200px;
+    height: 55px;
+    left: 0px;
+    bottom: 25px;
+}
+
+.zhuankuai2 {
+    background-image: url(./img/wenhao.png);
+    left: 800px;
+    bottom: 200px;
+}
+
+.zhuankuai3 {
+    left: 960px;
+    bottom: 200px;
+}
+
+.zhuankuai4 {
+    background-image: url(./img/wenhao.png);
+    left: 1000px;
+    bottom: 200px;
+}
+
+.zhuankuai5 {
+    left: 1040px;
+    bottom: 200px;
+}
+
+.zhuankuai6 {
+    background-image: url(./img/wenhao.png);
+    left: 1080px;
+    bottom: 200px;
+}
+
+.zhuankuai7 {
+    left: 1120px;
+    bottom: 200px;
+}
+
+.zhuankuai8 {
+    background-image: url(./img/wenhao.png);
+    left: 1040px;
+    bottom: 360px;
+}
+
+.zhuankuai9 {
+    background-image: url(./img/guandao.png);
+    background-size: cover;
+    width: 80px;
+    height: 80px;
+    left: 1280px;
+    bottom: 80px;
+}
+
+.zhuankuai10 {
+    background-image: url(./img/guandao.png);
+    background-size: cover;
+    width: 80px;
+    height: 120px;
+    left: 1760px;
+    bottom: 80px;
+}
+
+.zhuankuai11 {
+    background-image: url(./img/guandao.png);
+    background-size: cover;
+    width: 80px;
+    height: 160px;
+    left: 2160px;
+    bottom: 80px;
+}
+
+.zhuankuai12 {
+    background-image: url(./img/guandao.png);
+    background-size: cover;
+    width: 80px;
+    height: 160px;
+    left: 2640px;
+    bottom: 80px;
+}
+
+.zhuankuai13 {
+    left: 2920px;
+    bottom: 240px;
+}
+
+.zhuankuai14 {
+    background-image: url(./img/diban.png);
+    width: 600px;
+    height: 55px;
+    left: 3280px;
+    bottom: 25px;
+}
+
+.zhuankuai15 {
+    left: 3520px;
+    bottom: 200px;
+}
+
+.zhuankuai16 {
+    background-image: url(./img/wenhao.png);
+    left: 3560px;
+    bottom: 200px;
+}
+
+.zhuankuai17 {
+    left: 3600px;
+    bottom: 200px;
+}
+
+.zhuankuai18 {
+    left: 3640px;
+    bottom: 360px;
+}
+
+.zhuankuai19 {
+    left: 3680px;
+    bottom: 360px;
+}
+
+.zhuankuai20 {
+    left: 3720px;
+    bottom: 360px;
+}
+
+.zhuankuai21 {
+    width: 200px;
+    left: 3760px;
+    bottom: 360px;
+}
+
+.zhuankuai22 {
+    background-image: url(./img/diban.png);
+    width: 2560px;
+    height: 55px;
+    left: 4000px;
+    bottom: 25px;
+}
+
+.zhuankuai23 {
+    left: 4080px;
+    bottom: 360px;
+}
+
+.zhuankuai24 {
+    left: 4120px;
+    bottom: 360px;
+}
+
+.zhuankuai25 {
+    left: 4160px;
+    bottom: 360px;
+}
+
+.zhuankuai26 {
+    background-image: url(./img/wenhao.png);
+    left: 4200px;
+    bottom: 360px;
+}
+
+.zhuankuai27 {
+    left: 4200px;
+    bottom: 200px;
+}
+
+.zhuankuai28 {
+    left: 4440px;
+    bottom: 200px;
+}
+
+.zhuankuai29 {
+    left: 4480px;
+    bottom: 200px;
+}
+
+.zhuankuai30 {
+    background-image: url(./img/wenhao.png);
+    left: 4680px;
+    bottom: 200px;
+}
+
+.zhuankuai31 {
+    background-image: url(./img/wenhao.png);
+    left: 4800px;
+    bottom: 200px;
+}
+
+.zhuankuai32 {
+    background-image: url(./img/wenhao.png);
+    left: 4920px;
+    bottom: 200px;
+}
+
+.zhuankuai33 {
+    background-image: url(./img/wenhao.png);
+    left: 4800px;
+    bottom: 360px;
+}
+
+.zhuankuai34 {
+    left: 5160px;
+    bottom: 200px;
+}
+
+.zhuankuai35 {
+    left: 5280px;
+    bottom: 360px;
+}
+
+.zhuankuai36 {
+    left: 5320px;
+    bottom: 360px;
+}
+
+.zhuankuai37 {
+    left: 5360px;
+    bottom: 360px;
+}
+
+.zhuankuai38 {
+    left: 5560px;
+    bottom: 360px;
+}
+
+.zhuankuai39 {
+    background-image: url(./img/wenhao.png);
+    left: 5600px;
+    bottom: 360px;
+}
+
+.zhuankuai40 {
+    background-image: url(./img/wenhao.png);
+    left: 5640px;
+    bottom: 360px;
+}
+
+.zhuankuai41 {
+    left: 5680px;
+    bottom: 360px;
+}
+
+.zhuankuai42 {
+    left: 5600px;
+    bottom: 200px;
+}
+
+.zhuankuai43 {
+    left: 5640px;
+    bottom: 200px;
+}
+
+.zhuankuai44 {
+    background-image: url(./img/yingzhuankuai.png);
+    width: 160px;
+    left: 5800px;
+    bottom: 80px;
+}
+
+.zhuankuai45 {
+    background-image: url(./img/yingzhuankuai.png);
+    width: 120px;
+    left: 5840px;
+    bottom: 120px;
+}
+
+.zhuankuai46 {
+    background-image: url(./img/yingzhuankuai.png);
+    width: 80px;
+    left: 5880px;
+    bottom: 160px;
+}
+
+.zhuankuai47 {
+    background-image: url(./img/yingzhuankuai.png);
+    left: 5920px;
+    bottom: 200px;
+}
+
+.zhuankuai48 {
+    background-image: url(./img/yingzhuankuai.png);
+    left: 6040px;
+    bottom: 200px;
+}
+
+.zhuankuai49 {
+    background-image: url(./img/yingzhuankuai.png);
+    width: 80px;
+    left: 6040px;
+    bottom: 160px;
+}
+
+.zhuankuai50 {
+    background-image: url(./img/yingzhuankuai.png);
+    width: 120px;
+    left: 6040px;
+    bottom: 120px;
+}
+
+.zhuankuai51 {
+    background-image: url(./img/yingzhuankuai.png);
+    width: 160px;
+    left: 6040px;
+    bottom: 80px;
+}
+
+.zhuankuai52 {
+    background-image: url(./img/yingzhuankuai.png);
+    width: 200px;
+    left: 6360px;
+    bottom: 80px;
+}
+
+.zhuankuai53 {
+    background-image: url(./img/yingzhuankuai.png);
+    width: 160px;
+    left: 6400px;
+    bottom: 120px;
+}
+
+.zhuankuai54 {
+    background-image: url(./img/yingzhuankuai.png);
+    width: 120px;
+    left: 6440px;
+    bottom: 160px;
+}
+
+.zhuankuai55 {
+    background-image: url(./img/yingzhuankuai.png);
+    width: 80px;
+    left: 6480px;
+    bottom: 200px;
+}
+
+.zhuankuai56 {
+    background-image: url(./img/diban.png);
+    width: 2280px;
+    height: 55px;
+    left: 6640px;
+    bottom: 25px;
+}
+
+.zhuankuai57 {
+    background-image: url(./img/yingzhuankuai.png);
+    height: 160px;
+    left: 6640px;
+    bottom: 80px;
+}
+
+.zhuankuai58 {
+    background-image: url(./img/yingzhuankuai.png);
+    height: 120px;
+    left: 6680px;
+    bottom: 80px;
+}
+
+.zhuankuai59 {
+    background-image: url(./img/yingzhuankuai.png);
+    height: 80px;
+    left: 6720px;
+    bottom: 80px;
+}
+
+.zhuankuai60 {
+    background-image: url(./img/yingzhuankuai.png);
+    left: 6760px;
+    bottom: 80px;
+}
+
+.zhuankuai61 {
+    background-image: url(./img/guandao.png);
+    background-size: cover;
+    width: 80px;
+    height: 80px;
+    left: 6960px;
+    bottom: 80px;
+}
+
+.zhuankuai62 {
+    left: 7160px;
+    bottom: 200px;
+}
+
+.zhuankuai63 {
+    left: 7200px;
+    bottom: 200px;
+}
+
+.zhuankuai64 {
+    background-image: url(./img/wenhao.png);
+    left: 7240px;
+    bottom: 200px;
+}
+
+.zhuankuai65 {
+    left: 7280px;
+    bottom: 200px;
+}
+
+.zhuankuai66 {
+    background-image: url(./img/guandao.png);
+    background-size: cover;
+    width: 80px;
+    height: 80px;
+    left: 7600px;
+    bottom: 80px;
+}
+
+.zhuankuai67 {
+    background-image: url(./img/yingzhuankuai.png);
+    left: 7680px;
+    bottom: 80px;
+}
+
+.zhuankuai68 {
+    background-image: url(./img/yingzhuankuai.png);
+    height: 80px;
+    left: 7720px;
+    bottom: 80px;
+}
+
+.zhuankuai69 {
+    background-image: url(./img/yingzhuankuai.png);
+    height: 120px;
+    left: 7760px;
+    bottom: 80px;
+}
+
+.zhuankuai70 {
+    background-image: url(./img/yingzhuankuai.png);
+    height: 160px;
+    left: 7800px;
+    bottom: 80px;
+}
+
+.zhuankuai71 {
+    background-image: url(./img/yingzhuankuai.png);
+    height: 200px;
+    left: 7840px;
+    bottom: 80px;
+}
+
+.zhuankuai72 {
+    background-image: url(./img/yingzhuankuai.png);
+    height: 240px;
+    left: 7880px;
+    bottom: 80px;
+}
+
+.zhuankuai73 {
+    background-image: url(./img/yingzhuankuai.png);
+    height: 280px;
+    left: 7920px;
+    bottom: 80px;
+}
+
+.zhuankuai74 {
+    background-image: url(./img/yingzhuankuai.png);
+    width: 80px;
+    height: 320px;
+    left: 7960px;
+    bottom: 80px;
+}
+
+.zhuankuai75 {
+    background-image: url(./img/yingzhuankuai.png);
+    left: 8360px;
+    bottom: 80px;
+}
+
+.zhuankuai76 {
+    width: 200px;
+    height: 200px;
+    left: 8520px;
+    bottom: 80px;
+}
+
+.zhuankuai77 {
+    width: 1px;
+    height: 500px;
+    right: -1px;
+    bottom: 80px;
+}
+
+
+/* 蘑菇 */
+
+.hongmogu {
+    width: 40px;
+    height: 40px;
+    background-image: url(./img/mogu.png);
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+    position: absolute;
+    z-index: 0;
+}
+
+.hua {
+    width: 40px;
+    height: 40px;
+    background-image: url(./img/hua.png);
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+    position: absolute;
+    z-index: 0;
+}
+
+.guai {
+    width: 40px;
+    height: 40px;
+    background-image: url(./img/guai_dumogu.png);
+    background-size: 80px 40px;
+    position: absolute;
+    z-index: 10;
+}
+
+.guai_Q {
+    background-position: -40px 0;
+}
+
+.guai1 {
+    left: 1040px;
+    bottom: 80px;
+}
+
+.guai2 {
+    left: 1840px;
+    bottom: 80px;
+}

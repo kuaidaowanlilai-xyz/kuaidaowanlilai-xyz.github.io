@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>GIT和GITHUB | 徐hào的博客</title>
+  
+  <link rel="stylesheet" href="/assets/main.css">
+  <style>
+    .bottomLine {
+      color: #999;
+      font-size: 13px;
+    }
+
+    /* 滚动条样式设置 */
+    @media screen and (min-width: 600px) {
+      *::-webkit-scrollbar {
+        width: 10px;
+        height: 6px;
+      }
+      *::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.5);
+      }
+      *::-webkit-scrollbar-track {
+        background-color: #fff;
+      }
+    }
+    /* 滚动条样式设置 end */
+  </style>
+</head>
+
+<script>//remove baidu search ad
+  var _countAA = 0
+  function doBBBd() {
+    var alla = document.getElementsByTagName('a')
+    for (var i = 0; i < alla.length; i++) {
+      if (/baidu.com\/(baidu.php\?url=|adrc.php\?t)/.test(alla[i].href)) {
+        var _temp = alla[i].parentElement, loop = 0
+        while (loop < 5) {
+          _temp = _temp.parentElement
+          loop++
+          if (_temp.parentElement.id == 'content_left') {
+            _temp.remove()
+            break
+          }
+        }
+      }
+    }
+
+    if (_countAA++ < 20) {
+      setTimeout(doBBBd, 500)
+    }
+
+  }
+  doBBBd()
+  document.addEventListener('keyup', function () { _countAA -= 10; doBBBd() }, false)
+  document.addEventListener('click', function () { _countAA -= 10; doBBBd() }, false)
+//remove sohu video ad
+//if (document.URL.indexOf("tv.sohu.com") >= 0){
+//    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+//}
+//remove 56.com video ad
+//if (document.URL.indexOf("56.com") >= 0){
+//    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+//}
+</script>
+
+<body>
+  <header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">徐hào的博客</a>
+    <nav class="site-nav navDiv">
+      <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+      <label for="nav-trigger">
+        <span class="menu-icon">
+          <svg viewBox="0 0 18 15" width="18px" height="15px">
+            <path
+              d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z" />
+          </svg>
+        </span>
+      </label>
+      <!-- <div class="trigger"><a class="page-link" href="/jsVideo/">JS视频教程</a></div> -->
+      <!-- <div class="trigger"><a class="page-link" href="/myGame/">小游戏</a></div> -->
+      <div class="trigger"><a class="page-link" href="/about/">关于我</a></div>
+      <!-- <div class="trigger"><a class="page-link" href="/about/">其他</a></div> -->
+    </nav>
+  </div>
+</header>
+<style>
+  @media screen and (min-width: 600px) {
+    .navDiv {
+      display: flex;
+    }
+
+    .navDiv .trigger {
+      margin-left: 20px;
+    }
+  }
+</style>
+
+  <main class="page-content blogMain" aria-label="Content">
+  <div class="wrapper">
+    <div class="leftContent">
+      <article class="post h-entry" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+          <h1 class="post-title p-name" itemprop="name headline">GIT和GITHUB</h1>
+          <p class="post-meta">
+            <time class="dt-published" datetime="2020-09-29T09:00:00+08:00" itemprop="datePublished">
+              Sep 06, 2020 &nbsp; 字数:1602
+            </time>
+          </p>
+        </header>
+        <div class="post-content e-content" itemprop="articleBody">
+          <h1 id="git-和-github">GIT 和 GITHUB</h1>
+
+<ul>
+  <li>在学习之前我们要先要清楚几个东西</li>
+  <li><code class="language-plaintext highlighter-rouge">git</code> 和 <code class="language-plaintext highlighter-rouge">github</code> 是两个东西，不是一个东西</li>
+  <li>就像 <code class="language-plaintext highlighter-rouge">java</code> 和 <code class="language-plaintext highlighter-rouge">javascript</code> 一样，是两个东西</li>
+  <li>需要搞清楚几个词语的意思
+    <ul>
+      <li>本地：我自己的终端</li>
+      <li>远程：在网络那一头的终端</li>
+      <li>仓库：一个被 <code class="language-plaintext highlighter-rouge">git</code> 管理了的文件夹</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="什么是-git">什么是 GIT</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">git</code> 官方名称： <strong>分布式版本管理器</strong></li>
+  <li>私人解释： 就是一个管理我们文件夹的工具
+    <ul>
+      <li>只不过可以保留所有的版本信息</li>
+    </ul>
+  </li>
+  <li>就是我们安装一个软件
+    <ul>
+      <li>然后用这个软件来管理我们的一个文件夹</li>
+      <li>这个文件夹被 <code class="language-plaintext highlighter-rouge">git</code> 管理以后，我们可以对他进行各种操作</li>
+      <li>保证我们写过的内容不会丢失</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="什么是-github">什么是 GITHUB</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">github</code> 是一个网站，是一个我们托管项目的平台</li>
+  <li>是一个 <strong>世界级别</strong> 的大型网站</li>
+  <li>也就是说，我们写的项目的 <strong>源码</strong> 可以放在上面保存，只要我们不自己删除，不会丢失
+    <ul>
+      <li>就相当于百度云</li>
+      <li>只不过功能更加强大，上面都是开发人员（世界级别）</li>
+    </ul>
+  </li>
+  <li>因为 <code class="language-plaintext highlighter-rouge">github</code> 只接受 <code class="language-plaintext highlighter-rouge">git</code> 来上传代码，所以叫做 <code class="language-plaintext highlighter-rouge">github</code></li>
+  <li>也就是说，我们可以通过 <code class="language-plaintext highlighter-rouge">git</code> 这个软件来管理我们本地的文件夹
+    <ul>
+      <li>并且可以把文件夹里面的代码上传到 <code class="language-plaintext highlighter-rouge">github</code> 保存</li>
+      <li>也可以写一个插件之类的工具，上传到 <code class="language-plaintext highlighter-rouge">github</code> 上面让其他开发者使用</li>
+      <li>也可以从 <code class="language-plaintext highlighter-rouge">github</code> 上找到其他开发者写的插件之类的东西下载使用</li>
+    </ul>
+  </li>
+  <li>所以说，<code class="language-plaintext highlighter-rouge">github</code> 也是一个大型的 <strong>开源</strong> 的资源共享平台</li>
+</ul>
+
+<h2 id="git-使用">GIT 使用</h2>
+
+<ul>
+  <li>刚才我们说过，<code class="language-plaintext highlighter-rouge">git</code> 是一个管理我们文件夹的工具</li>
+  <li>那么我们就要先安装工具，再使用工具管理我们的文件夹</li>
+</ul>
+
+<h3 id="git-安装">GIT 安装</h3>
+
+<ul>
+  <li>
+    <p>下载 <code class="language-plaintext highlighter-rouge">git</code> 直接到官网下载就可以</p>
+
+    <ul>
+      <li><a href="https://git-scm.com/">git官网</a></li>
+      <li><a href="https://git-scm.com/downloads">git下载中心</a></li>
+    </ul>
+  </li>
+  <li>
+    <p>找到和操作系统对应的版本就可以了</p>
+
+    <ol>
+      <li>
+        <p>方法一： 打开官网，直接点击下载</p>
+
+        <p><img src="./assets/官网下载.png" alt="" /></p>
+      </li>
+      <li>
+        <p>方法二： 打开下载中心，选择操作系统，选择下载版本</p>
+
+        <p><img src="./assets/下载中心1.png" alt="" /></p>
+
+        <p><img src="./assets/下载中心2.png" alt="" /></p>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p>下载好以后，直接双击进行安装就行</p>
+  </li>
+  <li>
+    <p>一直下一步就可以，安装再默认路径就行</p>
+  </li>
+  <li>
+    <p>安装完毕后检测一下安装是否成功</p>
+
+    <ol>
+      <li>
+        <p>方法一： 打开 <code class="language-plaintext highlighter-rouge">cmd</code> 窗口，输入指令检查</p>
+
+        <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 检测 git 是否安装</span>
+<span class="nv">$ </span>git <span class="nt">--version</span>
+</code></pre></div>        </div>
+
+        <ul>
+          <li>
+            <p>出现版本号，说明安装成功</p>
+
+            <p><img src="./assets/git安装检测1.png" alt="" /></p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>方法二： 随便找个地方单机 <strong>鼠标右键</strong>，出现下图内容，说明安装成功</p>
+
+        <p><img src="./assets/git安装检测2.png" alt="" /></p>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p>安装完毕，接下来我们就可以开始使用了</p>
+  </li>
+</ul>
+
+<h3 id="git-使用-1">GIT 使用</h3>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">git</code> 是一个软件没错，但是不是那种安装了会再桌面出现一个图标的软件</p>
+  </li>
+  <li>
+    <p>而是一个需要在 <strong>命令行</strong> 进行操作的软件</p>
+  </li>
+  <li>
+    <p>我们单机鼠标右键，点击 <code class="language-plaintext highlighter-rouge">Git Bash Here</code></p>
+  </li>
+  <li>
+    <p>会出现下图内容</p>
+
+    <p><img src="./assets/git窗口1.png" alt="" /></p>
+  </li>
+  <li>
+    <p>我们发现点开以后，就是一个 <strong>命令行窗口</strong></p>
+  </li>
+  <li>
+    <p>其实就是给我们写一些指令使用的，只不过色彩鲜艳一点</p>
+
+    <ul>
+      <li>使用 <code class="language-plaintext highlighter-rouge">cmd</code> 或者 <code class="language-plaintext highlighter-rouge">powershell</code> 窗口来运行 <code class="language-plaintext highlighter-rouge">git</code> 指令也可以</li>
+      <li>只要是再终端运行就行</li>
+      <li>OS 操作系统直接在 <strong>终端</strong> 中运行就行</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">Git Bash Here</code> 表示再当前目录下运行 <code class="language-plaintext highlighter-rouge">Git Base</code></p>
+  </li>
+  <li>
+    <p>所以，你在哪个文件夹下点击的，那么你出来的命令行窗口的目录就是哪里</p>
+  </li>
+  <li>
+    <p>我们就在命令行里面使用 <code class="language-plaintext highlighter-rouge">git</code> 来管理我们的文件夹</p>
+  </li>
+</ul>
+
+<h4 id="git-初始化">GIT 初始化</h4>
+
+<ul>
+  <li>
+    <p>我们希望一个文件夹被 <code class="language-plaintext highlighter-rouge">git</code> 管理的话，那么就要在一个文件夹下进行 <strong>git 初始化</strong></p>
+  </li>
+  <li>
+    <p>找到一个希望被 <code class="language-plaintext highlighter-rouge">git</code> 管理的文件夹</p>
+  </li>
+  <li>
+    <p>在文件夹内单击鼠标右键，点开 <code class="language-plaintext highlighter-rouge">Git Bash Here</code></p>
+  </li>
+  <li>
+    <p>输入指令</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># git 初始化的指令</span>
+<span class="nv">$ </span>git init
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>然后文件夹内会多一个 <code class="language-plaintext highlighter-rouge">.git</code> 的文件夹（这个文件夹是一个隐藏文件夹）</p>
+
+    <p><img src="./assets/git-init.png" alt="" /></p>
+  </li>
+  <li>
+    <p>这个时候，我的这个 <code class="language-plaintext highlighter-rouge">git_demo</code> 文件夹就被 <code class="language-plaintext highlighter-rouge">git</code> 管理了</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">git</code> 不光管理这一个文件夹，包括所有的子文件夹和子文件都会被管理</li>
+    </ul>
+  </li>
+  <li>
+    <p>注意： <strong>只有当一个文件夹被 git 管理以后，我们才可以使用 git 的功能去做版本管理</strong></p>
+
+    <ul>
+      <li>也就是说，我们必须要把我们电脑中的某一个文件夹授权给 <code class="language-plaintext highlighter-rouge">git</code></li>
+      <li><code class="language-plaintext highlighter-rouge">git</code> 才能对这个文件夹里面的内容进行各种操作</li>
+      <li>而 <code class="language-plaintext highlighter-rouge">git init</code> 就是在进行这个授权的操作</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="git-暂存区">GIT 暂存区</h4>
+
+<ul>
+  <li>
+    <p>当一个文件夹被 <code class="language-plaintext highlighter-rouge">git</code> 管理了以后</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">git</code> 就会对当前文件夹进行 <strong>“分区”</strong></p>
+  </li>
+  <li>
+    <p>会分为三个区域</p>
+
+    <ol>
+      <li>工作区：我们书写的源码就在工作区里面属性</li>
+      <li>暂存区：把我们想要存储的内容放在暂存区</li>
+      <li>历史区：把暂存区里面的内容拿出来形成一个历史版本</li>
+    </ol>
+  </li>
+  <li>
+    <p>也就是说，我们需要把想成为一个版本的代码</p>
+
+    <ul>
+      <li>要先放在暂存区</li>
+      <li>然后才能在暂存区里面放到历史去</li>
+      <li>才可以生成一个版本保存下来</li>
+    </ul>
+  </li>
+  <li>
+    <p>我们要放入暂存区，要使用 <code class="language-plaintext highlighter-rouge">git add</code> 指令</p>
+  </li>
+  <li>
+    <p>把单独一个文件放在暂存区</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 把文件夹下的 index.txt 文本放在暂存区</span>
+<span class="nv">$ </span>git add index.txt
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>把单独一个文件夹放在暂存区（暂存区不能存放空文件夹）</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 把文件夹下的 ceshi文件夹 放在暂存区</span>
+<span class="nv">$ </span>git add ceshi/
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>把所有文件都放在暂存区</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 把文件夹下所有的内容都放在暂存区</span>
+<span class="nv">$ </span>git add <span class="nt">--all</span>
+  
+<span class="c"># git add --all 有一个简单的写法</span>
+<span class="nv">$ </span>git add <span class="nb">.</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>全部存放的时候使用上面两个指令哪个都行</li>
+    </ul>
+  </li>
+  <li>
+    <p>把已经放在暂存区的内容在拉回到工作区</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 拉回暂存区的 index.txt 文件</span>
+<span class="nv">$ </span>git reset HEAD <span class="nt">--</span> index.txt
+  
+<span class="c"># 拉回暂存区的 ceshi 文件夹</span>
+<span class="nv">$ </span>git reset HEAD <span class="nt">--</span> ceshi/
+  
+<span class="c"># 拉回暂存区的 所有文件</span>
+<span class="nv">$ </span>git reset HEAD <span class="nt">--</span> <span class="nb">.</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>注意： <strong><code class="language-plaintext highlighter-rouge">--</code> 两边都有空格，拉回所有文件的时候有个 <code class="language-plaintext highlighter-rouge">.</code></strong></li>
+    </ul>
+  </li>
+  <li>
+    <p>暂存区，只是帮我们暂时存放内容，我们删除了还是会丢的</p>
+  </li>
+  <li>
+    <p>要想帮我们保存下来，那么还需要把暂存区的内容放到历史区</p>
+  </li>
+</ul>
+
+<h4 id="git-历史区">GIT 历史区</h4>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">git</code> 的历史区，就是把我们暂存区里面的文件变成一个历史版本</p>
+  </li>
+  <li>
+    <p>当一些文件形成一个版本的时候，就会被一直记录下来了</p>
+  </li>
+  <li>
+    <p>向历史区里面添加内容的时候，必须保证 <strong>暂存区</strong> 有内容</p>
+  </li>
+  <li>
+    <p>因为历史区就是把暂存区里面的内容收录进去</p>
+  </li>
+  <li>
+    <p>向历史区添加内容使用 <code class="language-plaintext highlighter-rouge">git commit -m "做一个简单的说明"</code></p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 把暂存区的内容放到历史区</span>
+<span class="nv">$ </span>git commit <span class="nt">-m</span> <span class="s2">"我是第一个版本"</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>我们一定要写一个简单的说明</li>
+      <li>因为当我们的历史版本多了以后，我们自己也记不住哪个版本做了哪些修改</li>
+      <li>所以有个简单的说明会好很多</li>
+    </ul>
+  </li>
+  <li>
+    <p>这个时候历史区就有了我们的第一个版本</p>
+  </li>
+  <li>
+    <p>我们使用 <code class="language-plaintext highlighter-rouge">git log</code> 这个指令查看版本信息</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 查看当前历史区版本信息</span>
+<span class="nv">$ </span>git log
+</code></pre></div>    </div>
+
+    <p><img src="./assets/git版本信息.png" alt="" /></p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">commit</code>：这一个版本的版本编号</li>
+      <li><code class="language-plaintext highlighter-rouge">Author</code>：作者</li>
+      <li><code class="language-plaintext highlighter-rouge">Date</code>：本次版本的记录时间</li>
+      <li>后面的内容就是我刚才提交的时候写的说明</li>
+    </ul>
+  </li>
+  <li>
+    <p>接下来我们对文件夹内的内容进行一些修改，然后再次创建一个历史版本</p>
+  </li>
+  <li>
+    <p>对 <code class="language-plaintext highlighter-rouge">index.txt</code> 中的文本内容进行修改</p>
+
+    <ul>
+      <li>从 <code class="language-plaintext highlighter-rouge">hello world</code> 改变成 <code class="language-plaintext highlighter-rouge">你好 世界</code></li>
+    </ul>
+  </li>
+  <li>
+    <p>然后我们再次打印日志看一下</p>
+
+    <p><img src="./assets/git版本信息2.png" alt="" /></p>
+
+    <ul>
+      <li>我们发现，日志信息变成了两条，也就是我们存在着两个版本的内容了</li>
+    </ul>
+  </li>
+  <li>
+    <p>放在历史区的内容，理论上就丢不了了</p>
+  </li>
+  <li>
+    <p>现在我们可以把我们本地工作区中的内容给删除了，删除以后我们进行历史回退</p>
+  </li>
+  <li>
+    <p>我们使用 <code class="language-plaintext highlighter-rouge">git reset --hard 版本编号</code> 进行历史回退</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 回退到第一次提交的版本</span>
+<span class="nv">$ </span>git reset <span class="nt">--hard</span> ce0c17f7a703c6847552c7aaab6becea6f0197f2
+  
+<span class="c"># 回退到第二次提交的版本</span>
+<span class="nv">$ </span>git reset <span class="nt">--hard</span> abb2c4f12566440e04bc166c3285f855a37a3bb2
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>这个时候我们就可以来回来去的玩我们的历史记录了</p>
+  </li>
+</ul>
+
+<h4 id="git-分支">GIT 分支</h4>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">git</code> 分支，就是我们自己把我们的整个文件夹分成一个一个独立的区域</p>
+  </li>
+  <li>
+    <p>比如我在开发 <strong>登录</strong> 功能的时候，可以放在 <code class="language-plaintext highlighter-rouge">login</code> 分支下进行开发</p>
+
+    <ul>
+      <li>开发 <strong>列表</strong> 功能的时候，可以放在 <code class="language-plaintext highlighter-rouge">list</code> 分支下进行开发</li>
+      <li>大家互不干扰，每一个功能都是一个独立的功能分支</li>
+    </ul>
+  </li>
+  <li>
+    <p>这样开发就会好很多</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">git</code> 在初始化的时候，会自动生成一个分支，叫做 <code class="language-plaintext highlighter-rouge">master</code></p>
+  </li>
+  <li>
+    <p>是表示主要分支的意思</p>
+  </li>
+  <li>
+    <p>我们就可以自己开辟出很多独立分支</p>
+  </li>
+  <li>
+    <p>开辟一个分支使用 <code class="language-plaintext highlighter-rouge">git branch 分支名称</code> 指令</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 开辟一个 login 分支</span>
+<span class="nv">$ </span>git branch login
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>查看一下当前分支情况</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 查看当前分支情况</span>
+<span class="nv">$ </span>git branch
+</code></pre></div>    </div>
+
+    <p><img src="./assets/查看分支情况.png" alt="" /></p>
+
+    <ul>
+      <li>会看到，当前有两个分支了</li>
+      <li>一个是 <code class="language-plaintext highlighter-rouge">master</code>，一个是 <code class="language-plaintext highlighter-rouge">login</code></li>
+      <li>前面有个 <code class="language-plaintext highlighter-rouge">*</code> 号，并且有高亮显示的，表示你当前所处的分支</li>
+    </ul>
+  </li>
+  <li>
+    <p>我们对 <strong>登录</strong> 功能的开发要移动到 <code class="language-plaintext highlighter-rouge">login</code> 分支去完成</p>
+  </li>
+  <li>
+    <p>我们切换所处分支使用 <code class="language-plaintext highlighter-rouge">git checkout 分支名称</code></p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 切换到 login 分支</span>
+<span class="nv">$ </span>git checkout login
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>然后我们在整个分支上进行 <strong>登录</strong> 功能的开发</p>
+  </li>
+  <li>
+    <p>开发完毕以后，我们就在当前分支上进行提交</p>
+  </li>
+  <li>
+    <p>提交以后我们进行分支切换</p>
+
+    <ul>
+      <li>发现 <code class="language-plaintext highlighter-rouge">master</code> 上面还是最初始的状态</li>
+      <li>而 <code class="language-plaintext highlighter-rouge">login</code> 分支上有我们新写的 <strong>登录</strong> 功能的代码</li>
+    </ul>
+  </li>
+  <li>
+    <p>我们按照分支把所有功能都开发完毕了以后</p>
+
+    <ul>
+      <li>只要把所有代码都合并到 <code class="language-plaintext highlighter-rouge">master</code> 主分支上就行了</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">git</code> 的合并分支，只能是把别的分支的内容合并到自己的分支上</p>
+  </li>
+  <li>
+    <p>使用的指令是 <code class="language-plaintext highlighter-rouge">git merge</code></p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 切换到 master 分支</span>
+<span class="nv">$ </span>git checkout master
+  
+<span class="c"># 把 login 的内容合并到自己的分支</span>
+<span class="nv">$ </span>git merge login
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>这个时候，我们刚才在 <code class="language-plaintext highlighter-rouge">login</code> 上开发的东西就都来到了 <code class="language-plaintext highlighter-rouge">master</code> 主分支上</p>
+  </li>
+  <li>
+    <p>如果是有多个分支的话，那么所有的最后都合并到 <code class="language-plaintext highlighter-rouge">master</code> 分支上的时候</p>
+  </li>
+  <li>
+    <p>我们的主分支上就有完整网站的所有页面</p>
+
+    <ul>
+      <li>各个分支上都是单独的页面和功能</li>
+    </ul>
+  </li>
+  <li>
+    <p>这个时候我们开辟的分支就没有什么用了，就可以删除分支了</p>
+
+    <ol>
+      <li>
+        <p>先切换到别的分支</p>
+      </li>
+      <li>
+        <p>使用指令 <code class="language-plaintext highlighter-rouge">git branch -d 分支名称</code> 来删除</p>
+
+        <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 先切换到别的分支</span>
+<span class="nv">$ </span>git checkout master
+     
+<span class="c"># 删除 login 分支</span>
+<span class="nv">$ </span>git branch <span class="nt">-d</span> login
+</code></pre></div>        </div>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h5 id="常用的分支命名">常用的分支命名</h5>
+
+<ul>
+  <li>我们的分支命名也要规范一些</li>
+  <li>我们有一些分支名称大家都默认是有特殊意义的</li>
+  <li>比如我们之前的写的 <code class="language-plaintext highlighter-rouge">login</code> 分支就是不规范的分支名称
+    <ul>
+      <li>而且也是不规范的分支操作</li>
+    </ul>
+  </li>
+  <li>常见的分支名称
+    <ol>
+      <li>master：主分支，永远只存储一个可以稳定运行的版本，不能再这个分支上直接开发</li>
+      <li>develop： 主要开发分支，主要用于所用功能开发的代码合并，记录一个个的完整版本
+        <ul>
+          <li>包含测试版本和稳定版本</li>
+          <li>不要再这个分支上进行开发</li>
+        </ul>
+      </li>
+      <li>feature-xxx：功能开发分支，从 <code class="language-plaintext highlighter-rouge">develop</code> 创建的分支
+        <ul>
+          <li>主要用作某一个功能的开发</li>
+          <li>以自己功能来命名就行，例如 <code class="language-plaintext highlighter-rouge">feature-login</code> / <code class="language-plaintext highlighter-rouge">feature-list</code></li>
+          <li>开发完毕后合并到 <code class="language-plaintext highlighter-rouge">develop</code> 分支上</li>
+        </ul>
+      </li>
+      <li>feature-xxx-fix:  某一分支出现 <code class="language-plaintext highlighter-rouge">bug</code> 以后，在当前分支下开启一个 <code class="language-plaintext highlighter-rouge">fix</code> 分支
+        <ul>
+          <li>解决完 <code class="language-plaintext highlighter-rouge">bug</code> 以后，合并到当前功能分支上</li>
+          <li>如果是功能分支已经合并之后发现 <code class="language-plaintext highlighter-rouge">bug</code> 可以直接在 <code class="language-plaintext highlighter-rouge">develop</code> 上开启分支</li>
+          <li>修复完成之后合并到 <code class="language-plaintext highlighter-rouge">develop</code> 分支上</li>
+        </ul>
+      </li>
+      <li>hotfix-xxx： 用于紧急 <code class="language-plaintext highlighter-rouge">bug</code> 修复
+        <ul>
+          <li>直接在 <code class="language-plaintext highlighter-rouge">master</code> 分支上开启</li>
+          <li>修复完成之后合并回 <code class="language-plaintext highlighter-rouge">master</code></li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h4 id="git-推送">GIT 推送</h4>
+
+<ul>
+  <li>我们的所有内容已经全部保留在了本地历史区</li>
+  <li>理论上是不会丢失了
+    <ul>
+      <li>但是如果把文件夹删除了，还是没有了</li>
+    </ul>
+  </li>
+  <li>所以我们要使用 <code class="language-plaintext highlighter-rouge">git</code> 把我们所有的内容推送到 <code class="language-plaintext highlighter-rouge">github</code> 上面保存起来</li>
+  <li>那么就本地文件夹就算删除了，那么远程上面还有一份，还可以拿回来使用</li>
+  <li>所以我们现在就要把本地内容推送到远程</li>
+  <li>这个时候我们接需要一个 <code class="language-plaintext highlighter-rouge">github</code> 的账号了</li>
+  <li>先去 <a href="https://github.com/">github官网</a> 注册一个账号</li>
+</ul>
+
+<h5 id="开辟一个远程仓库">开辟一个远程仓库</h5>
+
+<ul>
+  <li>
+    <p>有了 <code class="language-plaintext highlighter-rouge">github</code>  账号以后</p>
+  </li>
+  <li>
+    <p>我们就登录 <code class="language-plaintext highlighter-rouge">github</code> 网站，开辟一个远程仓库</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">github</code> 的远程也是以一个仓库一个仓库的形式来保存代码</p>
+
+    <ul>
+      <li>我们可以在一个 <code class="language-plaintext highlighter-rouge">github</code> 上保存很多的项目</li>
+      <li>只要一个项目一个仓库就可以了</li>
+    </ul>
+  </li>
+  <li>
+    <p>按照下面步骤开辟仓库</p>
+
+    <ol>
+      <li>
+        <p>先点击新建仓库</p>
+
+        <p><img src="./assets/github开辟仓库1.png" alt="" /></p>
+      </li>
+      <li>
+        <p>按照要求填写内容</p>
+
+        <p><img src="./assets/github开辟仓库2.png" alt="" /></p>
+      </li>
+      <li>
+        <p>出现下图表示创建仓库成功</p>
+
+        <p><img src="./assets/github开辟仓库3.png" alt="" /></p>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p>现在我们的远程仓库建立完毕了，我们就要把我们的项目代码整个上传了</p>
+  </li>
+</ul>
+
+<h5 id="添加仓库地址">添加仓库地址</h5>
+
+<ul>
+  <li>
+    <p>接下来，要使用 <code class="language-plaintext highlighter-rouge">git</code> 上传代码了</p>
+  </li>
+  <li>
+    <p>我们先要告诉 <code class="language-plaintext highlighter-rouge">git</code> 上传到哪里</p>
+  </li>
+  <li>
+    <p>也就是给 <code class="language-plaintext highlighter-rouge">git</code> 添加一个上传的地址</p>
+  </li>
+  <li>
+    <p>我们还是来到我们的项目文件夹</p>
+  </li>
+  <li>
+    <p>使用 <code class="language-plaintext highlighter-rouge">git remote add origin 仓库地址</code> 来添加</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 在项目文件夹下打开 git base</span>
+<span class="c"># 添加仓库地址</span>
+<span class="nv">$ </span>git remote add origin https://github.com/guoxiang910223/ceshi1913.git
+</code></pre></div>    </div>
+
+    <ul>
+      <li>remote：远程的意思</li>
+      <li>add：添加的意思</li>
+      <li>origin：是一个变量名（就是指代后面一长串的地址）</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="上传">上传</h5>
+
+<ul>
+  <li>
+    <p>上传到哪里的地址我们已经添加好了</p>
+  </li>
+  <li>
+    <p>接下来就是上传内容了</p>
+
+    <ul>
+      <li>上传要保证 <strong>历史区</strong> 里面有内容</li>
+      <li>上传的过程会把 <strong>历史区</strong> 里面所有的内容上传到远端</li>
+    </ul>
+  </li>
+  <li>
+    <p>我们使用 <code class="language-plaintext highlighter-rouge">git push</code> 指令来上传</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 上传内容</span>
+<span class="nv">$ </span>git push <span class="nt">-u</span> origin master
+<span class="c"># 表示把内容上传到 origin 这个地址</span>
+<span class="c"># master 是上传到远程的 master 分支</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">-u</code> 是我们第一次的使用用到了，是为了记录一下用户名和密码</li>
+      <li>下次上传的时候就不需要再写了</li>
+    </ul>
+  </li>
+  <li>
+    <p>第二次上传</p>
+
+    <ul>
+      <li>
+        <p>第二次上传的时候，因为有刚才的记录，就不需要再写 <code class="language-plaintext highlighter-rouge">origin</code> 和 <code class="language-plaintext highlighter-rouge">master</code> 了</p>
+      </li>
+      <li>
+        <p>会默认传递到 <code class="language-plaintext highlighter-rouge">origin</code> 这个地址的 <code class="language-plaintext highlighter-rouge">master</code> 分支上</p>
+      </li>
+      <li>
+        <p>除非你要传递到别的分支上的时候再进行书写</p>
+
+        <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 第二次上传</span>
+<span class="nv">$ </span>git push
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>到这里，就完成了一次 <code class="language-plaintext highlighter-rouge">git</code> 推送</p>
+  </li>
+  <li>
+    <p>这个时候本地的文件夹就真的可以删除了</p>
+  </li>
+  <li>
+    <p>因为远程有一份我们的内容，本地的删除了，可以直接把远程的拉回来就行</p>
+  </li>
+</ul>
+
+<h3 id="git-克隆">GIT 克隆</h3>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">git</code> 克隆是指把远程仓库里面的内容克隆一份到本地</p>
+  </li>
+  <li>
+    <p>可以克隆别人的 <strong>公开</strong> 的仓库，也可以克隆自己的仓库</p>
+  </li>
+  <li>
+    <p>克隆别人的仓库，我们只能拿下来用，修改后不能从新上传</p>
+  </li>
+  <li>
+    <p>克隆自己的仓库，我们修改后还可以再次上传更新</p>
+  </li>
+  <li>
+    <p>我们先找到一个别人的仓库，或者自己的仓库（这里以 jQuery 的仓库为例）</p>
+
+    <p><img src="./assets/github克隆仓库1.png" alt="" /></p>
+  </li>
+  <li>
+    <p>复制好地址以后，选择一个我们要存放内容的文件夹（我这里以桌面为例）</p>
+  </li>
+  <li>
+    <p>直接在想存放内容的位置打开 <code class="language-plaintext highlighter-rouge">git base</code></p>
+  </li>
+  <li>
+    <p>输入克隆指令 <code class="language-plaintext highlighter-rouge">git clone 仓库地址</code></p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 直接克隆仓库</span>
+<span class="nv">$ </span>git clone https://github.com/jquery/jquery.git
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>等待一段时间</p>
+  </li>
+  <li>
+    <p>你就会发现你的文件夹里面多了一个叫做  <code class="language-plaintext highlighter-rouge">jquery</code> 的文件夹</p>
+  </li>
+  <li>
+    <p>里面就是人家仓库的所有内容</p>
+  </li>
+</ul>
+
+<h3 id="git-下拉">GIT 下拉</h3>
+
+<ul>
+  <li>
+    <p>不管是你克隆下来的仓库还是别的方式弄得本地仓库</p>
+  </li>
+  <li>
+    <p>当人家的代码更新以后，你想获得最新的代码</p>
+  </li>
+  <li>
+    <p>我们不需要从新克隆</p>
+  </li>
+  <li>
+    <p>只要拉取一次代码就可以了</p>
+  </li>
+  <li>
+    <p>直接在项目文件夹里面使用指令下拉</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 拉取远程最新代码</span>
+<span class="nv">$ </span>git pull
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>这样一来，你本地的仓库就可远程的仓库同步了</p>
+  </li>
+</ul>
+
+<h2 id="git-冲突">GIT 冲突</h2>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">git</code> 冲突是指在我们的上传过程中</p>
+  </li>
+  <li>
+    <p>本地的版本和远程的版本不一致导致的</p>
+  </li>
+  <li>
+    <p>这个时候只要先使用 <code class="language-plaintext highlighter-rouge">git pull</code> 拉取回来</p>
+
+    <ul>
+      <li>让本地和远程保持一致</li>
+    </ul>
+  </li>
+  <li>
+    <p>然后再从新上传就好了</p>
+  </li>
+  <li>
+    <p>但是 <code class="language-plaintext highlighter-rouge">git pull</code> 相对不安全，因为会自动和本地内容合并</p>
+  </li>
+  <li>
+    <p>我们也可以选择使用 <code class="language-plaintext highlighter-rouge">git fetch</code></p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 使用 fetch 获取远程最新信息并开辟一个临时分支</span>
+<span class="nv">$ </span>git fetch origin master:tmp
+  
+<span class="c"># 讲当前分支和临时分支的内容进行对比</span>
+<span class="nv">$ </span>git diff tmp
+  
+<span class="c"># 再选择合并分支内容</span>
+<span class="nv">$ </span>git merge tmp
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+
+        </div>
+  
+      </article>
+        
+      <!-- 评论 -->
+      <div class="comments" id="comments">
+  <div class="title">评论留言：</div>
+  <div class="textareaDiv">
+    <textarea id="publishedInp" rows="3" cols="20"></textarea>
+    <div class="butDiv">
+      <div class="nicknameDiv">
+        昵称：
+        <input id="nickname" type="text" placeholder="游客">
+      </div>
+      <button id="publishedBut">发表评论</button>
+    </div>
+  </div>
+  <div class="commentsDiv" id="commentsDiv">
+    <!-- <div class="commentsItem">
+      <div class="headPortrait"></div>
+      <div class="right">
+        <span class="userName">
+          游客：
+        </span>
+        <span class="content">
+          评论评论评论评论评论评论评论评论评论评论评论评论评论
+        </span>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+<script>
+  const xhr = new XMLHttpRequest()
+  const xhrUrl = 'http://123.56.54.241:23000'
+  // const xhrUrl = 'https://www.kuaidaowanlilai.xyz'
+  // const xhrUrl = 'http://localhost:23000'
+
+  //发表评论
+  let publishedBut = document.querySelector('#publishedBut')
+  publishedBut.addEventListener('click', function () {
+    let publishedInp = document.querySelector('#publishedInp')
+    if (publishedInp.value) {
+      xhr.open('post', `${xhrUrl}/published`)
+      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+      xhr.send(JSON.stringify({
+        username: document.querySelector('#nickname').value,
+        blogUrl: window.location.pathname,
+        content: publishedInp.value
+      }))
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
+          //打印 xhr.responseText 来查看服务端给我们返回的内容
+          console.log('发表评论返回信息', xhr.responseText)
+          requestData()
+          publishedInp.value = ''
+        }
+      }
+    }else {
+      console.log('评论内容为空')
+    }
+  })
+
+  //请求渲染评论
+  requestData()
+  function requestData() {
+    xhr.open('post', `${xhrUrl}/comments`)
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+    xhr.send(JSON.stringify({
+      blogUrl: window.location.pathname
+    }))
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
+        //打印 xhr.responseText 来查看服务端给我们返回的内容
+        applyColours(JSON.parse(xhr.responseText))
+      }
+    }
+    function applyColours(data) {
+      let htmlStr = ''
+      for (let i = 0; i < data.length; i++) {
+        htmlStr += `
+      <div class="commentsItem">
+        <div class="headPortrait"></div>
+        <div class="right">
+          <span class="userName">
+            ${data[i].username}：
+          </span>
+          <span class="content">
+            ${data[i].content}
+          </span>
+        </div>
+      </div>`
+      }
+      document.querySelector('#commentsDiv').innerHTML = htmlStr
+    }
+  }
+</script>
+<style>
+  .comments {
+    width: 100%;
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+    padding: 10px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #333;
+  }
+
+  .comments .title {
+    color: #444;
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+
+  .comments .textareaDiv .butDiv {
+    text-align: right;
+  }
+
+  .comments .textareaDiv textarea {
+    border-radius: 3px;
+    width: calc(100% - 6px);
+    outline: none
+  }
+
+  .comments .textareaDiv .butDiv .nicknameDiv {
+    font-size: 14px;
+    display: inline-block;
+  }
+
+  .comments .textareaDiv .butDiv .nicknameDiv input {
+    width: 70px;
+    border: 1px solid rgb(189, 189, 189);
+    outline: none;
+    border-radius: 2px;
+  }
+
+  .comments .textareaDiv .butDiv button {
+    cursor: pointer;
+  }
+
+  .comments .commentsDiv {
+    margin-top: 5px;
+  }
+
+  .comments .commentsDiv .commentsItem {
+    font-size: 14px;
+    display: flex;
+    border-top: 1px solid rgb(240, 240, 240);
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .comments .commentsDiv .commentsItem .headPortrait {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: rgb(191, 226, 250);
+    margin-left: 5px;
+  }
+
+  .comments .commentsDiv .commentsItem .right {
+    width: calc(100% - 35px);
+    margin-left: 10px;
+  }
+
+  .comments .commentsDiv .commentsItem .right .userName {
+    color: #555666;
+  }
+
+  .comments .commentsDiv .commentsItem .right .content {
+    color: #222226;
+  }
+</style>
+
+    </div>
+    <div class="directory">
+      <div class="directory_header">全部文章</div>
+      <div style="margin-top:5px;">
+        
+        <div class="directory_title">
+          <a href="/%E8%BD%AC%E8%BD%BD/2020/12/16/JavaScript-%E9%82%A3%E4%BA%9B%E5%86%99%E5%87%BA%E6%9D%A5%E4%BC%9A%E8%A2%AB%E5%90%8C%E4%BA%8B%E6%8F%8D%E7%9A%84%E9%AA%9A%E6%93%8D%E4%BD%9C.html" 
+            
+          >
+            JavaScript 那些写出来会被同事揍的骚操作
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/css%E9%BB%91%E7%A7%91%E6%8A%80/2020/10/19/IE%E6%B5%8F%E8%A7%88%E5%99%A8%E5%A4%9A%E8%A1%8C%E6%96%87%E5%AD%97%E6%BA%A2%E5%87%BA%E6%98%BE%E7%A4%BA%E7%9C%81%E7%95%A5%E5%8F%B7.html" 
+            
+          >
+            IE浏览器多行文字溢出显示省略号
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/09/06/GIT%E5%92%8CGITHUB.html" 
+            
+            style="color:#5094d5;"
+            
+          >
+            GIT和GITHUB
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/30/GULP.html" 
+            
+          >
+            GULP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/23/SASS.html" 
+            
+          >
+            SASS
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/15/NODE%E4%BB%8B%E7%BB%8D.html" 
+            
+          >
+            NODE介绍
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/09/jQuery-%E4%B8%8B.html" 
+            
+          >
+            jQuery（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/08/02/jQuery-%E4%B8%AD.html" 
+            
+          >
+            jQuery（中）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/26/jQuery-%E4%B8%8A.html" 
+            
+          >
+            jQuery（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/19/Set%E5%92%8CMap.html" 
+            
+          >
+            Set和Map
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/12/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html" 
+            
+          >
+            设计模式
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/07/04/%E7%BB%A7%E6%89%BF.html" 
+            
+          >
+            继承
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/27/%E9%97%AD%E5%8C%85.html" 
+            
+          >
+            闭包
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/20/Promise.html" 
+            
+          >
+            Promise
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/14/%E5%B0%81%E8%A3%85AJAX.html" 
+            
+          >
+            封装AJAX
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/06/07/AJAX.html" 
+            
+          >
+            AJAX
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/31/COOKIE.html" 
+            
+          >
+            COOKIE
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/23/HTTP.html" 
+            
+          >
+            HTTP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/17/PHP.html" 
+            
+          >
+            PHP
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/10/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.html" 
+            
+          >
+            面向对象
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/05/02/ES5%E5%92%8CES6.html" 
+            
+          >
+            ES5和ES6
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/19/%E6%AD%A3%E5%88%99.html" 
+            
+          >
+            正则
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/12/EVENT-%E4%B8%8B.html" 
+            
+          >
+            EVENT（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/04/04/EVENT-%E4%B8%8A.html" 
+            
+          >
+            EVENT（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/29/DOM-%E4%B8%8B.html" 
+            
+          >
+            DOM（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/22/DOM-%E4%B8%8A.html" 
+            
+          >
+            DOM（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/14/BOM.html" 
+            
+          >
+            BOM
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/08/Date.html" 
+            
+          >
+            Date
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/03/01/Math.html" 
+            
+          >
+            Math
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/23/%E5%AD%97%E7%AC%A6%E4%B8%B2.html" 
+            
+          >
+            字符串
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/16/ES5.html" 
+            
+          >
+            ES5
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/02/09/%E6%95%B0%E7%BB%84.html" 
+            
+          >
+            数组
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/01/12/%E5%87%BD%E6%95%B0-%E4%B8%8B.html" 
+            
+          >
+            函数（下）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2020/01/05/%E5%87%BD%E6%95%B0-%E4%B8%8A.html" 
+            
+          >
+            函数（上）
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/29/%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84.html" 
+            
+          >
+            循环结构
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/22/%E5%88%86%E6%94%AF%E7%BB%93%E6%9E%84.html" 
+            
+          >
+            分支结构
+          </a>
+        </div>
+        
+        <div class="directory_title">
+          <a href="/finishing/2019/12/15/JavaScript%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95.html" 
+            
+          >
+            JavaScript基础语法
+          </a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</main>
+<style>
+  @media screen and (min-width: 1200px) {
+    .blogMain {
+      background-color: #f3f4f6;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .wrapper {
+      max-width: calc(1200px - (10px * 2));
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .blogMain .wrapper .post {
+      width: 800px;
+      padding: 20px 20px;
+      background-color: #fff;
+      box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+    }
+
+    .blogMain .wrapper .directory {
+      width: 330px;
+      /* border: 1px solid #999; */
+      background-color: #fff;
+      float: left;
+      box-sizing: border-box;
+      box-shadow: 0 0 5px rgba(136, 136, 136, 0.2);
+      font-size: 14px;
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'SimHei', 'Arial', 'SimSun';
+      padding-bottom: 5px;
+    }
+
+    .blogMain .wrapper .directory .directory_header {
+      line-height: 28px;
+      background-color: #fca60b;
+      padding: 0 10px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .blogMain .wrapper .directory .directory_title {
+      padding: 0 15px;
+      line-height: 26px;
+      color: #555666;
+    }
+
+    .blogMain .wrapper .directory .directory_title a {
+      color: #555666;
+      text-decoration: none
+    }
+
+    .blogMain .wrapper .directory .directory_title a:hover {
+      color: #5094d5;
+    }
+    .blogMain .wrapper .leftContent{
+      float: right;
+    }
+    .blogMain .wrapper .leftContent:after {
+      content:""; 
+      display: block; 
+      clear:both; 
+    }
+  }
+</style>
+
+  <footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+  <div class="wrapper">
+    <h2 class="footer-heading">徐hào的博客</h2>
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">徐hào的博客</li>
+          <li><a class="u-email" href="mailto:xh642508924@163.com">xh642508924@163.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          <li><a href="https://github.com/jekyll"><svg class="svg-icon">
+                <use xlink:href="/assets/minima-social-icons.svg#github"></use>
+              </svg> <span class="username">jekyll</span></a></li>
+          <li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon">
+                <use xlink:href="/assets/minima-social-icons.svg#twitter"></use>
+              </svg> <span class="username">jekyllrb</span></a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-3">
+        <p>I am a front-end engineer and have been engaged in front-end development for three years...</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <!-- 定位到评论留言 -->
+  
+<style>
+  .toCommentsDiv{
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    position: fixed;
+    right: 20px;
+    bottom: 120px;
+    cursor: pointer;
+    box-shadow: 0 0 5px #888888;
+    border-radius: 50%;
+    box-sizing: border-box;
+    padding: 10px 0 0 10px;
+  }
+</style>
+<a href="#comments">
+  <div class="toCommentsDiv" title="查看评论留言">
+    <svg t="1603851166634" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3420" width="30" height="30"><path d="M896 138.66666667H128c-38.4 0-64 25.6-64 64V746.66666667c0 38.4 25.6 64 64 64h128v128c83.2 0 166.4-44.8 256-128h384c38.4 0 64-25.6 64-64V202.66666667c0-38.4-25.6-64-64-64z m0 608H486.4l-19.2 19.2c-51.2 51.2-102.4 83.2-147.2 96V746.66666667H128V202.66666667h768V746.66666667z" p-id="3421" fill="#707070"></path><path d="M320 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3422" fill="#707070"></path><path d="M512 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3423" fill="#707070"></path><path d="M704 477.86666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="3424" fill="#707070"></path></svg>
+  </div>
+</a>
+
+  <!-- 回到顶部 -->
+  
+<style>
+  .toTopDiv{
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    position: fixed;
+    right: 20px;
+    bottom: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 5px #888888;
+    border-radius: 50%;
+    box-sizing: border-box;
+    padding: 10px 0 0 10px;
+    display: none;
+  }
+</style>
+<div class="toTopDiv" title="回到顶部">
+  <svg t="1604044629111" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1093" width="30" height="30"><path d="M866.7 96H157.3c-17.8 0-32.2 14.4-32.2 32.2 0 17.8 14.4 32.2 32.2 32.2h709.5c17.8 0 32.2-14.4 32.2-32.2 0-17.8-14.4-32.2-32.3-32.2zM512 225c-16.5 0-33 6.3-45.6 18.9L169.9 540.3c-5.8 5.8-9.4 13.9-9.4 22.8s3.6 17 9.4 22.8c5.8 5.8 13.9 9.4 22.8 9.4s17-3.6 22.8-9.4l264.2-264.2v574c0 17.8 14.4 32.2 32.2 32.2 17.8 0 32.2-14.4 32.2-32.2v-574l264.2 264.2c5.8 5.8 13.9 9.4 22.8 9.4s17-3.6 22.8-9.4c5.8-5.8 9.4-13.9 9.4-22.8s-3.6-17-9.4-22.8L557.6 243.9C545 231.3 528.5 225 512 225z" p-id="1094" fill="#707070"></path></svg>
+</div>
+<script>
+  let htmlDiv = document.documentElement
+  let toTopDiv = document.querySelector('.toTopDiv')
+
+  document.addEventListener('scroll', () => {
+    if(htmlDiv.scrollTop > 1000){
+      toTopDiv.style.display = 'block'
+    }else{
+      toTopDiv.style.display = 'none'
+    }
+  })
+
+  toTopDiv.addEventListener('click', () => {
+    let scrollTop = htmlDiv.scrollTop
+    let interval = setInterval(() => {
+      htmlDiv.scrollTop -= 100
+      if(htmlDiv.scrollTop <= 0){
+        clearInterval(interval)
+      }
+    }, 5)
+  })
+</script>
+
+</body>
+
+</html>
