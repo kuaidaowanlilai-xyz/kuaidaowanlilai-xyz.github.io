@@ -37,11 +37,25 @@ box-shadow: 10px 10px 5px #888888; //css3阴影
 text-shadow:5px 2px 6px #000;//字体阴影
 boeder: dashed;//虚线
 text-align-last: justify; //平分字间距
+letter-spacing: 8px;//设置1字间距
 outline: none; // 去除选中状态边框
 
 new Date().getTime(); //时间戳
 
 assign??
+
+选项 / 生命周期钩子
+beforeCreate
+created
+beforeMount
+mounted
+beforeUpdate
+updated
+activated
+deactivated
+beforeDestroy
+destroyed
+errorCaptured
 
 //解决高度塌陷
 .clearfix:after {
@@ -228,6 +242,9 @@ Date.prototype.Format = function (fmt) { //author: meizz
     return fmt;
 }
 
+
+//vscode启动静态服务器
+browser-sync start -s -f **/* --directroy
 
 
 

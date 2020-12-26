@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2020-12-01 14:05:40
- * @LastEditTime: 2020-12-01 14:14:25
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \analysis-system\src\components\Dialog\chartworldMap.js
- */
 //世界地图的Echarts
 let myChart = echarts.init(document.getElementById("main"));
 option = {
@@ -32,6 +24,7 @@ option = {
     calculable: true,
     color: ["orangered", "yellow", "lightskyblue"]
   },
+  // nameMap: countryAll,
   series: [
     {
       name: "World Population (2010)",
