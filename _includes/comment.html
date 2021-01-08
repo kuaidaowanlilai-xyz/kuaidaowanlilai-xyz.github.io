@@ -1,4 +1,4 @@
-<div class="comments" id="comments">
+<div class="comment" id="comment">
   <div class="title">评论留言：</div>
   <div class="textareaDiv">
     <textarea id="publishedInp" rows="3" cols="20"></textarea>
@@ -36,7 +36,7 @@
   publishedBut.addEventListener('click', function () {
     let publishedInp = document.querySelector('#publishedInp')
     if (publishedInp.value) {
-      xhr.open('post', `${xhrUrl}/published`)
+      xhr.open('post', `${xhrUrl}/comment/published`)
       xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
       xhr.send(JSON.stringify({
         username: document.querySelector('#nickname').value,
@@ -59,7 +59,7 @@
   //请求渲染评论
   requestData()
   function requestData() {
-    xhr.open('post', `${xhrUrl}/comments`)
+    xhr.open('post', `${xhrUrl}/comment/obtain`)
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
     xhr.send(JSON.stringify({
       blogUrl: window.location.pathname
@@ -91,7 +91,7 @@
   }
 </script>
 <style>
-  .comments {
+  .comment {
     width: 100%;
     background-color: #fff;
     box-sizing: border-box;
@@ -103,43 +103,43 @@
     color: #333;
   }
 
-  .comments .title {
+  .comment .title {
     color: #444;
     font-size: 18px;
     margin-bottom: 2px;
   }
 
-  .comments .textareaDiv .butDiv {
+  .comment .textareaDiv .butDiv {
     text-align: right;
   }
 
-  .comments .textareaDiv textarea {
+  .comment .textareaDiv textarea {
     border-radius: 3px;
     width: calc(100% - 6px);
     outline: none
   }
 
-  .comments .textareaDiv .butDiv .nicknameDiv {
+  .comment .textareaDiv .butDiv .nicknameDiv {
     font-size: 14px;
     display: inline-block;
   }
 
-  .comments .textareaDiv .butDiv .nicknameDiv input {
+  .comment .textareaDiv .butDiv .nicknameDiv input {
     width: 70px;
     border: 1px solid rgb(189, 189, 189);
     outline: none;
     border-radius: 2px;
   }
 
-  .comments .textareaDiv .butDiv button {
+  .comment .textareaDiv .butDiv button {
     cursor: pointer;
   }
 
-  .comments .commentsDiv {
+  .comment .commentsDiv {
     margin-top: 5px;
   }
 
-  .comments .commentsDiv .commentsItem {
+  .comment .commentsDiv .commentsItem {
     font-size: 14px;
     display: flex;
     border-top: 1px solid rgb(240, 240, 240);
@@ -147,7 +147,7 @@
     padding-bottom: 10px;
   }
 
-  .comments .commentsDiv .commentsItem .headPortrait {
+  .comment .commentsDiv .commentsItem .headPortrait {
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -155,16 +155,16 @@
     margin-left: 5px;
   }
 
-  .comments .commentsDiv .commentsItem .right {
+  .comment .commentsDiv .commentsItem .right {
     width: calc(100% - 35px);
     margin-left: 10px;
   }
 
-  .comments .commentsDiv .commentsItem .right .userName {
+  .comment .commentsDiv .commentsItem .right .userName {
     color: #555666;
   }
 
-  .comments .commentsDiv .commentsItem .right .content {
+  .comment .commentsDiv .commentsItem .right .content {
     color: #222226;
   }
 </style>
