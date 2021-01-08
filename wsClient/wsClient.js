@@ -33,14 +33,18 @@ function base64ToBlob({
 
 const videoDiv = document.querySelector('#video')
 
-const client = new WebSocket("ws://123.56.54.241:23003")
+// const client = new WebSocket("ws://123.56.54.241:23003")
+const client = new WebSocket("ws://123.56.54.241:23004")
+
+const sendData = {
+  // user: window.navigator.userAgent.toLowerCase(),
+  // user: '20210108',
+  user: Date.now(),
+  msg: ''
+}
 
 client.onopen = function () {
-  client.send(JSON.stringify({
-    // user: window.navigator.userAgent.toLowerCase(),
-    user: '20210108',
-    msg: ''
-  }))
+  client.send(JSON.stringify(sendData))
 }
 
 client.onmessage = function (socketData) {
@@ -72,12 +76,9 @@ client.onerror = function () {
 
 function send() {
   if (sendInput.value) {
-    client.send(JSON.stringify({
-      // user: Date.now(),
-      user: '20210108',
-      msg: sendInput.value,
-      chatObject: 'electron'
-    }))
+    sendData.msg = sendInput.value
+    sendData.chatObject = 'electron'
+    client.send(JSON.stringify(sendData))
     sendInput.value = ""
   }
 }
