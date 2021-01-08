@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d55470b4-a609-4d47-bcc7-0d90a0612fa5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/_includes/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_layouts/jsVideo.html" beforeDir="false" afterPath="$PROJECT_DIR$/_layouts/jsVideo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/groceryStore/扫雷各个版本/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/groceryStore/扫雷各个版本/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/feijidazhan/feijidazhan.js" beforeDir="false" afterPath="$PROJECT_DIR$/game/feijidazhan/feijidazhan.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/feijidazhan/img/Dship1.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/feijidazhan/img/Dship1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/feijidazhan/img/Dship2.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/feijidazhan/img/Dship2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/feijidazhan/img/Dship3.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/feijidazhan/img/Dship3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/feijidazhan/img/Dship4.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/feijidazhan/img/Dship4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/feijidazhan/img/Dship5.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/feijidazhan/img/Dship5.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/feijidazhan/img/Dship6.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/feijidazhan/img/Dship6.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/feijidazhan/img/Dship7.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/feijidazhan/img/Dship7.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/feijidazhan/img/Dship8.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/feijidazhan/img/Dship8.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/feijidazhan/img/baozha.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/feijidazhan/img/baozha.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/feijidazhan/img/beijing1.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/feijidazhan/img/beijing1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/feijidazhan/img/deijing2.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/feijidazhan/img/deijing2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/feijidazhan/img/ship.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/feijidazhan/img/ship.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/feijidazhan/img/zidan.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/feijidazhan/img/zidan.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/feijidazhan/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/game/feijidazhan/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/index.md" beforeDir="false" afterPath="$PROJECT_DIR$/game/index.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/maliao/img/beijing.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/maliao/img/beijing.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/maliao/img/diban.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/maliao/img/diban.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/maliao/img/guai_dumogu.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/maliao/img/guai_dumogu.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/maliao/img/guandao.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/maliao/img/guandao.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/maliao/img/hua.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/maliao/img/hua.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/maliao/img/jiamingmogu.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/maliao/img/jiamingmogu.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/maliao/img/maliao.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/maliao/img/maliao.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/maliao/img/mogu.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/maliao/img/mogu.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/maliao/img/wenhao.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/maliao/img/wenhao.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/maliao/img/wuwenhao.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/maliao/img/wuwenhao.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/maliao/img/yingzhuankuai.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/maliao/img/yingzhuankuai.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/maliao/img/zhuankuai2.png" beforeDir="false" afterPath="$PROJECT_DIR$/game/maliao/img/zhuankuai2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/maliao/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/game/maliao/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/maliao/maliao.css" beforeDir="false" afterPath="$PROJECT_DIR$/game/maliao/maliao.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/maliao/maliao.js" beforeDir="false" afterPath="$PROJECT_DIR$/game/maliao/maliao.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/maliao/碰撞.js" beforeDir="false" afterPath="$PROJECT_DIR$/game/maliao/碰撞.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/saolei/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/game/saolei/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/saolei/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/game/saolei/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/saolei/saolei_v1.1.0.js" beforeDir="false" afterPath="$PROJECT_DIR$/game/saolei/saolei_v1.1.0.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGame/saolei/saolei_v1.1.0.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/game/saolei/saolei_v1.1.0.min.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1mlhcejZ5ZSAdLZPumVA1yuHrTg" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/_includes" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\tianpengyu\Desktop\xuhao\kuaidaowanlilai-xyz.github.io\_includes" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d55470b4-a609-4d47-bcc7-0d90a0612fa5" name="Default Changelist" comment="" />
+      <created>1610074166796</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1610074166796</updated>
+      <workItem from="1610074167917" duration="1846000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
