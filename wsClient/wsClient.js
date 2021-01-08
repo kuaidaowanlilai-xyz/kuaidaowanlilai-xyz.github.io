@@ -38,7 +38,7 @@ const client = new WebSocket("ws://123.56.54.241:23003")
 client.onopen = function () {
   client.send(JSON.stringify({
     // user: window.navigator.userAgent.toLowerCase(),
-    user: 'Chrome',
+    user: '20210108',
     msg: ''
   }))
 }
@@ -73,7 +73,8 @@ client.onerror = function () {
 function send() {
   if (sendInput.value) {
     client.send(JSON.stringify({
-      user: 'Chrome',
+      // user: Date.now(),
+      user: '20210108',
       msg: sendInput.value,
       chatObject: 'electron'
     }))

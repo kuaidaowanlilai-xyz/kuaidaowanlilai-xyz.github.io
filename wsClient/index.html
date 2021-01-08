@@ -1,24 +1,30 @@
----
-title: 聊天室
----
-
 <!DOCTYPE html>
 <html lang="en">
 
 {% include head.html %}
 
+<style>
+    .video {
+        width: 80px;
+        height: 128px;
+        position: fixed;
+        top: 85px;
+        right: 0;
+    }
+</style>
+
 <body>
   {% include header.html %}
-
   <h1>webSocket</h1>
   <div id="chatroom" style="overflow: auto;width: 400px;height: 350px;border: 1px solid red;"></div>
   <input type="text" id="sendInput">
   <input type="button" id="sendButton" value="发送">
   <input type="button" id="qingping" value="清屏">
-  <video id="video" class="video"></video>
+  <video id="video" class="video"></video>\
   <script src="./wsClient.js"></script>
 
   {% include footer.html %}
+
 </body>
 
 </html>
